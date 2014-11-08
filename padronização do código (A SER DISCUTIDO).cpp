@@ -19,8 +19,6 @@ Funções:
 
 Classes/Structs:
 - declaração de classes e seus membros separados das implementações
-- inicie o arquivo de declaração da classe com uma breve descrição do que ela é/representa
-
 - ordem de declaração e implementação dos membros:
  - por restrição de acesso:
 	- public
@@ -64,7 +62,7 @@ public: // interface
 	const type1& integer() const;  // const getter
 
 	// alteração
-	type1 operator+(int a);		   // especifique o que cada método faz, se não for óbvio:
+	type1 operator+=(int a);	   // adiciona a ao valor armazenado
 	type1 my_func(int x, int y);   // multiplica x por y, armazena e retorna resultado
 
 
