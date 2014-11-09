@@ -1,10 +1,11 @@
 /*
 Geral:
-- nomes de classes, funções/métodos e variáveis em inglês;
+- nomes de classes, funções/métodos e variáveis em inglês
+	- se não deve ser utilizado pelo usuário do seu código, o nome deve iniciar com _
 - identação:
 	- 1 tab por bloco
 	- chave de abertura uma linha abaixo do início do bloco
-	- comandos iniciam na linha abaixo da chave de abertura e terminam uma linha acima da chave de encerramento
+	- comandos iniciam na linha abaixo da chave de abertura e terminam uma linha acima da chave de encerramento 
 
 
 Comentários / documentação:
@@ -43,10 +44,7 @@ class Type
 public: // interface
 	typedef int type1;
 	enum enum1 {VALOR_1, VALOR_2};
-
-	struct my_struct1 {
-		my_type1 val;     // valor
-	};
+	struct my_struct1;
 
 
 	// construtores
@@ -64,7 +62,7 @@ public: // interface
 	const type1& integer() const;  // const getter
 
 	// alteração
-	type1 operator+(int a);		   // especifique o que cada método faz, se não for óbvio:
+	type1 operator+(int a);		   // retorna soma do valor armazenado com a
 	type1 my_func(int x, int y);   // multiplica x por y, armazena e retorna resultado
 
 
@@ -76,7 +74,7 @@ public: // interface
 	const my_struct1 max_value;
 
 
-protected: // interno (classes filhas)
+protected: // interno
 	typedef double _type2;
 
 	// construtor
@@ -92,9 +90,7 @@ protected: // interno (classes filhas)
 
 
 private: // interno
-	struct _my_struct2 {
-		_type2 val;     // valor
-	};
+	struct _my_struct2;
 
 	// transformação
 	my_struct1 _make_from2(_my_struct2);  // cria um my_struct1 a partir de um my_struct2
