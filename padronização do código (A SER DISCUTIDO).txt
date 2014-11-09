@@ -60,11 +60,7 @@ public: // interface
 	const type1& integer() const;  // const getter
 
 	// alteração
-<<<<<<< HEAD:padronização do código (A SER DISCUTIDO).txt
 	type1 operator+(int a);		   // retorna soma do valor armazenado com a
-=======
-	type1 operator+=(int a);	   // adiciona a ao valor armazenado
->>>>>>> b7f622952e04b25aa1d790d67b1191285d935b7e:padronização do código (A SER DISCUTIDO).cpp
 	type1 my_func(int x, int y);   // multiplica x por y, armazena e retorna resultado
 
 
