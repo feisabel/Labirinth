@@ -38,8 +38,8 @@ public:
 
 class bloco : public entidade{
 protected:	
-	bool caminho; 				// Se caminho true então é caminho e não é parede
-	bool aceso; 				// Define se o bloco consta no FOV(field of vision) do player ou não
+	bool caminho; 				// Se caminho true então é caminho e não é parede.
+	bool aceso; 				// Define se o bloco consta no FOV(field of vision) do player ou não.
 public:
 	bloco(): caminho( false ), aceso( false ){}
 	bool getCaminho(){ return caminho; }
@@ -112,14 +112,14 @@ class jogo{
 protected:
 	tabuleiro cena;
 	jogador meu_jogador;
-	estruturaDeDados<monstro> lista_monstro; // A definir
-	estruturaDeDados<item> lista_municao; // A definir
+	estruturaDeDados<monstro> lista_monstro; // A definir.
+	estruturaDeDados<item> lista_municao;    // A definir.
 	estruturaDeDados<item> lista_vida;
 	estruturaDeDados<armadilha> lista_armadilha;
 	estruturaDeDados<monstro> lista_spawn;
 public:
 	jogo(): lista_monstro( 0 ), lista_municao( 0 ), lista_vida( 0 ), lista_armadilha( 0 ), lista_spawn( 0 ) {}
-	void loop(); // Onde o jogo acontece
+	void loop(); // Onde o jogo acontece.
 	void recebe_jogadas();
 	void andar();
 	bool verifica_colisao();
@@ -156,11 +156,11 @@ void jogo::inicializa( int **arquivo, posicao dimen ){
 			}
 			if( arquivo[i][j] == 6 ){
 				item vida(randomica(2, 4));
-				lista_vida.push(vida); // A quantidade é gerada randomicamente
+				lista_vida.push(vida);    // A quantidade é gerada randomicamente.
 			}
 			if( arquivo[i][j] == 7 ){
 				item muni(randomica(6, 18));
-				lista_municao.push(muni); // A quantidade é gerada randomicamente
+				lista_municao.push(muni); // A quantidade é gerada randomicamente.
 			}
 			if( arquivo[i][j] == 8 ){
 				monstro novo;
