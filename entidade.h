@@ -2,133 +2,247 @@
 #include "lista.hpp"
 #include <cstdlib>
 
-int randomica(int i, int j){
-	int numero = rand()%(j-i+1);
-	return i + numero;
+int randomize (int i, int j)
+{
+	return i + rand()%(j-i+1);
 }
 
-struct posicao{
+struct Position
+{
 	int x;
 	int y;
-	posicao(): x(0), y(0){}
-	posicao(int a, int b): x(a), y(b){}
+	Position (): x(0), y(0) {}
+	Position (int a, int b): x(a), y(b) {}
+
+	bool operator== (const Position& other)
+	{
+		return other.x == x && other.y == y;
+	}
 };
 
-class entidade{
+
+class Entity
+{
 protected:
-	posicao pos;
+	Position pos;
+
 public:
-	entidade(): pos(0,0){}
-	entidade(int a, int b): pos(a, b){}
-	int getX(){ return pos.x; }
-	int getY(){ return pos.y; }
-	void setX(int a){ pos.x = a; }
-	void setY(int a){ pos.y = a; }
+	Entity(): pos(0,0) {}
+	Entity(int a, int b): pos(a, b) {}
+	
+	int& x() { return pos.x; }
+	int& y() { return pos.y; }
+	
+	int x() { return pos.x; } const;
+	int y() { return pos.y; } const;
+
+	bool collided_with(const Entity& e) const;
+	{
+		return pos == e.pos;
+	}
 };
 
-class item : public entidade{
+
+class Item : public Entity
+{
 protected:
-	int quantidade;
+	int _amount;
+
 public:
-	item(): quantidade( 0 ){}
-	item(int a): quantidade( a ){} 
-	int getQuantidade(){ return quantidade; }
-	void setQuantidade(int a){ quantidade = a; }
+	item(): _amount(0) {}
+	item(int a): _amount(a) {} 
+
+	int& amount() { return _amount; }
+	int amount() const { return _amount; }
 };
 
-class bloco : public entidade{
+
+class Block : public Entity
+{
 protected:	
-	bool caminho; 				// Se caminho true então é caminho e não é parede.
-	bool aceso; 				// Define se o bloco consta no FOV(field of vision) do player ou não.
+	enum Type {FLOOR, WALL} _type; 	// Se FLOOR então é caminho e WALL é parede.
+	bool lit;	 					// Define se o bloco consta no FOV(field of vision) do player ou não.
+
 public:
-	bloco(): caminho( false ), aceso( false ){}
-	bool getCaminho(){ return caminho; }
-	bool getAceso(){ return aceso; }
-	void setCaminho(bool a){ caminho = a; }
-	void setAceso(bool a){ aceso = a; }
+	Block(): _type(WALL), lit(false){}
+	
+	Type& type() { return _type; }
+	Type type() const { caminho = a; }
+
+	bool is_lit() { return lit; }
+	void enlighten() { lit = true; }
 };
 
-class armadilha : public entidade {
-protected:
-	bool ativo;
+class Trap : public Entity
+{
+private:
+	bool activated;
+
 public:
-	armadilha(): ativo(true){}
+	Trap(): activated(false) {}
+
+	bool is_active() { return activated; }
+	void activate() { activated = true; }
 };
 
-class personagem : public entidade{
+
+class Character : public Entity {
 protected:	
-	int pontos_vida;
-	int velocidade;
+	int _hp;
+	int _vel;
+
 public:
-	personagem(): pontos_vida( 0 ), velocidade( 0 ){}
+	Character(): _hp(0), _vel(0) {}
+	
 	void move(); 
-	void tira_pontos();
-	int getPontos_vida(){ return pontos_vida; }
-	double getVelocidade(){ return velocidade; }
-	void setPontos_vida(int a){ pontos_vida = a; }
-	void setVelocidade(int a){ velocidade = a; }
+	void receive_dmg()();
+	
+	int hp() const { return _hp; }
+	int vel() const { return _vel; }
+
+	int& hp() { return _hp; }
+	int& vel() { return _vel; }
 };
 
-class jogador : public personagem{
-protected:	
-	int municao;
+class Player : public Character
+{
+private:	
+	int _ammun;
+
 public:
-	jogador(): municao( 0 ) {}
-	void marcar_caminho();
-	void atirar();
-	bool pegar_vida();
-	bool pegar_municao();
-	int getMunicao(){ return municao; }
-	void setMunicao(int a){ municao = a; }
+	Player(): _ammun( 0 ) {}
+	void mark_path();
+	void shoot();
+	bool get(Item i);
+	int ammunition() const { _ammun = a; }
 };
 
-class monstro : public personagem{
+
+class Enemy : public Character
+{
 public:
-	bool perseguir();
+	bool chase(Player&);
 };
 
-class iluminacao{
+
+class FOV
+{
+	int _radius;
 public:
-	int campo_visao;
-	iluminacao(): campo_visao( 0 ){}
-	bool atualiza();
-	int getCampo_visao(){ return campo_visao; }
+	FOV(): _radius(0) {}
+
+	int& radius() { return campo_visao; }
+	int radius() const { return campo_visao; }
+
+	bool update();
 };
 
 
-class tabuleiro{
-public: 
-	posicao dimencoes;
-	bloco **matriz;
-	posicao entrada;
-	posicao saida;
-	tabuleiro(): dimencoes( 0, 0 ), matriz( NULL ), entrada( 0, 0 ), saida( 0, 0 ){}
-	void setDimencoes(int a, int b){ dimencoes.x = a; dimencoes.y = a; }
-	void setEntrada(int a, int b){ entrada.x = a; entrada.y = b; }
-	void setSaida(int a, int b){ saida.x = a; saida.y = b; }
-};
+class Maze
+{
+	struct Proxy 
+	{
+		Block* vector;
 
-class jogo{
-protected:
-	tabuleiro cena;
-	jogador meu_jogador;
-	estruturaDeDados<monstro> lista_monstro; // A definir.
-	estruturaDeDados<item> lista_municao;    // A definir.
-	estruturaDeDados<item> lista_vida;
-	estruturaDeDados<armadilha> lista_armadilha;
-	estruturaDeDados<monstro> lista_spawn;
+		Proxy(int n)
+		{
+			vector = new Block[n];
+		}
+
+		~Proxy()
+		{
+			delete vector;
+		}
+
+		Block& operator[] (int i)
+		{
+			return vector[i];
+		}
+
+		const Block& operator[] (int i) const
+		{
+			return vector[i];
+		}
+	};
+
+
+	int lin;
+	int col;
+
 public:
-	jogo(): lista_monstro( 0 ), lista_municao( 0 ), lista_vida( 0 ), lista_armadilha( 0 ), lista_spawn( 0 ) {}
+	Proxy *matrix;
+
+	Position _entrance;
+	Position _exit;
+
+	Maze(int n, int m)
+	: lin(n), col(m)
+	{
+		matrix = new Proxy[n](m);
+	}
+
+	~Maze()
+	{
+		delete matrix;
+	}
+
+	Position entrance(int a, int b) { entrance.x = a; entrance.y = b; }
+	Position exit(int a, int b) { saida.x = a; saida.y = b; }
+
+	Proxy& operator[] (int idx) { return matrix[idx]; }
+	const Proxy& operator[] (int idx) const { return matrix[idx]; }
+};
+
+
+class Spawn
+{
+	list<Enemy*> children;
+
+public:
+	Spawn() {}
+	
+	~Spawn()
+	{
+		while (!children.is_empty())
+		{
+			delete children.pop_front();
+		}
+	}
+	
+	Enemy* create_enemy() { children.push_back(new Enemy); return *children.back() }
+	void destroy_enemy(Enemy* e) { children.remove(children.find(&e)); }
+
+	void update() { children.for_each() }
+};
+
+
+class Game
+{
+private:
+	Maze maze;
+	Player player;
+	list<Enemy> enemies; // A definir.
+	list<Item> ammuns;    // A definir.
+	list<Item> hearts;
+	list<Trap> traps;
+	list<Spawn> spawns;
+
+public:	
+	Game()
+	{
+		load_from_file();	
+	}
+
+	
 	void loop(); // Onde o jogo acontece.
-	void recebe_jogadas();
-	void andar();
-	bool verifica_colisao();
-	bool ativa_monstro();
-	void inicializa( int **arquivo, posicao dimen );
+	void update();
+	
+	void init();
 };
 
-// Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrada e saída
-void jogo::inicializa( int **arquivo, posicao dimen ){
+// Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
+void Game::init()
+{
 	int i, j;
 	cena.setDimencoes( dimen.x, dimen.y );
 	cena.matriz = new bloco*[cena.dimencoes.x];
@@ -139,17 +253,17 @@ void jogo::inicializa( int **arquivo, posicao dimen ){
 			if( arquivo[i][j] != 1 )
 				cena.matriz[i][j].setCaminho(true);
 			if( arquivo[i][j] == 2 )
-				cena.setEntrada(i, j);	
+				cena.setentrance(i, j);	
 			if( arquivo[i][j] == 3 )
 				cena.setSaida(i, j);
 			if( arquivo[i][j] == 4 ){
-				armadilha nova;
+				Trap nova;
 				nova.setX(i);
 				nova.setY(j);
-				lista_armadilha.push(nova);
+				lista_Trap.push(nova);
 			}
 			if( arquivo[i][j] == 5 ){
-				monstro novo;
+				Enemy novo;
 				novo.setX(i);
 				novo.setY(j);
 				lista_spawn.push(novo);
@@ -160,13 +274,13 @@ void jogo::inicializa( int **arquivo, posicao dimen ){
 			}
 			if( arquivo[i][j] == 7 ){
 				item muni(randomica(6, 18));
-				lista_municao.push(muni); // A quantidade é gerada randomicamente.
+				lista__ammun.push(muni); // A quantidade é gerada randomicamente.
 			}
 			if( arquivo[i][j] == 8 ){
-				monstro novo;
+				Enemy novo;
 				novo.setX(i);
 				novo.setY(j);
-				lista_monstro.push(novo);
+				lista_Enemy.push(novo);
 			}
 		} 
 	}	
