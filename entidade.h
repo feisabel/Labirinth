@@ -162,6 +162,12 @@ void jogo::inicializa( int **arquivo, posicao dimen ){
 				item muni(randomica(6, 18));
 				lista_municao.push(muni); // A quantidade é gerada randomicamente
 			}
+			if( arquivo[i][j] == 8 ){
+				monstro novo;
+				novo.setX(i);
+				novo.setY(j);
+				lista_monstro.push(novo);
+			}
 		} 
 	}	
 }
