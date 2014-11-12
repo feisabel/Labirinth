@@ -119,7 +119,7 @@ protected:
 	estruturaDeDados<monstro> lista_spawn;
 public:
 	jogo(): lista_monstro( 0 ), lista_municao( 0 ), lista_vida( 0 ), lista_armadilha( 0 ), lista_spawn( 0 ) {}
-	void loop(); /*onde o jogo acontece*/
+	void loop(); // Onde o jogo acontece
 	void recebe_jogadas();
 	void andar();
 	bool verifica_colisao();
