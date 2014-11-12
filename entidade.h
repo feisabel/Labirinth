@@ -38,8 +38,8 @@ public:
 
 class bloco : public entidade{
 protected:	
-	bool caminho; 							// Se caminho true então é caminho e não é parede
-	bool aceso; 							// Define se o bloco consta no FOV(field of vision) do player ou não
+	bool caminho; 				// Se caminho true então é caminho e não é parede
+	bool aceso; 				// Define se o bloco consta no FOV(field of vision) do player ou não
 public:
 	bloco(): caminho( false ), aceso( false ){}
 	bool getCaminho(){ return caminho; }
