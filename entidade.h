@@ -38,7 +38,7 @@ public:
 
 class bloco : public entidade{
 protected:	
-	bool caminho; /*Se caminho true então é caminho e não é parede*/
+	bool caminho; 							// Se caminho true então é caminho e não é parede
 	bool aceso; 							// Define se o bloco consta no FOV(field of vision) do player ou não
 public:
 	bloco(): caminho( false ), aceso( false ){}
@@ -112,8 +112,8 @@ class jogo{
 protected:
 	tabuleiro cena;
 	jogador meu_jogador;
-	estruturaDeDados<monstro> lista_monstro; //a definir
-	estruturaDeDados<item> lista_municao; //a definir
+	estruturaDeDados<monstro> lista_monstro; // A definir
+	estruturaDeDados<item> lista_municao; // A definir
 	estruturaDeDados<item> lista_vida;
 	estruturaDeDados<armadilha> lista_armadilha;
 	estruturaDeDados<monstro> lista_spawn;
@@ -127,7 +127,7 @@ public:
 	void inicializa( int **arquivo, posicao dimen );
 };
 
-/*função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrada e saída*/
+// Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrada e saída
 void jogo::inicializa( int **arquivo, posicao dimen ){
 	int i, j;
 	cena.setDimencoes( dimen.x, dimen.y );
@@ -156,11 +156,11 @@ void jogo::inicializa( int **arquivo, posicao dimen ){
 			}
 			if( arquivo[i][j] == 6 ){
 				item vida(randomica(2, 4));
-				lista_vida.push(vida); /*a quantidade é gerada randomicamente*/ 
+				lista_vida.push(vida); // A quantidade é gerada randomicamente
 			}
 			if( arquivo[i][j] == 7 ){
-				item muni(randomica(10, 15));
-				lista_municao.push(muni); /*a quantidade é gerada randomicamente*/
+				item muni(randomica(6, 18));
+				lista_municao.push(muni); // A quantidade é gerada randomicamente
 			}
 		} 
 	}	
