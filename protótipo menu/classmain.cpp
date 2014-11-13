@@ -27,7 +27,7 @@ void Main::menu(){
                 {
                     if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 300 && event.mouseButton.y < 345)
                     {
-                        startGame();
+                        startGame(&window);
                         //Cogitar colocar nível
                         //Declara jogo e inicia
                     }
@@ -37,7 +37,7 @@ void Main::menu(){
                     }
                     if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
                     {
-                        howToPlay();
+                        howToPlay(&window);
                     }
                 }
             }
@@ -91,7 +91,7 @@ void Main::menu(){
             }
             //BOTAO RANKING
             if (c == 2) {
-                text.setPosition(sf::Vector2f(370,rectY+5));
+                text.setPosition(sf::Vector2f(360,rectY+5));
                 text.setString("How to play");
             }
             window.draw(buttonInit); //DESENHA
@@ -103,59 +103,89 @@ void Main::menu(){
     }
 }
 
-void Main::howToPlay()
+void Main::howToPlay(sf::RenderWindow* window)
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Labirinto");
-    window.clear(sf::Color::Black); // Limpa a tela e coloca para preta
-    while(window.isOpen())
+    window->clear(sf::Color::Black); // Limpa a tela e coloca para preta
+    while(window->isOpen())
     {
         sf::Event event;
-        while(window.pollEvent(event))
+        while(window->pollEvent(event))
         {
             if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
-                    window.close();
+                    window->close();
                 }
             }
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    if(event.mouseButton.x > 90 && event.mouseButton.x < 140 && event.mouseButton.y > 450 && event.mouseButton.y < 495)
+                    {
+                        //onde volta para o menu inicial
+                        std::cout << "passou aqui" << std::endl;
+                    }
+                }
+            }
+
         }
 
         sf::RectangleShape box(sf::Vector2f(700, 500));
+        sf::RectangleShape box2(sf::Vector2f(50, 45));
         sf::Font font;
+
         if (!font.loadFromFile("journal.ttf"))
         {
             std::cout <<"Erro ao inicializar a textura" << std::endl;
-            window.close();
+            window->close();
         }
+
+        sf::Text text1;
+        text1.setFont(font);
+        text1.setCharacterSize(32);
+
         sf::Text text;
         text.setFont(font);
         text.setCharacterSize(32);
+
         box.setPosition(sf::Vector2f(50, 50));
         box.setFillColor(sf::Color(153, 153, 255));
+
+        box2.setPosition(sf::Vector2f(90, 450));
+        box2.setFillColor(sf::Color(0, 0, 0));
+
         text.setColor(sf::Color::Black);
         text.setPosition(sf::Vector2f(100,100));
         text.setString("How to play");
-        window.draw(box);
-        window.draw(text);
-        window.display();
+
+        text1.setColor(sf::Color::White);
+        text1.setPosition(sf::Vector2f(100,450));
+        text1.setString("Exit");
+
+
+        window->draw(box);
+        window->draw(text);
+        window->draw(box2);
+        window->draw(text1);
+        window->display();
     }
 }
 
-void Main::startGame()
+void Main::startGame(sf::RenderWindow* window)
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Labirinto");
-    window.clear(sf::Color::Black); // Limpa a tela e coloca para preta
-    while(window.isOpen())
+    window->clear(sf::Color::Black); // Limpa a tela e coloca para preta
+    while(window->isOpen())
     {
         sf::Event event;
-        while(window.pollEvent(event))
+        while(window->pollEvent(event))
         {
             if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
-                    window.close();
+                    window->close();
                 }
             }
         }
@@ -165,7 +195,7 @@ void Main::startGame()
         if (!font.loadFromFile("journal.ttf"))
         {
             std::cout <<"Erro ao inicializar a textura" << std::endl;
-            window.close();
+            window->close();
         }
         sf::Text text;
         text.setFont(font);
@@ -175,9 +205,9 @@ void Main::startGame()
         text.setColor(sf::Color::Black);
         text.setPosition(sf::Vector2f(100,100));
         text.setString("Game");
-        window.draw(box);
-        window.draw(text);
-        window.display();
+        window->draw(box);
+        window->draw(text);
+        window->display();
     }
 
 }
