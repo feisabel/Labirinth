@@ -50,9 +50,9 @@ void Main::menu(){
         sf::RectangleShape title_teste(sf::Vector2f(300, 45)); //título
         // Variáveis de texto
         sf::Font font;
-        if (!font.loadFromFile("Walkway_Black.ttf"))
+        if (!font.loadFromFile("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf"))
         {
-           std::cout <<"Erro ao inicializar a textura" << std::endl;
+           std::cout << "Erro ao inicializar a textura" << std::endl;
            window.close();
         }
 

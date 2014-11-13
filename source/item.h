@@ -9,8 +9,8 @@ protected:
 	int _amount;
 
 public:
-	item(): _amount(0) {}
-	item(int a): _amount(a) {} 
+	item() : _amount(0) {}
+	item(int a) : _amount(a) {} 
 
 	int& amount() { return _amount; }
 	int amount() const { return _amount; }
