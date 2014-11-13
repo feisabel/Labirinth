@@ -1,5 +1,4 @@
 #include "source/game.h"
-#include <fstream>
 
 int main()
 {
