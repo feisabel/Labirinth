@@ -19,14 +19,17 @@ private:
 	list<Item> hearts;
 	list<Trap> traps;
 	list<Spawn> spawns;
+	list<Enemy> enemies;
 
 public:	
 	Game();
 
+	void init();
+
+	bool read_from_file();
+
 	void loop(); // Onde o jogo acontece.
 	void update();
-	
-	void init();
 };
 
 #endif

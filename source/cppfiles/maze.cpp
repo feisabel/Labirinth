@@ -1,25 +1,55 @@
 #include "../maze.h"
 
 
-Maze::Maze(int n, int m)
-: rows(n), cols(m)
+Maze::Maze()
+: inited(false)
 {
-	matrix = new Block*[n];
-	for (int i=0; i<n; i++)
-	{
-		matrix[i] = Block[m];
-	}
 }
 
 
 Maze::~Maze()
 {
-	for (int i=0; i<n; i++)
+	if (inited)
 	{
-		delete matrix[i];
+		for (int i=0; i<_rows; i++)
+		{
+			delete matrix[i];
+		}
+		
+		delete matrix;
+
+		inited = false;
 	}
-	delete matrix;
 }
+
+
+Maze::init(int n, int m)
+{	
+	if (!inited)
+	{
+		_rows = n; _cols = n;
+		matrix = new Block*[_rows];
+		for (int i=0; i<_rows; i++)
+		{
+			matrix[i] = Block[_cols];
+		}
+
+		inited = true;
+	}
+}
+
+
+
+int Maze::rows() const
+{
+	return _rows;
+}
+
+int Maze::cols() const
+{
+	return _cols;
+}
+
 
 
 Position& Maze::entrance()
@@ -33,6 +63,7 @@ const Position& Maze::entrance() const
 }
 
 
+
 Position& Maze::exit()
 {
 	return _exit;
@@ -42,6 +73,7 @@ const Position& Maze::exit() const
 {
 	return _exit;
 }
+
 
 
 _proxy& Maze::operator[](int row)

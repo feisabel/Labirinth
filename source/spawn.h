@@ -4,10 +4,11 @@
 #include "custom/list.h"
 using custom::list;
 
+#include "entity.h"
 #include "enemy.h"
 
 
-class Spawn
+class Spawn : Entity
 {
 	list<Enemy*> children;
 

@@ -3,45 +3,72 @@
 // Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
 void Game::init()
 {
-	int i, j;
-	cena.setDimencoes( dimen.x, dimen.y );
-	cena.matriz = new bloco*[cena.dimencoes.x];
-	for( i = 0; i < cena.dimencoes.x; i++ )
-		cena.matriz[i] = new bloco[cena.dimencoes.y];
-	for( i = 0; i < cena.dimencoes.x; i++ ){
-		for( j = 0; j < cena.dimencoes.y; j++ ){
-			if( arquivo[i][j] != 1 )
-				cena.matriz[i][j].setCaminho(true);
-			if( arquivo[i][j] == 2 )
-				cena.setentrance(i, j);	
-			if( arquivo[i][j] == 3 )
-				cena.setSaida(i, j);
-			if( arquivo[i][j] == 4 ){
-				Trap nova;
-				nova.setX(i);
-				nova.setY(j);
-				lista_Trap.push(nova);
+	// implementar	
+}
+
+
+bool Game::read_from_file()
+{
+	std::ifstream entrada; 							   // Conexão com o arquivo "entrada.txt".
+	
+	entrada.open ( "entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
+	
+	if( entrada.is_open() ){
+		int a, b;
+		
+		if( !(entrada >> a) ) { return false; }
+		if( !(entrada >> b) ) { return false; }
+		
+		maze.init(a, b);
+		
+		for (int i=0; i<a; i++)
+		{
+			for (int j=0; j<b; j++)
+			{
+				int x;
+				entrada >> x;
+
+				if (x == 1) maze[i][j].type = WALL; break;
+				else
+				{
+					maze[i][j].type == FLOOR;
+
+					if (x == 2) maze.entrance() = Position(i, j);
+					else if (x == 3) maze.exit() = Position(i, j);
+					else if (x == 4)
+					{
+						traps.push_back(Trap());
+						traps.back().pos = Position(i, j);
+					}
+					else if (x == 5)
+					{
+						spawns.push_back(Spawn());
+						spawns.back().pos = Position(i, j);
+					}
+					else if (x == 6)
+					{
+						hearts.push_back(Item());
+						hearts.back().pos = Position(i, j);
+					}
+					else if (x == 7)
+					{
+						ammuns.push_back(Item());
+						ammuns.back().pos = Position(i, j);
+					}
+					else if (x == 8)
+					{
+						enemies.push_back(Enemy());
+						enemies.back().pos = Position(i, j);
+					}
+				}
 			}
-			if( arquivo[i][j] == 5 ){
-				Enemy novo;
-				novo.setX(i);
-				novo.setY(j);
-				lista_spawn.push(novo);
-			}
-			if( arquivo[i][j] == 6 ){
-				item vida(randomica(2, 4));
-				lista_vida.push(vida);    // A quantidade é gerada randomicamente.
-			}
-			if( arquivo[i][j] == 7 ){
-				item muni(randomica(6, 18));
-				lista__ammun.push(muni); // A quantidade é gerada randomicamente.
-			}
-			if( arquivo[i][j] == 8 ){
-				Enemy novo;
-				novo.setX(i);
-				novo.setY(j);
-				lista_Enemy.push(novo);
-			}
-		} 
-	}	
+		}
+        // Verifica se a leitura da matriz ocorreu corretamente.
+        if( i != a )
+        	return false;
+	}
+	else
+		return false;
+
+	return true;
 }

@@ -8,8 +8,14 @@ class Maze
 public:
 	class _proxy;
 
-	Maze(int n, int m);
+	Maze();
 	~Maze();
+
+	void init(int n, int m);
+	bool inited() const;
+
+	int rows() const;
+	int cols() const;
 
 	Position& entrance();
 	const Position& entrance() const;
@@ -23,6 +29,8 @@ public:
 private:
 	int rows;
 	int cols;
+
+	bool _init;
 
 	Block *matrix;
 
