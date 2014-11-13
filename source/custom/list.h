@@ -30,6 +30,9 @@ public:
 	T pop_front();
 	T pop_back();
 	T remove(size_t);
+	void clear();
+
+	bool includes(const T& x);
 
 private:
 	struct node;
@@ -41,7 +44,6 @@ private:
 
 	node* search(size_t pos) const;
 	void mem_copy(const list<T>&);
-	void clear();
 };
 
 

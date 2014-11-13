@@ -17,6 +17,8 @@ public:
 	int rows() const;
 	int cols() const;
 
+	bool in_bounds(const Position&) const;
+
 	Position& entrance();
 	const Position& entrance() const;
 	
@@ -29,8 +31,6 @@ public:
 private:
 	int _rows;
 	int _cols;
-
-	bool _inited;
 
 	Block **matrix;
 

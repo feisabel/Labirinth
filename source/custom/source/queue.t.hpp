@@ -24,4 +24,8 @@ T queue<T>::pop() { return internal.pop_front(); }
 template <class T>
 void queue<T>::clear() { return internal.clear(); }
 
+
+template <class T>
+bool queue<T>::includes(const T& x) { return internal.includes(x); }
+
 }

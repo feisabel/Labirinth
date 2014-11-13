@@ -14,3 +14,14 @@ list<Position> get_adjacents(const Position& p)
 
 	return tmp;
 }
+
+
+std::ostream& operator<< (std::ostream& out, const Position& p)
+{
+	return out << "(" << p.x << ", " << p.y << ")";
+}
+
+std::istream& operator>> (std::istream& in, Position& p)
+{
+	return in >> p.x >> p.y;
+}

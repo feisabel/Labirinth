@@ -4,6 +4,8 @@
 #include "custom/list.h"
 using custom::list;
 
+#include <iostream>
+
 struct Position
 {
 	int x;
@@ -37,5 +39,8 @@ struct Position
 
 
 list<Position> get_adjacents(const Position&);
+
+std::ostream& operator<< (std::ostream&, const Position&);
+std::istream& operator>> (std::istream&, Position&);
 
 #endif

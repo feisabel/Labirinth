@@ -34,4 +34,8 @@ T deque<T>::pop_back() { return internal.pop_back(); }
 template <class T>
 void deque<T>::clear() { return internal.clear(); }
 
+
+template <class T>
+bool deque<T>::includes(const T& x) { return internal.includes(x); }
+
 }

@@ -2,46 +2,44 @@
 
 
 Maze::Maze()
-: _inited(false)
+: matrix(NULL)
 {
 }
 
 
 Maze::~Maze()
 {
-	if (_inited)
+	if (matrix != NULL)
 	{
-		for (int i=0; i<_rows; i++)
+		for (size_t i=0; i<_rows; i++)
 		{
-			delete matrix[i];
+			delete[] matrix[i];
+			matrix[i] = NULL;
 		}
 		
-		delete matrix;
-
-		_inited = false;
+		delete[] matrix;
+		matrix = NULL;
 	}
 }
 
 
 void Maze::init(int n, int m)
 {	
-	if (!_inited)
+	if (matrix == NULL)
 	{
-		_rows = n; _cols = n;
+		_rows = n; _cols = m;
 		matrix = new Block*[_rows];
-		for (int i=0; i<_rows; i++)
+		for (size_t i=0; i<_rows; i++)
 		{
 			matrix[i] = new Block[_cols];
 		}
-
-		_inited = true;
 	}
 }
 
 
 bool Maze::inited() const
 {
-	return _inited;
+	return matrix != NULL;
 }
 
 
@@ -55,6 +53,11 @@ int Maze::cols() const
 	return _cols;
 }
 
+
+bool Maze::in_bounds(const Position& p) const
+{
+	return 0 <= p.x && p.x < _rows && 0 <= p.y && p.y < _cols;
+}
 
 
 Position& Maze::entrance()

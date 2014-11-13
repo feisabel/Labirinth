@@ -25,6 +25,8 @@ public:
 	T pop_back();
 
 	void clear();
+
+	bool includes(const T& x);
 };
 
 }

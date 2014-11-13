@@ -24,4 +24,8 @@ T stack<T>::pop() { return internal.pop_front(); }
 template <class T>
 void stack<T>::clear() { return internal.clear(); }
 
+
+template <class T>
+bool stack<T>::includes(const T& x) { return internal.includes(x); }
+
 }

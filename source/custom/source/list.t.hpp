@@ -55,6 +55,9 @@ template <class T>
 list<T>::list(const list<T>& o)
 : _size(o._size)
 {
+	_begin = new typename list<T>::node;
+	_end   = new typename list<T>::node;	
+
 	mem_copy(o);
 }
 
@@ -262,21 +265,30 @@ typename list<T>::node* list<T>::search(size_t pos) const
 // interna: copia os elementos de uma lista pra outra
 template <class T>
 void list<T>::mem_copy(const list<T>& o)
-{
-	_begin = new typename list<T>::node;
-	
+{	
 	typename list<T>::node* it;
 	typename list<T>::node* itt = _begin;
-	for (it = o._begin->next; it != o._end; it = it->next )
+	for (it = o._begin; it->next != o._end; it = it->next )
 	{
 		itt->next = new typename list<T>::node(it->data);
 		itt->next->prev = itt;
 		itt = itt->next;
 	}
 
-	itt->next = new typename list<T>::node;
-	itt->next->prev = itt;
-	_end   = itt->next;
+	itt->next = _end;
 }
+
+
+template <class T>
+bool list<T>::includes (const T& x)
+{
+	typename list<T>::node* it;
+	for (it = _begin->next; it != _end; it = it->next)
+	{
+		if (it->data == x) return true;
+	}
+	return false;
+}
+
 
 }
