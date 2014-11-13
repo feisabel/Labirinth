@@ -20,10 +20,10 @@ Position get_adjacent(const Position& p, Direction d)
 {
 	switch (d)
 	{
-		case Direction::UP	  : return Position(p.x, p.y+1);
-		case Direction::DOWN  : return Position(p.x, p.y-1);
-		case Direction::LEFT  : return Position(p.x+1, p.y);
-		case Direction::RIGHT : return Position(p.x-1, p.y);
+		case UP	   : return Position(p.x, p.y+1);
+		case DOWN  : return Position(p.x, p.y-1);
+		case LEFT  : return Position(p.x+1, p.y);
+		case RIGHT : return Position(p.x-1, p.y);
 	}
 }
 

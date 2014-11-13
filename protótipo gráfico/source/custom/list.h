@@ -4,8 +4,10 @@
 #include <cstddef>
 
 
-#if __cplusplus > 199711L
+#if __cplusplus < 201103L
+#ifndef nullptr
 	#define nullptr NULL
+#endif
 #endif
 
 
@@ -54,7 +56,8 @@ private:
 
 
 template <class T>
-struct list<T>::node {
+struct list<T>::node
+{	
 	T data;
 
 	node* prev;
