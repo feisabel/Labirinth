@@ -1,14 +1,12 @@
 #include "../list.h"
 
-<<<<<<< HEAD
+
 #if __cplusplus < 201103L
 #ifndef nullptr
 	#define nullptr NULL
 #endif
 #endif
 
-=======
->>>>>>> 81e952be2c43391bec246e1c1cb7b3bd19f7a154
 
 namespace custom {
 
