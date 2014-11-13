@@ -1,7 +1,9 @@
 #include "../list.h"
 
 #if __cplusplus < 201103L
+#ifndef nullptr
 	#define nullptr NULL
+#endif
 #endif
 
 
