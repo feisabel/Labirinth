@@ -12,8 +12,18 @@ bool Game::read_from_file()
 	if( entrada.is_open() ) {
 		int a, b;
 		
-		if( !(entrada >> a) ) { std::cout << "não leu a" << std::endl; return false; }
-		if( !(entrada >> b) ) { std::cout << "não leu a" << std::endl; return false; }
+		if( !(entrada >> a) )
+		{
+			entrada.close();
+			std::cout << "não leu a" << std::endl;
+			return false;
+		}
+		if( !(entrada >> b) )
+		{
+			entrada.close();
+			std::cout << "não leu a" << std::endl;
+			return false;
+		}
 		
 		maze.init(a, b);
 		
@@ -68,13 +78,16 @@ bool Game::read_from_file()
         // Verifica se a leitura da matriz ocorreu corretamente.
         if( i != a ) {
         	std::cout << "não leu matriz" << std::endl;
+        	entrada.close();
         	return false;
         }
 	}
 	else {
 		std::cout << "não abriu arquivo" << std::endl;
+		entrada.close();
 		return false;
 	}
 
+	entrada.close();
 	return true;
 }
