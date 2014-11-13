@@ -11,4 +11,6 @@ list<Position> get_adjacents(const Position& p)
 	{
 		tmp.push_back(Position(p.x + deltaX[i], p.y + deltaY[i]));
 	}
+
+	return tmp;
 }
