@@ -6,21 +6,24 @@
 class Entity
 {
 protected:
-	Position pos;
+	Position _pos;
 
 public:
-	Entity() : pos(0,0) {}
-	Entity(int a, int b) : pos(a, b) {}
+	Entity() : _pos(0,0) {}
+	Entity(int a, int b) : _pos(a, b) {}
 	
-	int& x() { return pos.x; }
-	int& y() { return pos.y; }
+	int& x() { return _pos.x; }
+	int& y() { return _pos.y; }
 	
-	int x() { return pos.x; } const;
-	int y() { return pos.y; } const;
+	int x() const { return _pos.x; }
+	int y() const { return _pos.y; }
 
-	bool collided_with(const Entity& e) const;
+	Position& pos() { return _pos; }
+	const Position& pos() const { return _pos; }
+
+	bool collided_with(const Entity& e) const
 	{
-		return pos == e.pos;
+		return _pos == e._pos;
 	}
 };
 

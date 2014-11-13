@@ -1,68 +1,80 @@
 #include "../game.h"
+#include <fstream>
+#include <iostream>
 
 // Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
 bool Game::read_from_file()
 {
 	std::ifstream entrada; 							   // Conexão com o arquivo "entrada.txt".
 	
-	entrada.open ( "entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
+	entrada.open ( "source/cppfiles/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
 	
-	if( entrada.is_open() ){
+	if( entrada.is_open() ) {
 		int a, b;
 		
-		if( !(entrada >> a) ) { return false; }
-		if( !(entrada >> b) ) { return false; }
+		if( !(entrada >> a) ) { std::cout << "não leu a" << std::endl; return false; }
+		if( !(entrada >> b) ) { std::cout << "não leu a" << std::endl; return false; }
 		
 		maze.init(a, b);
 		
-		for (int i=0; i<a; i++)
+		int i;
+		for (i=0; i<a; i++)
 		{
 			for (int j=0; j<b; j++)
 			{
 				int x;
 				entrada >> x;
 
-				if (x == 1) maze[i][j].type = WALL; break;
+				if (x == 1) maze[i][j].type() = Block::WALL;
 				else
 				{
-					maze[i][j].type == FLOOR;
+					maze[i][j].type() = Block::FLOOR;
 
 					if (x == 2) maze.entrance() = Position(i, j);
 					else if (x == 3) maze.exit() = Position(i, j);
 					else if (x == 4)
 					{
-						traps.push_back(Trap());
-						traps.back().pos = Position(i, j);
+						Trap t;
+						t.pos() = Position(i, j);
+						traps.push_back(t);
 					}
 					else if (x == 5)
-					{
-						spawns.push_back(Spawn());
-						spawns.back().pos = Position(i, j);
+					{	
+						Spawn s;
+						s.pos() = Position(i, j);
+						spawns.push_back(s);
 					}
 					else if (x == 6)
 					{
-						hearts.push_back(Item());
-						hearts.back().pos = Position(i, j);
+						Item h;
+						h.pos() = Position(i, j);
+						hearts.push_back(h);
 					}
 					else if (x == 7)
 					{
-						ammuns.push_back(Item());
-						ammuns.back().pos = Position(i, j);
+						Item a;
+						a.pos() = Position(i, j);
+						ammuns.push_back(a);
 					}
 					else if (x == 8)
 					{
-						enemies.push_back(Enemy());
-						enemies.back().pos = Position(i, j);
+						Enemy e;
+						e.pos() = Position(i, j);
+						enemies.push_back(e);
 					}
 				}
 			}
 		}
         // Verifica se a leitura da matriz ocorreu corretamente.
-        if( i != a )
+        if( i != a ) {
+        	std::cout << "não leu matriz" << std::endl;
         	return false;
+        }
 	}
-	else
+	else {
+		std::cout << "não abriu arquivo" << std::endl;
 		return false;
+	}
 
 	return true;
 }

@@ -4,11 +4,14 @@
 #include "../custom/queue.h"
 using custom::queue;
 
+#include "../custom/stack.h"
+using custom::stack;
+
 #include <iostream>
 
 bool Enemy::chase(Player& player, Maze& m)
 {
-	if (pos == player.pos)
+	if (collided_with(player))
 	{
 		return true; 
 	}
@@ -17,16 +20,16 @@ bool Enemy::chase(Player& player, Maze& m)
 		stack<Position> result;
 
 		queue<Position> bfs;
-		bfs.push(pos)
-		while (!bfs.is_empty() && bfs.top() != player.pos)
+		bfs.push(_pos);
+		while (!bfs.is_empty() && bfs.front() != player.pos())
 		{	
-			list<Position> tmp = get_adjacents(bfs.top());
+			list<Position> tmp = get_adjacents(bfs.front());
 
 			while (!tmp.is_empty())
 			{	
 				Position p = tmp.pop_front();
-				if (maze[p.x][p.y].type != Block::WALL)
-					bfs.push();
+				if (m[p.x][p.y].type() != Block::WALL)
+					bfs.push(p);
 			}
 
 			result.push(bfs.pop());
@@ -35,7 +38,7 @@ bool Enemy::chase(Player& player, Maze& m)
 		if (!bfs.is_empty())
 		{
 			stack<Position> path;
-			path.push(bfs.pop())
+			path.push(bfs.pop());
 			while (!result.is_empty())
 			{
 				Position x = result.pop();

@@ -10,11 +10,12 @@ Spawn::~Spawn()
 
 Enemy* Spawn::create_enemy()
 {
-	children.push_back(new Enemy);
-	return children.back();
+	Enemy* eptr = new Enemy;
+	children.push_back(eptr);
+	return eptr;
 }
 
 void Spawn::destroy_enemy(Enemy* e)
 {
-	children.remove(children.find(&e));
+	delete e;
 }

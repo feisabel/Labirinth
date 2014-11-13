@@ -23,16 +23,16 @@ public:
 	Position& exit();
 	const Position& exit() const;
 
-	_proxy& operator[](int row);
-	const _proxy& operator[](int row) const;
+	_proxy operator[](int row);
+	const _proxy operator[](int row) const;
 
 private:
-	int rows;
-	int cols;
+	int _rows;
+	int _cols;
 
-	bool _init;
+	bool _inited;
 
-	Block *matrix;
+	Block **matrix;
 
 	Position _entrance;
 	Position _exit;
@@ -45,13 +45,15 @@ class Maze::_proxy
 	friend class Maze;
 
 public:
-	int& operator[](int col);
-	int operator[](int col) const;
+	Block& operator[](int col);
+	const Block& operator[](int col) const;
 
 private:
-	_proxy(Maze &_parent, int _row);
+	_proxy(Maze& _parent, int _row);
+	_proxy(const Maze& _parent, int _row);
 
-    Maze& parent;
+    Maze* parent;
+    const Maze* const_parent;
     int row;
 };
 
