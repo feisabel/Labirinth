@@ -1,9 +1,5 @@
 #include "../list.h"
 
-#if __cplusplus < 201103L
-	#define nullptr NULL
-#endif
-
 
 namespace custom {
 

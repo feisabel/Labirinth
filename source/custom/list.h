@@ -3,6 +3,12 @@
 
 #include <cstddef>
 
+
+#if __cplusplus > 199711L
+	#define nullptr NULL
+#endif
+
+
 namespace custom
 {
 
