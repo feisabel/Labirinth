@@ -12,7 +12,7 @@ using custom::list;
 
 class Game
 {
-private:
+public:
 	Maze maze;
 	Player player;
 	list<Item> ammuns;    // A definir.
@@ -20,8 +20,7 @@ private:
 	list<Trap> traps;
 	list<Spawn> spawns;
 	list<Enemy> enemies;
-
-public:	
+	
 	Game();
 
 	void init();
