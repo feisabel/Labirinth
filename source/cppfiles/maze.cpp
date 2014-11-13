@@ -23,7 +23,7 @@ Maze::~Maze()
 }
 
 
-void Maze::init(int n, int m)
+void Maze::init(size_t n, size_t m)
 {	
 	if (matrix == NULL)
 	{
@@ -43,12 +43,12 @@ bool Maze::inited() const
 }
 
 
-int Maze::rows() const
+size_t Maze::rows() const
 {
 	return _rows;
 }
 
-int Maze::cols() const
+size_t Maze::cols() const
 {
 	return _cols;
 }
@@ -84,12 +84,12 @@ const Position& Maze::exit() const
 
 
 
-Maze::_proxy Maze::operator[](int row)
+Maze::_proxy Maze::operator[](size_t row)
 {
 	return _proxy(*this, row);
 }
 
-const Maze::_proxy Maze::operator[](int row) const
+const Maze::_proxy Maze::operator[](size_t row) const
 {
 	return _proxy(*this, row);
 }
@@ -99,22 +99,22 @@ const Maze::_proxy Maze::operator[](int row) const
 
 // proxy class for operator[][]
 
-Maze::_proxy::_proxy(Maze& _parent, int _row)
+Maze::_proxy::_proxy(Maze& _parent, size_t _row)
 : parent(&_parent), const_parent(NULL), row(_row)
 {
 }
 
-Maze::_proxy::_proxy(const Maze& _parent, int _row)
-: const_parent(&_parent), parent(NULL), row(_row)
+Maze::_proxy::_proxy(const Maze& _parent, size_t _row)
+: parent(NULL), const_parent(&_parent), row(_row)
 {
 }
 
-Block& Maze::_proxy::operator[](int col)
+Block& Maze::_proxy::operator[](size_t col)
 {
 	return parent->matrix[row][col];
 }
 
-const Block& Maze::_proxy::operator[](int col) const
+const Block& Maze::_proxy::operator[](size_t col) const
 {
 	return const_parent->matrix[row][col];
 }

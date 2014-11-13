@@ -11,11 +11,11 @@ public:
 	Maze();
 	~Maze();
 
-	void init(int n, int m);
+	void init(size_t n, size_t m);
 	bool inited() const;
 
-	int rows() const;
-	int cols() const;
+	size_t rows() const;
+	size_t cols() const;
 
 	bool in_bounds(const Position&) const;
 
@@ -25,12 +25,12 @@ public:
 	Position& exit();
 	const Position& exit() const;
 
-	_proxy operator[](int row);
-	const _proxy operator[](int row) const;
+	_proxy operator[](size_t row);
+	const _proxy operator[](size_t row) const;
 
 private:
-	int _rows;
-	int _cols;
+	size_t _rows;
+	size_t _cols;
 
 	Block **matrix;
 
@@ -45,16 +45,16 @@ class Maze::_proxy
 	friend class Maze;
 
 public:
-	Block& operator[](int col);
-	const Block& operator[](int col) const;
+	Block& operator[](size_t col);
+	const Block& operator[](size_t col) const;
 
 private:
-	_proxy(Maze& _parent, int _row);
-	_proxy(const Maze& _parent, int _row);
+	_proxy(Maze& _parent, size_t _row);
+	_proxy(const Maze& _parent, size_t _row);
 
     Maze* parent;
     const Maze* const_parent;
-    int row;
+    size_t row;
 };
 
 
