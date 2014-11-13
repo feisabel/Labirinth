@@ -17,10 +17,10 @@ struct Position
 
 	bool is_adjacent_to (const Position& other)
 	{
-		return ( pos.x == other.pos.x && pos.y == other.pos.y + 1 )
-			|| ( pos.x == other.pos.x && pos.y == other.pos.y - 1 )
-			|| ( pos.y == other.pos.y && pos.x == other.pos.x + 1 )
-			|| ( pos.y == other.pos.y && pos.x == other.pos.x - 1 );
+		return ( x == other.x && y == other.y + 1 )
+			|| ( x == other.x && y == other.y - 1 )
+			|| ( y == other.y && x == other.x + 1 )
+			|| ( y == other.y && x == other.x - 1 );
 	}
 
 	bool operator^ (const Position& other)

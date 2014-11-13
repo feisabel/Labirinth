@@ -1,12 +1,6 @@
 #include "../game.h"
 
 // Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
-void Game::init()
-{
-	// implementar	
-}
-
-
 bool Game::read_from_file()
 {
 	std::ifstream entrada; 							   // Conexão com o arquivo "entrada.txt".
