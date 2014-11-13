@@ -11,7 +11,7 @@ public:
 	Block() : _type(WALL), lit(false) {}
 	
 	Type& type() { return _type; }
-	Type type() const { caminho = a; }
+	Type type() const { return _type; }
 
 	bool is_lit() { return lit; }
 	void enlighten() { lit = true; }

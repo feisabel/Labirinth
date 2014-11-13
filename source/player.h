@@ -1,6 +1,7 @@
 #ifndef __PLAYER
 #define __PLAYER
 
+#include "item.h"
 #include "character.h"
 
 class Player : public Character

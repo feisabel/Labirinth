@@ -2,6 +2,7 @@
 #define __POSITION
 
 #include "custom/list.h"
+using custom::list;
 
 struct Position
 {
@@ -10,20 +11,25 @@ struct Position
 	Position () : x(0), y(0) {}
 	Position (int a, int b) : x(a), y(b) {}
 
-	bool operator== (const Position& other)
+	bool operator== (const Position& other) const
 	{
 		return other.x == x && other.y == y;
 	}
 
-	bool is_adjacent_to (const Position& other)
+	bool operator!= (const Position& other) const
 	{
-		return ( pos.x == other.pos.x && pos.y == other.pos.y + 1 )
-			|| ( pos.x == other.pos.x && pos.y == other.pos.y - 1 )
-			|| ( pos.y == other.pos.y && pos.x == other.pos.x + 1 )
-			|| ( pos.y == other.pos.y && pos.x == other.pos.x - 1 );
+		return !operator==(other);
 	}
 
-	bool operator^ (const Position& other)
+	bool is_adjacent_to (const Position& other) const
+	{
+		return ( x == other.x && y == other.y + 1 )
+			|| ( x == other.x && y == other.y - 1 )
+			|| ( y == other.y && x == other.x + 1 )
+			|| ( y == other.y && x == other.x - 1 );
+	}
+
+	bool operator^ (const Position& other) const
 	{
 		return is_adjacent_to(other);
 	}

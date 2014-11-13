@@ -8,7 +8,7 @@ using custom::list;
 #include "enemy.h"
 
 
-class Spawn : Entity
+class Spawn : public Entity
 {
 	list<Enemy*> children;
 

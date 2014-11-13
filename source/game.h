@@ -21,7 +21,7 @@ public:
 	list<Spawn> spawns;
 	list<Enemy> enemies;
 	
-	Game();
+	Game() {}
 
 	void init();
 
