@@ -1,9 +1,12 @@
 #include "../list.h"
+
+
 #if __cplusplus < 201103L
 #ifndef nullptr
 	#define nullptr NULL
 #endif
 #endif
+
 
 namespace custom {
 
@@ -13,7 +16,7 @@ namespace custom {
 template <class T>
 list<T>::node::node()
 : prev(nullptr), next(nullptr)
-{
+{	
 }
 
 template <class T>
@@ -35,7 +38,7 @@ list<T>::list()
 	_end   = new typename list<T>::node;
 
 	_begin->next = _end;
-	_end->prev = _begin;
+	_end->prev = _begin;	
 }
 
 // destrutor
@@ -56,7 +59,7 @@ list<T>::list(const list<T>& o)
 : _size(o._size)
 {
 	_begin = new typename list<T>::node;
-	_end   = new typename list<T>::node;
+	_end   = new typename list<T>::node;	
 
 	mem_copy(o);
 }
@@ -66,9 +69,9 @@ template <class T>
 const list<T>& list<T>::operator= (const list<T>& o)
 {
 	if (&o != this)
-	{
+	{	
 		clear();
-
+		
 		mem_copy(o);
 
 		_size = o._size;
@@ -150,7 +153,7 @@ template <class T>
 void list<T>::insert(const T& o, size_t pos)
 {
 	typename list<T>::node* newnode = new typename list<T>::node(o);
-
+	
 	typename list<T>::node* it;
 	if (pos == _size) {
 		it = _end;
@@ -189,7 +192,7 @@ T list<T>::pop_front()
 // remove o último elemento
 template <class T>
 T list<T>::pop_back()
-{
+{	
 	typename list<T>::node* tmp = _end->prev;
 
 	_end->prev = _end->prev->prev;
@@ -206,14 +209,14 @@ T list<T>::pop_back()
 // remove o elemento da posição dada
 template <class T>
 T list<T>::remove(size_t pos)
-{
+{	
 	typename list<T>::node* tmp = search(pos);
 
 	tmp->prev->next = tmp->next;
 	tmp->next->prev = tmp->prev;
 
 	T x = tmp->data;
-
+	
 	delete tmp;
 
 	--_size;
@@ -265,7 +268,7 @@ typename list<T>::node* list<T>::search(size_t pos) const
 // interna: copia os elementos de uma lista pra outra
 template <class T>
 void list<T>::mem_copy(const list<T>& o)
-{
+{	
 	typename list<T>::node* it;
 	typename list<T>::node* itt = _begin;
 	for (it = o._begin; it->next != o._end; it = it->next )

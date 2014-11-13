@@ -1,8 +1,3 @@
-#include "main.h"
-
-#ifdef PRINT_TEST
-
-
 #include "../source/enemy.h"
 #include "../source/player.h"
 #include "../source/game.h"
@@ -93,6 +88,3 @@ int main(int argc, char const *argv[])
 
 	return 0;
 }
-
-
-#endif

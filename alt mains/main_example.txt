@@ -1,7 +1,3 @@
-#include "main.h"
-
-#ifdef MAIN_EXAMPLE
-
 #include "../source/game.h"
 #include <iostream>
 
@@ -17,5 +13,3 @@ int main()
 	
 	return 0;
 }
-
-#endif

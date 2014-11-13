@@ -1,6 +1,6 @@
-#include "../enemy.h"
-#include "../player.h"
-#include "../game.h"
+#include "../source/enemy.h"
+#include "../source/player.h"
+#include "../source/game.h"
 
 #include <unistd.h>
 #include <cstdlib>

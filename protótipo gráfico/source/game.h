@@ -2,13 +2,8 @@
 #define __GAME
 
 #include "custom/list.h"
-#include "position.h"
 using custom::list;
 
-
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Event.hpp>
 #include "player.h"
 #include "maze.h"
 #include "spawn.h"
@@ -25,10 +20,10 @@ public:
 	list<Trap> traps;
 	list<Spawn> spawns;
 	list<Enemy> enemies;
-
+	
 	Game() {}
 
-	void init(sf::RenderWindow* window);
+	void init();
 
 	bool read_from_file();
 

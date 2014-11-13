@@ -6,6 +6,9 @@ using custom::list;
 
 #include <iostream>
 
+
+enum Direction {UP, DOWN, LEFT, RIGHT};
+
 struct Position
 {
 	int x;
@@ -31,14 +34,15 @@ struct Position
 			|| ( y == other.y && x == other.x - 1 );
 	}
 
-	bool operator^ (const Position& other) const
+	int distance_to(const Position& other) const
 	{
-		return is_adjacent_to(other);
+		return sqrt(pow((other.x - x), 2) + pow((other.y - y), 2));
 	}
 };
 
 
 list<Position> get_adjacents(const Position&);
+Position get_adjacent(const Position&, Direction);
 
 std::ostream& operator<< (std::ostream&, const Position&);
 std::istream& operator>> (std::istream&, Position&);
