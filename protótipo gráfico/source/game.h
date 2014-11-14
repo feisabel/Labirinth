@@ -10,6 +10,8 @@ using custom::list;
 #include "trap.h"
 #include "item.h"
 
+#include <Graphics/Window.hpp>
+
 class Game
 {
 public:
@@ -23,7 +25,7 @@ public:
 	
 	Game() {}
 
-	void init();
+	void init(sf::Window*);
 
 	bool read_from_file();
 

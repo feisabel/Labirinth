@@ -6,14 +6,19 @@
 class Item : public Entity
 {
 protected:
-	int _amount;
+	size_t _amount;
 
 public:
-	Item() : _amount(0) {}
-	Item(int a) : _amount(a) {} 
+	enum Type {HEALTH, AMMUN} _type;
 
-	int& amount() { return _amount; }
-	int amount() const { return _amount; }
+	Item() : _amount(0) {}
+	Item(size_t a) : _amount(a) {} 
+
+	Type& type() { return _type; }
+	Type type() const { return _type; }
+
+	size_t& amount() { return _amount; }
+	size_t amount() const { return _amount; }
 };
 
 #endif

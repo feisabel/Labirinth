@@ -15,7 +15,6 @@ public:
 	void receive_dmg(int dmg) { _hp -= dmg; }
 	
 	int hp() const { return _hp; }
-
 	int& hp() { return _hp; }
 };
 
