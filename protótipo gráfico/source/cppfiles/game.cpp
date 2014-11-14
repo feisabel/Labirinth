@@ -119,17 +119,19 @@ void Game::init(sf::RenderWindow* window)
 
     while(window->isOpen())
     {
-         window->clear(sf::Color::Black);
-         sf::Event event;
-         while(window->pollEvent(event)){
-             if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
+        window->clear(sf::Color::Black);
+        sf::Event event;
+        while(window->pollEvent(event))
+        {
+            if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
+            {
+                if (event.key.code == sf::Keyboard::Escape)
                 {
-                    if (event.key.code == sf::Keyboard::Escape)
-                    {
-                        return;
-                    }
+                    return;
                 }
-         }
+            }
+        }
+
         Position playPosition = maze.entrance();
 
         //calcular índices
@@ -147,35 +149,26 @@ void Game::init(sf::RenderWindow* window)
 
 
         int x, y = 200, z;
-        bool test;
-        for(z = 0, i = playPosition.x-1; i <= playPosition.x+1; i++, y+=56)
+        for( z = 0, i = playPosition.x-1; i <= playPosition.x+1; i++, y+=56 )
         {
             for( x = 300, j = playPosition.y-1; j <= playPosition.y+1; j++, x+=56, z++ )
             {
                 if(maze[i][j].type() == Block::FLOOR)
                 {
-                    test = false;
                     spriteFloor.setPosition(sf::Vector2f(x, y));
+                    window->draw(spriteFloor);
                 }
                 else
                 {
                     spriteWall.setPosition(sf::Vector2f(x, y));
-                    test = true;
-                }
-                if( test )
-                {
                     window->draw(spriteWall);
                 }
-                else
-                {
-                    window->draw(spriteFloor);
-                }
+
                 if(z == 4)
                 {
                     spriteCharacter.setPosition(sf::Vector2f(x, y));
                     window->draw(spriteCharacter);
                 }
-
             }
         }
         window->display();
