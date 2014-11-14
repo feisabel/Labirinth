@@ -10,10 +10,10 @@ protected:
 	int _vel;
 
 public:
-	Character(): _hp(0), _vel(0) {}
+	Character(): _hp(5), _vel(1) {}
 	
-	void move(); 
-	void receive_dmg(int dmg);
+	void move_to(Position& p) { _pos = p; }
+	void receive_dmg(int dmg) { _hp -= dmg; }
 	
 	int hp() const { return _hp; }
 	int vel() const { return _vel; }
