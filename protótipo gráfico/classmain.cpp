@@ -6,7 +6,7 @@
 #include "source/game.h"
 
 void Main::menu(){
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Labirinto");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Labirinto");
 
     //window.setFramerateLimit(30);
     while (window.isOpen())

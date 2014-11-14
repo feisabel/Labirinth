@@ -1,4 +1,5 @@
 #include "../game.h"
+#include "../../classmain.h"
 #include <fstream>
 #include <iostream>
 
@@ -181,26 +182,11 @@ void Game::init(sf::RenderWindow* window)
         }
 
 
-        //Position playPosition = maze.entrance();
-
-        /* //calcular índices
-        if(playPosition.x-1 < 0)
-            playPosition.x = 1;
-
-        if(playPosition.y-1 < 0)
-            playPosition.y = 1;
-
-        if(playPosition.x+1 >= maze.cols())
-            playPosition.x-=1;
-
-        if(playPosition.y+1 >= maze.rows())
-            playPosition.y-=1;
-        */
-
-        int x, y = 200, z;
-        for( z = 0, i = player.x()-1; i <= player.x()+1; i++, y+=56 )
+        int y = (WINDOW_HEIGHT - 5*56)/2;
+        for( i = player.x()-2; i <= player.x()+2; i++, y+=56 )
         {
-            for( x = 300, j = player.y()-1; j <= player.y()+1; j++, x+=56, z++ )
+        	int x = (WINDOW_WIDTH - 5*56)/2;
+            for( j = player.y()-2; j <= player.y()+2; j++, x+=56 )
             {
                 if( maze.in_bounds(Position(i, j)) )
                 {
@@ -215,7 +201,7 @@ void Game::init(sf::RenderWindow* window)
                         window->draw(spriteWall);
                     }
 
-                    if(z == 4)
+                    if(player.x() == i && player.y() == j)
                     {
                         spriteCharacter.setPosition(sf::Vector2f(x, y));
                         window->draw(spriteCharacter);
