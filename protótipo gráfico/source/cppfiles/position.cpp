@@ -18,13 +18,15 @@ list<Position> get_adjacents(const Position& p)
 
 Position get_adjacent(const Position& p, Direction d)
 {
-	switch (d)
-	{
-		case UP	   : return Position(p.x, p.y+1);
-		case DOWN  : return Position(p.x, p.y-1);
-		case LEFT  : return Position(p.x+1, p.y);
-		case RIGHT : return Position(p.x-1, p.y);
-	}
+	    if(UP)
+            return Position(p.x, p.y+1);
+		if(DOWN)
+            return Position(p.x, p.y-1);
+		if(LEFT)
+            return Position(p.x+1, p.y);
+		if(RIGHT)
+            return Position(p.x-1, p.y);
+
 }
 
 

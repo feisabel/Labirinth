@@ -5,7 +5,7 @@
 using custom::list;
 
 #include <iostream>
-
+#include <cmath>
 
 enum Direction {UP, DOWN, LEFT, RIGHT};
 

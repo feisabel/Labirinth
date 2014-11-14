@@ -182,14 +182,10 @@ void Main::howToPlay(sf::RenderWindow* window)
 
 void Main::startGame(sf::RenderWindow* window)
 {
-    int x = 90, y = 300;
     Game myGame;
     myGame.read_from_file();
-    myGame.init(window);
-    window->clear(sf::Color::Black); // Limpa a tela e coloca para preta
-    sf::CircleShape shape(32);
-    shape.setFillColor(sf::Color(204, 0, 0));
-    shape.setPosition(sf::Vector2f(x, y));
+    myGame.init(window); //Mostra o personagem na posição inicial dele no labirinto
+
     while(window->isOpen())
     {
         sf::Event event;
@@ -205,33 +201,9 @@ void Main::startGame(sf::RenderWindow* window)
                     return;
                 }
             }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            {
-                x-=32;
-                shape.setPosition(sf::Vector2f(x, y)); //tem que mudar a posição
-                std::cout << "move left" << std::endl;
-            }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            {
-                x+=32;
-                shape.setPosition(sf::Vector2f(x, y)); //tem que mudar a posição
-                std::cout << "move right" << std::endl;
-            }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            {
-                y-=32;
-                shape.setPosition(sf::Vector2f(x, y)); //tem que mudar a posição
-                std::cout << "move up" << std::endl;
-            }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            {
-                y+=32;
-                shape.setPosition(sf::Vector2f(x, y)); //tem que mudar a posição
-                std::cout << "move down" << std::endl;
-            }
+
         }
 
-        sf::RectangleShape box(sf::Vector2f(700, 500));
         sf::Font font;
         if (!font.loadFromFile("journal.ttf"))
         {
@@ -241,15 +213,11 @@ void Main::startGame(sf::RenderWindow* window)
         sf::Text text;
         text.setFont(font);
         text.setCharacterSize(32);
-        box.setPosition(sf::Vector2f(50, 50));
-        box.setFillColor(sf::Color(153, 153, 255));
-        text.setColor(sf::Color::Black);
+        text.setColor(sf::Color::White);
         text.setPosition(sf::Vector2f(100,100));
         text.setString("Game");
         window->clear(sf::Color::Black); // Limpa a tela e coloca para preta
-        window->draw(box);
         window->draw(text);
-        window->draw(shape);
         window->display();
     }
 

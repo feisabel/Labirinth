@@ -4,6 +4,10 @@
 #include "custom/list.h"
 using custom::list;
 
+
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window/Event.hpp>
 #include "player.h"
 #include "maze.h"
 #include "spawn.h"
@@ -20,10 +24,10 @@ public:
 	list<Trap> traps;
 	list<Spawn> spawns;
 	list<Enemy> enemies;
-	
+
 	Game() {}
 
-	void init();
+	void init(sf::RenderWindow* window);
 
 	bool read_from_file();
 
