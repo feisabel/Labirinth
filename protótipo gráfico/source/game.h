@@ -14,6 +14,8 @@ using custom::list;
 #include "trap.h"
 #include "item.h"
 
+#include <Graphics/Window.hpp>
+
 class Game
 {
 public:
@@ -27,7 +29,11 @@ public:
 
 	Game() {}
 
+<<<<<<< HEAD
 	void init(sf::RenderWindow* window);
+=======
+	void init(sf::Window*);
+>>>>>>> dace92ffd2bd9a14bb09c66d3b5b40b9bb650017
 
 	bool read_from_file();
 
