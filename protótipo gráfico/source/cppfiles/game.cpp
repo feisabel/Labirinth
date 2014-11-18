@@ -1,5 +1,6 @@
 #include "../game.h"
-#include "../../classmain.h"
+#include "../classmain.h"
+
 #include <fstream>
 #include <iostream>
 
@@ -28,10 +29,10 @@ bool Game::read_from_file()
 
 		maze.init(a, b);
 
-		int i;
-		for (i=0; i<a; i++)
+        int j;
+		for (j=0; j<b; j++)
 		{
-			for (int j=0; j<b; j++)
+			for (int i=0; i<a; i++)
 			{
 				int x;
 				entrada >> x;
@@ -77,7 +78,7 @@ bool Game::read_from_file()
 			}
 		}
         // Verifica se a leitura da matriz ocorreu corretamente.
-        if( i != a ) {
+        if( j != b ) {
         	std::cout << "não leu matriz" << std::endl;
         	entrada.close();
         	return false;
@@ -93,122 +94,127 @@ bool Game::read_from_file()
 	return true;
 }
 
-void Game::init(sf::RenderWindow* window)
+Game::Game()
 {
-    sf::Texture wall;
+    if (!read_from_file()) return;
+
     if (!wall.loadFromFile("wall1.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
-    sf::Texture floor;
+
     if (!floor.loadFromFile("floor1.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
 
-    sf::Texture character_back;
     if (!character_back.loadFromFile("char_back.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
 
-    sf::Texture character_front;
     if (!character_front.loadFromFile("char_front.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
 
-    sf::Texture character_left;
     if (!character_left.loadFromFile("char_left.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
 
-    sf::Texture character_right;
     if (!character_right.loadFromFile("char_right.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
 
 
-    sf::Sprite spriteWall;
+
     spriteWall.setTexture(wall);
-    sf::Sprite spriteFloor;
     spriteFloor.setTexture(floor);
-    sf::Sprite spriteCharacter;
     spriteCharacter.setTexture(character_back);
 
-    int i, j;
-
     player.pos() = maze.entrance();
+}
 
-    while(window->isOpen())
+
+void Game::update()
+{
+    sf::Event event;
+    while(window.pollEvent(event))
     {
-        window->clear(sf::Color::Black);
-        sf::Event event;
-        while(window->pollEvent(event))
+        if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
         {
-            if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
+            if (event.key.code == sf::Keyboard::Escape)
             {
-                if (event.key.code == sf::Keyboard::Escape)
-                {
-                    return;
-                }
-                else if (event.key.code == sf::Keyboard::Left)
-                {
-                    spriteCharacter.setTexture(character_left);
-                    player.y()--;
-                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
-                }
-                else if (event.key.code == sf::Keyboard::Right)
-                {
-                    spriteCharacter.setTexture(character_right);
-                    player.y()++;
-                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
-                }
-                else if (event.key.code == sf::Keyboard::Down)
-                {
-                    spriteCharacter.setTexture(character_front);
-                    player.x()++;
-                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
-                }
-                else if (event.key.code == sf::Keyboard::Up)
-                {
-                    spriteCharacter.setTexture(character_back);
-                    player.x()--;
-                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
-                }
+                Main::quit = true;
+            }
+            else if (event.key.code == sf::Keyboard::Left)
+            {
+                spriteCharacter.setTexture(character_left);
+                player.x()--;
+                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
+            }
+            else if (event.key.code == sf::Keyboard::Right)
+            {
+                spriteCharacter.setTexture(character_right);
+                player.x()++;
+                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
+            }
+            else if (event.key.code == sf::Keyboard::Down)
+            {
+                spriteCharacter.setTexture(character_front);
+                player.y()++;
+                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
+            }
+            else if (event.key.code == sf::Keyboard::Up)
+            {
+                spriteCharacter.setTexture(character_back);
+                player.y()--;
+                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
             }
         }
-
-
-        int y = (WINDOW_HEIGHT - 5*56)/2;
-        for( i = player.x()-2; i <= player.x()+2; i++, y+=56 )
-        {
-        	int x = (WINDOW_WIDTH - 5*56)/2;
-            for( j = player.y()-2; j <= player.y()+2; j++, x+=56 )
-            {
-                if( maze.in_bounds(Position(i, j)) )
-                {
-                    if (maze[i][j].type() == Block::FLOOR)
-                    {
-                        spriteFloor.setPosition(sf::Vector2f(x, y));
-                        window->draw(spriteFloor);
-                    }
-                    else
-                    {
-                        spriteWall.setPosition(sf::Vector2f(x, y));
-                        window->draw(spriteWall);
-                    }
-
-                    if(player.x() == i && player.y() == j)
-                    {
-                        spriteCharacter.setPosition(sf::Vector2f(x, y));
-                        window->draw(spriteCharacter);
-                    }
-                }
-            }
-        }
-        window->display();
     }
+}
+
+
+void Game::redraw()
+{
+    window.clear(sf::Color::Black);
+
+    int y = (WINDOW_HEIGHT - 5*56)/2;
+    for( int j = player.y()-2; j <= player.y()+2; j++, y+=56 )
+    {
+    	int x = (WINDOW_WIDTH - 5*56)/2;
+        for( int i = player.x()-2; i <= player.x()+2; i++, x+=56 )
+        {
+            if( maze.in_bounds(Position(i, j)) )
+            {
+                if (maze[i][j].type() == Block::FLOOR)
+                {
+                    spriteFloor.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteFloor);
+                }
+                else
+                {
+                    spriteWall.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteWall);
+                }
+
+                if(player.x() == i && player.y() == j)
+                {
+                    spriteCharacter.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteCharacter);
+                }
+            }
+        }
+    }
+
+    window.display();
 }

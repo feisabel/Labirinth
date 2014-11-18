@@ -1,11 +1,16 @@
-#include "classmain.h"
+#include "../classmain.h"
+#include "../game.h"
+#include "../scene_manager.h"
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
 #include <iostream>
-#include "source/game.h"
 
-void Main::menu(){
+
+/*
+void Main::menu()
+{
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Labirinto");
 
     //window.setFramerateLimit(30);
@@ -30,7 +35,7 @@ void Main::menu(){
                 {
                     if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 300 && event.mouseButton.y < 345)
                     {
-                        startGame(&window);
+                        startGame();
                         //Cogitar colocar nível
                         //Declara jogo e inicia
                     }
@@ -40,7 +45,7 @@ void Main::menu(){
                     }
                     if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
                     {
-                        howToPlay(&window);
+                        howToPlay();
                     }
                 }
             }
@@ -106,22 +111,22 @@ void Main::menu(){
     }
 }
 
-void Main::howToPlay(sf::RenderWindow* window)
+void Main::howToPlay()
 {
-    window->clear(sf::Color::Black); // Limpa a tela e coloca para preta
-    while(window->isOpen())
+    window.clear(sf::Color::Black); // Limpa a tela e coloca para preta
+    while(window.isOpen())
     {
         sf::Event event;
-        while(window->pollEvent(event))
+        while(window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window->close();
+                window.close();
 
             if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
-                    window->close();
+                    window.close();
                 }
             }
             if (event.type == sf::Event::MouseButtonPressed)
@@ -146,7 +151,7 @@ void Main::howToPlay(sf::RenderWindow* window)
         if (!font.loadFromFile("journal.ttf"))
         {
             std::cout <<"Erro ao inicializar a textura" << std::endl;
-            window->close();
+            window.close();
         }
 
         sf::Text text1;
@@ -172,27 +177,27 @@ void Main::howToPlay(sf::RenderWindow* window)
         text1.setString("Exit");
 
 
-        window->draw(box);
-        window->draw(text);
-        window->draw(box2);
-        window->draw(text1);
-        window->display();
+        window.draw(box);
+        window.draw(text);
+        window.draw(box2);
+        window.draw(text1);
+        window.display();
     }
 }
 
-void Main::startGame(sf::RenderWindow* window)
+void Main::startGame()
 {
     Game myGame;
     myGame.read_from_file();
-    myGame.init(window); //Mostra o personagem na posição inicial dele no labirinto
+    myGame.init(); //Mostra o personagem na posição inicial dele no labirinto
 
-    while(window->isOpen())
+    while(window.isOpen())
     {
         sf::Event event;
-        while(window->pollEvent(event))
+        while(window.pollEvent(event))
         {
             if(event.type == sf::Event::Closed)
-                window->close();
+                window.close();
 
             if(event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
             {
@@ -208,7 +213,7 @@ void Main::startGame(sf::RenderWindow* window)
         if (!font.loadFromFile("journal.ttf"))
         {
             std::cout <<"Erro ao inicializar a textura" << std::endl;
-            window->close();
+            window.close();
         }
         sf::Text text;
         text.setFont(font);
@@ -216,9 +221,28 @@ void Main::startGame(sf::RenderWindow* window)
         text.setColor(sf::Color::White);
         text.setPosition(sf::Vector2f(100,100));
         text.setString("Game");
-        window->clear(sf::Color::Black); // Limpa a tela e coloca para preta
-        window->draw(text);
-        window->display();
+        window.clear(sf::Color::Black); // Limpa a tela e coloca para preta
+        window.draw(text);
+        window.display();
     }
 
+}
+*/
+
+
+bool Main::quit = false;
+
+Game Main::game;
+Menu Main::menu;
+
+
+void Main::loop ()
+{
+    SceneManager::change_scene(menu);
+    while (!quit)
+    {
+        SceneManager::redraw();
+        SceneManager::update();
+    }
+    Scene::close();
 }

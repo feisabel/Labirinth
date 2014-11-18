@@ -14,11 +14,11 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 
 	queue<Position> bfs;
 	bfs.push(_pos);
-	while (!bfs.is_empty() && bfs.front() != player.pos())
+	while (!bfs.empty() && bfs.front() != player.pos())
 	{	
 		list<Position> tmp = get_adjacents(bfs.front());
 
-		while (!tmp.is_empty())
+		while (!tmp.empty())
 		{	
 			Position p = tmp.pop_front();
 			if (maze.in_bounds(p) && maze[p.x][p.y].type() != Block::WALL && !result.includes(p))
@@ -28,11 +28,11 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 		result.push(bfs.pop());
 	}
 	
-	if (!bfs.is_empty())
+	if (!bfs.empty())
 	{
 		stack<Position> path;
 		path.push(bfs.pop());
-		while (!result.is_empty())
+		while (!result.empty())
 		{
 			Position x = result.pop();
 			if (x.is_adjacent_to(path.top()))
@@ -43,7 +43,7 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 
 		path.pop();
 
-		while (!path.is_empty())
+		while (!path.empty())
 		{
 			route.push(path.pop());
 		}
@@ -56,7 +56,7 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 
 bool Enemy::chase(Player& player, Maze& maze)
 {	
-	if (route.is_empty())
+	if (route.empty())
 	{
 		bool found_route = trace_route(player, maze);
 		if (!found_route) return false;

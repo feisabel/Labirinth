@@ -13,7 +13,7 @@ class queue
 
 public:
 	size_t size() const;
-	bool is_empty() const;
+	bool empty() const;
 
 	const T& front() const;
 	

@@ -7,7 +7,7 @@ template <class T>
 size_t queue<T>::size() const { return internal.size(); }
 
 template <class T>
-bool queue<T>::is_empty() const { return internal.is_empty(); }
+bool queue<T>::empty() const { return internal.empty(); }
 
 
 template <class T>

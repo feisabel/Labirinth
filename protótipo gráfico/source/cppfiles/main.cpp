@@ -1,8 +1,8 @@
-#include "classmain.h"
+#include "../classmain.h"
 
 int main()
 {
     Main do_jogo;
-    do_jogo.menu();
+    do_jogo.loop();
     return 0;
 }

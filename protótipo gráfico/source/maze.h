@@ -45,16 +45,16 @@ class Maze::_proxy
 	friend class Maze;
 
 public:
-	Block& operator[](size_t col);
-	const Block& operator[](size_t col) const;
+	Block& operator[](size_t row);
+	const Block& operator[](size_t row) const;
 
 private:
-	_proxy(Maze& _parent, size_t _row);
-	_proxy(const Maze& _parent, size_t _row);
+	_proxy(Maze& parent, size_t col);
+	_proxy(const Maze& parent, size_t col);
 
-    Maze* parent;
-    const Maze* const_parent;
-    size_t row;
+    Maze* _parent;
+    const Maze* _const_parent;
+    size_t _col;
 };
 
 

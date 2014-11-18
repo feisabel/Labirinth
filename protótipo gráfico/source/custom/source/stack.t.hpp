@@ -7,7 +7,7 @@ template <class T>
 size_t stack<T>::size() const { return internal.size(); }
 
 template <class T>
-bool stack<T>::is_empty() const { return internal.is_empty(); }
+bool stack<T>::empty() const { return internal.empty(); }
 
 
 template <class T>

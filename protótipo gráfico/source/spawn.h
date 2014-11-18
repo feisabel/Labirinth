@@ -1,27 +1,20 @@
 #ifndef __SPAWN
 #define __SPAWN
 
-#include "custom/list.h"
-using custom::list;
-
 #include "entity.h"
 #include "enemy.h"
 
 
 class Spawn : public Entity
 {
+private:
 	list<Enemy*> children;
 
 public:
 	Spawn() {}
-	
-	~Spawn();
-	
-	Enemy* create_enemy();
-	void destroy_enemy(Enemy* e);
 
-	void update();
+	Enemy* const create_enemy() { children.push_back(new Enemy); return children.back(); }
+	void destroy_enemy() { delete children.pop_back(); }
 };
-
 
 #endif

@@ -1,0 +1,3 @@
+/tmp/ccrH1Ce2.o: In function `Main::loop()':
+classmain.cpp:(.text+0x27): undefined reference to `Main::quit'
+collect2: error: ld returned 1 exit status

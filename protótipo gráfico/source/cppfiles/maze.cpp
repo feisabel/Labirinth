@@ -11,7 +11,7 @@ Maze::~Maze()
 {
 	if (matrix != NULL)
 	{
-		for (size_t i=0; i<_rows; i++)
+		for (size_t i=0; i<_cols; i++)
 		{
 			delete[] matrix[i];
 			matrix[i] = NULL;
@@ -27,11 +27,11 @@ void Maze::init(size_t n, size_t m)
 {	
 	if (matrix == NULL)
 	{
-		_rows = n; _cols = m;
-		matrix = new Block*[_rows];
-		for (size_t i=0; i<_rows; i++)
+		_cols = n; _rows = m;
+		matrix = new Block*[_cols];
+		for (size_t i=0; i<_cols; i++)
 		{
-			matrix[i] = new Block[_cols];
+			matrix[i] = new Block[_rows];
 		}
 	}
 }
@@ -56,7 +56,7 @@ size_t Maze::cols() const
 
 bool Maze::in_bounds(const Position& p) const
 {
-	return 0 <= p.x && p.x < _rows && 0 <= p.y && p.y < _cols;
+	return 0 <= p.x && p.x < _cols && 0 <= p.y && p.y < _rows;
 }
 
 
@@ -84,14 +84,14 @@ const Position& Maze::exit() const
 
 
 
-Maze::_proxy Maze::operator[](size_t row)
+Maze::_proxy Maze::operator[](size_t col)
 {
-	return _proxy(*this, row);
+	return _proxy(*this, col);
 }
 
-const Maze::_proxy Maze::operator[](size_t row) const
+const Maze::_proxy Maze::operator[](size_t col) const
 {
-	return _proxy(*this, row);
+	return _proxy(*this, col);
 }
 
 
@@ -99,23 +99,23 @@ const Maze::_proxy Maze::operator[](size_t row) const
 
 // proxy class for operator[][]
 
-Maze::_proxy::_proxy(Maze& _parent, size_t _row)
-: parent(&_parent), const_parent(NULL), row(_row)
+Maze::_proxy::_proxy(Maze& parent, size_t col)
+: _parent(&parent), _const_parent(NULL), _col(col)
 {
 }
 
-Maze::_proxy::_proxy(const Maze& _parent, size_t _row)
-: parent(NULL), const_parent(&_parent), row(_row)
+Maze::_proxy::_proxy(const Maze& parent, size_t col)
+: _parent(NULL), _const_parent(&parent), _col(col)
 {
 }
 
-Block& Maze::_proxy::operator[](size_t col)
+Block& Maze::_proxy::operator[](size_t row)
 {
-	return parent->matrix[row][col];
+	return _parent->matrix[_col][row];
 }
 
-const Block& Maze::_proxy::operator[](size_t col) const
+const Block& Maze::_proxy::operator[](size_t row) const
 {
-	return const_parent->matrix[row][col];
+	return _const_parent->matrix[_col][row];
 }
 

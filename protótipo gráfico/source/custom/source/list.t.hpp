@@ -83,7 +83,7 @@ size_t list<T>::size() const
 
 // se está vazia
 template <class T>
-bool list<T>::is_empty() const
+bool list<T>::empty() const
 {
 	return _size == 0;
 }
