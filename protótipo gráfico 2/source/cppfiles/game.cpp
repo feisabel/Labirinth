@@ -514,3 +514,14 @@ void Game::redraw()
 
     window.display();
 }
+
+void Game::restart()
+{
+    ammuns.clear();    // A definir.
+	hearts.clear();
+	traps.clear();
+	spawns.clear();
+	enemies.clear();
+    bullet_course.clear();
+    read_from_file();
+}

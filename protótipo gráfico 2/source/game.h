@@ -65,7 +65,7 @@ public:
 
 	void update();
 	void redraw();
-
+	void restart();
     //void active_traps();
     void useAmount();
     void fire();

@@ -1,5 +1,6 @@
 #include "../classmain.h"
 #include "../menu.h"
+#include "../game.h"
 #include "../menucontinue.h"
 #include "../scene_manager.h"
 
@@ -86,7 +87,7 @@ void MenuContinue::update()
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 380 && event.mouseButton.y < 425)
                 {
-                    //fazer algo para reiniciar
+                    Main::game.restart();
                     SceneManager::change_scene(Main::game);
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
