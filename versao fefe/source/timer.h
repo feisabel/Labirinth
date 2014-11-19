@@ -1,15 +1,25 @@
 #ifndef __timer__
 #define __timer__
 
-#include <iostream>
+#include <ctime>
 
-class Timer {
-    int cont, max;
+
+class Timer
+{
+    unsigned long long cont, max;
+
 public:
-    Timer(int m) : cont(0), max(m) {}
-    bool tick() { cont++; if (cont < max) return true; else return false; }
+    Timer(double usec) : cont(0), max(usec * 1000000 * CLOCKS_PER_SEC) {}
+    
+    bool tick()
+    {
+    	cont++;
+    	if (cont < max) return true;
+    	else return false;
+    }
+    
     void reboot() { cont = 0; }
-    int time_remaining() { return max - cont; }
+    unsigned long long time_remaining() const { return max - cont; }
 };
 
 #endif
