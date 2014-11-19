@@ -116,14 +116,28 @@ Game::Game()
     if (!trap_off.loadFromFile("trap_off3.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
     }
 
     if (!trap_on.loadFromFile("trap_on3.png"))
     {
         std::cout << "erro de textura" << std::endl;
+        return;
+    }
+
+    if (!spawn.loadFromFile("spawn1.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
     }
 
     if (!monster_front.loadFromFile("skeleton_front.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+
+    if (!ammo.loadFromFile("ammo.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
@@ -164,7 +178,9 @@ Game::Game()
     spriteWall.setTexture(wall);
     spriteFloor.setTexture(floor);
     spriteTrap.setTexture(trap_off);
+    spriteSpawn.setTexture(spawn);
     spriteMonster.setTexture(monster_front);
+    spriteAmmo.setTexture(ammo);
     spriteMed.setTexture(med);
     spriteCharacter.setTexture(character_back);
 
@@ -274,6 +290,32 @@ bool Game::showTrap(int i, int j)
     return false;
 }
 
+bool Game::showAmmo(int i, int j)
+{
+    Position a(i, j);
+    Item e;
+    for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++)
+    {
+        e = *i;
+        if(e.pos() == a)
+            return true;
+    }
+    return false;
+}
+
+bool Game::showSpawn(int i, int j)
+{
+    Position a(i, j);
+    Spawn e;
+    for(list<Spawn>::iterator i = spawns.begin(); i != spawns.end(); i++)
+    {
+        e = *i;
+        if(e.pos() == a)
+            return true;
+    }
+    return false;
+}
+
 void Game::redraw()
 {
     window.clear(sf::Color::Black);
@@ -297,10 +339,22 @@ void Game::redraw()
                     window.draw(spriteWall);
                 }
 
+                if(showSpawn(i, j))
+                {
+                    spriteSpawn.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteSpawn);
+                }
+
                 if(showMonster(i, j))
                 {
                     spriteMonster.setPosition(sf::Vector2f(x, y));
                     window.draw(spriteMonster);
+                }
+
+                if(showAmmo(i, j))
+                {
+                    spriteAmmo.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteAmmo);
                 }
 
                 if(showMed(i, j))
