@@ -113,7 +113,23 @@ Game::Game()
         return;
     }
 
+    if (!trap_off.loadFromFile("trap_off3.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
+    if (!trap_on.loadFromFile("trap_on3.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
     if (!monster_front.loadFromFile("skeleton_front.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+
+    if (!med.loadFromFile("medkit.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
@@ -147,12 +163,13 @@ Game::Game()
 
     spriteWall.setTexture(wall);
     spriteFloor.setTexture(floor);
+    spriteTrap.setTexture(trap_off);
     spriteMonster.setTexture(monster_front);
+    spriteMed.setTexture(med);
     spriteCharacter.setTexture(character_back);
 
     player.pos() = maze.entrance();
 }
-
 
 void Game::update()
 {
@@ -191,17 +208,66 @@ void Game::update()
             }
         }
     }
+    //active_traps();
 }
+
+/*void Game::active_traps()
+{
+    for(int i = 0; i < traps.size(); i++)
+    {
+        Trap *t = &traps.at(i);
+        if(t->is_active())
+            t->activate();
+        else
+            t->disactivate();
+    }
+}*/
 
 bool Game::showMonster(int i, int j)
 {
     Position a(i, j);
     Enemy e;
-    for(int i = 0; i < enemies.size(); i++)
+    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
     {
-        e = enemies.at(i);
+        e = *i;
         if(e.pos() == a)
         {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Game::showMed(int i, int j)
+{
+    Position a(i, j);
+    Item e;
+    for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++)
+    {
+        e = *i;
+        if(e.pos() == a)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Game::showTrap(int i, int j)
+{
+    Position a(i, j);
+    Trap e;
+    for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
+    {
+        e = *i;
+        if(e.pos() == a && e.is_active())
+        {
+            spriteTrap.setTexture(trap_on);
+            return true;
+        }
+        else if( e.pos() == a && !e.is_active())
+        {
+            spriteTrap.setTexture(trap_off);
             return true;
         }
     }
@@ -235,6 +301,18 @@ void Game::redraw()
                 {
                     spriteMonster.setPosition(sf::Vector2f(x, y));
                     window.draw(spriteMonster);
+                }
+
+                if(showMed(i, j))
+                {
+                    spriteMed.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteMed);
+                }
+
+                if(showTrap(i, j))
+                {
+                    spriteTrap.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteTrap);
                 }
 
                 if(player.x() == i && player.y() == j)

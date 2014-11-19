@@ -33,7 +33,10 @@ public:
 
 	sf::Texture wall;
 	sf::Texture floor;
+	sf::Texture trap_off;
+	sf::Texture trap_on;
 	sf::Texture monster_front;
+	sf::Texture med;
 	sf::Texture character_back;
 	sf::Texture character_front;
 	sf::Texture character_left;
@@ -42,7 +45,9 @@ public:
 
 	sf::Sprite spriteWall;
 	sf::Sprite spriteFloor;
+    sf::Sprite spriteTrap;
 	sf::Sprite spriteMonster;
+	sf::Sprite spriteMed;
 	sf::Sprite spriteCharacter;
 
 	Game();
@@ -50,7 +55,10 @@ public:
 	void update();
 	void redraw();
 
+    //void active_traps();
     bool showMonster(int, int);
+	bool showMed(int, int);
+	bool showTrap(int, int);
 	bool read_from_file();
 };
 
