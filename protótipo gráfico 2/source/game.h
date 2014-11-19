@@ -17,6 +17,7 @@ using custom::list;
 #include "scene.h"
 #include "scene_manager.h"
 #include "menu.h"
+#include "menucontinue.h"
 class Main;
 
 class Game : public Scene

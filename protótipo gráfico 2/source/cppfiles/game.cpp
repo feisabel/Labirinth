@@ -1,6 +1,7 @@
+#include "../menu.h"
 #include "../game.h"
 #include "../classmain.h"
-#include "../menu.h"
+#include "../menucontinue.h"
 #include "../scene.h"
 #include "../scene_manager.h"
 #include "../enemy.h"
@@ -197,7 +198,7 @@ void Game::update()
         {
             if (event.key.code == sf::Keyboard::Escape)
             {
-                SceneManager::change_scene(Main::menu);
+                SceneManager::change_scene(Main::menucontinue);
             }
             else if (event.key.code == sf::Keyboard::Left)
             {
@@ -242,8 +243,6 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Z)
             {
                 useAmount();
-                //acrescenta a quantidade de vida/munição necessária
-                //tira da lista esse item
             }
         }
     }

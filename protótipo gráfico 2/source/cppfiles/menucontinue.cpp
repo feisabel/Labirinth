@@ -1,10 +1,11 @@
-#include "../menu.h"
 #include "../classmain.h"
+#include "../menu.h"
+#include "../menucontinue.h"
 #include "../scene_manager.h"
 
-Menu::Menu()
+MenuContinue::MenuContinue()
 {
-    if (!font.loadFromFile("journal.ttf"))
+        if (!font.loadFromFile("journal.ttf"))
     {
        std::cout << "Erro ao inicializar a textura" << std::endl;
     }
@@ -33,23 +34,19 @@ Menu::Menu()
 
         button[c].content.setColor(sf::Color::White);
 
-        //BOTAO INICIAR
         if (c == 0) {
-            button[c].content.setString("Play");
+            button[c].content.setString("Resume");
         }
-        //BOTAO CRÉDITOS
         if (c == 1) {
-            button[c].content.setString("Credits");
+            button[c].content.setString("Restart");
         }
-        //BOTAO RANKING
         if (c == 2) {
-            button[c].content.setString("How to play");
+            button[c].content.setString("Menu");
         }
     }
 }
 
-
-void Menu::redraw()
+void MenuContinue::redraw()
 {
     window.clear(sf::Color::Black);
     window.draw(title_teste);
@@ -65,10 +62,8 @@ void Menu::redraw()
     window.display();
 }
 
-
-void Menu::update()
+void MenuContinue::update()
 {
-    // check all the window's events that were triggered since the last iteration of the loop
     sf::Event event;
     while(window.pollEvent(event))
     {
@@ -91,14 +86,14 @@ void Menu::update()
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 380 && event.mouseButton.y < 425)
                 {
-                    //credits();
+                    //fazer algo para reiniciar
+                    SceneManager::change_scene(Main::game);
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
                 {
-                    //howToPlay(&window);
+                    SceneManager::change_scene(Main::menu);
                 }
             }
         }
     }
-
 }
