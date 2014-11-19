@@ -39,3 +39,4 @@ std::istream& operator>> (std::istream& in, Position& p)
 {
 	return in >> p.x >> p.y;
 }
+

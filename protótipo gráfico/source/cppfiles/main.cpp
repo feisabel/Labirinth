@@ -2,7 +2,7 @@
 
 int main()
 {
-    Main do_jogo;
-    do_jogo.loop();
+    Main myGame;
+    myGame.loop();
     return 0;
 }

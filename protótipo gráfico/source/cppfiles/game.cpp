@@ -1,6 +1,9 @@
 #include "../game.h"
 #include "../classmain.h"
-
+#include "../menu.h"
+#include "../scene.h"
+#include "../scene_manager.h"
+#include "../enemy.h"
 #include <fstream>
 #include <iostream>
 
@@ -110,6 +113,12 @@ Game::Game()
         return;
     }
 
+    if (!monster_front.loadFromFile("skeleton_front.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+
     if (!character_back.loadFromFile("char_back.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -138,6 +147,7 @@ Game::Game()
 
     spriteWall.setTexture(wall);
     spriteFloor.setTexture(floor);
+    spriteMonster.setTexture(monster_front);
     spriteCharacter.setTexture(character_back);
 
     player.pos() = maze.entrance();
@@ -153,7 +163,7 @@ void Game::update()
         {
             if (event.key.code == sf::Keyboard::Escape)
             {
-                Main::quit = true;
+                SceneManager::change_scene(Main::menu);
             }
             else if (event.key.code == sf::Keyboard::Left)
             {
@@ -183,6 +193,20 @@ void Game::update()
     }
 }
 
+bool Game::showMonster(int i, int j)
+{
+    Position a(i, j);
+    Enemy e;
+    for(int i = 0; i < enemies.size(); i++)
+    {
+        e = enemies.at(i);
+        if(e.pos() == a)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 void Game::redraw()
 {
@@ -205,6 +229,12 @@ void Game::redraw()
                 {
                     spriteWall.setPosition(sf::Vector2f(x, y));
                     window.draw(spriteWall);
+                }
+
+                if(showMonster(i, j))
+                {
+                    spriteMonster.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteMonster);
                 }
 
                 if(player.x() == i && player.y() == j)

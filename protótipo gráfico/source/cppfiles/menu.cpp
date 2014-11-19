@@ -55,7 +55,7 @@ void Menu::redraw()
     window.clear(sf::Color::Black);
     window.draw(title_teste);
     window.draw(title);
-    
+
     //BOTÕES DO MENU
     for( int c = 0; c < 3; c++)
     {

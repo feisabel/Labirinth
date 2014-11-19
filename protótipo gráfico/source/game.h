@@ -15,8 +15,8 @@ using custom::list;
 #include "trap.h"
 #include "item.h"
 #include "scene.h"
-
-
+#include "scene_manager.h"
+#include "menu.h"
 class Main;
 
 class Game : public Scene
@@ -33,6 +33,7 @@ public:
 
 	sf::Texture wall;
 	sf::Texture floor;
+	sf::Texture monster_front;
 	sf::Texture character_back;
 	sf::Texture character_front;
 	sf::Texture character_left;
@@ -41,6 +42,7 @@ public:
 
 	sf::Sprite spriteWall;
 	sf::Sprite spriteFloor;
+	sf::Sprite spriteMonster;
 	sf::Sprite spriteCharacter;
 
 	Game();
@@ -48,6 +50,7 @@ public:
 	void update();
 	void redraw();
 
+    bool showMonster(int, int);
 	bool read_from_file();
 };
 
