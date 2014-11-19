@@ -60,6 +60,7 @@ public:
 	void redraw();
 
     //void active_traps();
+    void useAmount();
     bool showSpawn(int, int);
     bool showMonster(int, int);
 	bool showAmmo(int, int);

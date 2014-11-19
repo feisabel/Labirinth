@@ -4,6 +4,7 @@
 #include "../scene.h"
 #include "../scene_manager.h"
 #include "../enemy.h"
+#include "../item.h"
 #include <fstream>
 #include <iostream>
 
@@ -61,13 +62,13 @@ bool Game::read_from_file()
 					}
 					else if (x == 6)
 					{
-						Item h;
+						Item h(true);
 						h.pos() = Position(i, j);
 						hearts.push_back(h);
 					}
 					else if (x == 7)
 					{
-						Item a;
+						Item a(false);
 						a.pos() = Position(i, j);
 						ammuns.push_back(a);
 					}
@@ -201,32 +202,76 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Left)
             {
                 spriteCharacter.setTexture(character_left);
-                player.x()--;
-                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
+                if( player.direction() == 'l')
+                {
+                    player.x()--;
+                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
+                }
+                player.direction('l');
             }
             else if (event.key.code == sf::Keyboard::Right)
             {
                 spriteCharacter.setTexture(character_right);
-                player.x()++;
-                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
+                if( player.direction() == 'r')
+                {
+                    player.x()++;
+                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
+                }
+                player.direction('r');
             }
             else if (event.key.code == sf::Keyboard::Down)
             {
                 spriteCharacter.setTexture(character_front);
-                player.y()++;
-                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
+                if( player.direction() == 'd')
+                {
+                    player.y()++;
+                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
+                }
+                player.direction('d');
             }
             else if (event.key.code == sf::Keyboard::Up)
             {
                 spriteCharacter.setTexture(character_back);
-                player.y()--;
-                if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
+                if( player.direction() == 'u')
+                {
+                    player.y()--;
+                    if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
+                }
+                player.direction('u');
+            }
+            else if (event.key.code == sf::Keyboard::Z)
+            {
+                useAmount();
+                //acrescenta a quantidade de vida/munição necessária
+                //tira da lista esse item
             }
         }
     }
     //active_traps();
 }
 
+void Game::useAmount()
+{
+    int i;
+    Item t(true);
+    list<Item>::iterator it;
+    for(it = hearts.begin(), i = 0; it != hearts.end(); it++, i++)
+    {
+        t = *it;
+        if(t.pos() == player.pos()){
+            t = hearts.erase(i);
+            player.change_hp(t.amount());
+        }
+    }
+    for(it = ammuns.begin(), i = 0; it != ammuns.end(); it++, i++)
+    {
+        t = *it;
+        if(t.pos() == player.pos()){
+            t = ammuns.erase(i);
+            player.change_ammo(t.amount());
+        }
+    }
+}
 /*void Game::active_traps()
 {
     for(int i = 0; i < traps.size(); i++)
@@ -257,7 +302,7 @@ bool Game::showMonster(int i, int j)
 bool Game::showMed(int i, int j)
 {
     Position a(i, j);
-    Item e;
+    Item e(true);
     for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++)
     {
         e = *i;
@@ -293,7 +338,7 @@ bool Game::showTrap(int i, int j)
 bool Game::showAmmo(int i, int j)
 {
     Position a(i, j);
-    Item e;
+    Item e(false);
     for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++)
     {
         e = *i;
