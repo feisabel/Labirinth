@@ -1,5 +1,19 @@
 #include "../resource_manager.h"
 
+
+size_t hashf(std::string s)
+{
+    size_t sum = 0;
+    for (size_t i = 0; i < s.size()/2; i++)
+    {
+        sum += 7*s[i] + 5*s[s.size()-i-1];
+    }
+}
+
+
+hash_table<std::string, sf::Texture> ResourceManager::textures(hashf);
+
+
 void ResourceManager::load()
 {
 	sf::Texture wall;
