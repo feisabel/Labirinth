@@ -6,7 +6,7 @@
 
 MenuContinue::MenuContinue()
 {
-        if (!font.loadFromFile("journal.ttf"))
+        if (!font.loadFromFile("resources/fonts/journal.ttf"))
     {
        std::cout << "Erro ao inicializar a textura" << std::endl;
     }

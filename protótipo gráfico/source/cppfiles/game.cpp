@@ -447,11 +447,11 @@ void Game::redraw()
 {
     window.clear(sf::Color::Black);
 
-    int y = (WINDOW_HEIGHT - 5*56)/2;
-    for( int j = player.y()-2; j <= player.y()+2; j++, y+=56 )
+    int y = (WINDOW_HEIGHT - 9*56)/2;
+    for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
     {
-    	int x = (WINDOW_WIDTH - 5*56)/2;
-        for( int i = player.x()-2; i <= player.x()+2; i++, x+=56 )
+    	int x = (WINDOW_WIDTH - 9*56)/2;
+        for( int i = player.x()-4; i <= player.x()+4; i++, x+=56 )
         {
             if( maze.in_bounds(Position(i, j)) )
             {

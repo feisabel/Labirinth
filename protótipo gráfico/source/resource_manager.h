@@ -16,5 +16,6 @@ public:
 	static void load();
 };
 
+size_t hash(std::string);
 
 #endif
