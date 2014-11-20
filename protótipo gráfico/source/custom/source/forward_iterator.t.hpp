@@ -1,6 +1,6 @@
 namespace custom
 {
-
+	
 // iterador
 
 // construtor (iterador)
