@@ -6,20 +6,27 @@
 
 class Timer
 {
-    unsigned long long cont, max;
+    unsigned long long counter;
+    unsigned long long max;
 
 public:
-    Timer(double usec) : cont(0), max(usec * CLOCKS_PER_SEC / 1000000) {}
+    Timer(double usec) : counter(usec * CLOCKS_PER_SEC / 1000000) {}
     
     bool tick()
     {
-    	cont++;
-    	if (cont < max) return true;
+    	if (counter > 0)
+        {
+            --counter;
+            return true;
+        }
     	else return false;
     }
     
-    void reboot() { cont = 0; }
-    unsigned long long time_remaining() const { return max - cont; }
+    bool ended() { return counter == 0; }
+
+    void reboot() { counter = max; }
+
+    unsigned long long remaining() const { return counter; }
 };
 
 

@@ -11,7 +11,11 @@ public:
 	static void update() { current_scene->update(); }
 	static void redraw() { current_scene->redraw(); }
 
-	static void change_scene(Scene& s) { current_scene = &s; }
+	static void change_scene(Scene& s)
+	{
+		current_scene = &s;
+		current_scene->b_redraw = true;
+	}
 };
 
 

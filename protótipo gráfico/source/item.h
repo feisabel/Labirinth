@@ -6,19 +6,21 @@
 
 class Item : public Entity
 {
+public:
+	enum Type {HEAL, AMMO};
 protected:
 	int _amount;
-	int _type; //true -> heart, false -> ammo
+	Type _type; //true -> heart, false -> ammo
 
 public:
-	Item() : _type(true) { _amount = randomize(5, 10); }
-	Item(bool t) : _type(t) {}
-	Item(int a, bool t) : _amount(a), _type(t) {}
+	Item() { _amount = randomize(5, 10); }
+	Item(Type t) : _type(t) { _amount = randomize(5, 10); }
+	Item(Type t, int a) : _amount(a), _type(t) {}
 
 	int& amount() { return _amount; }
 	int amount() const { return _amount; }
-	int& type() { return _type; }
-	int type() const { return _type; }
+	Type& type() { return _type; }
+	Type type() const { return _type; }
 };
 
 #endif

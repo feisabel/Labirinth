@@ -10,11 +10,14 @@ const int WINDOW_HEIGHT = 560;
 class Scene
 {
 public:
+	Scene () : b_redraw(true) {}
     virtual void update() = 0;
     virtual void redraw() = 0;
 
     static void close();
     
+    bool b_redraw;
+
 protected:
     static sf::RenderWindow window;
 };

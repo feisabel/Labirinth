@@ -15,10 +15,14 @@ Menu::Menu()
 
 void Menu::redraw()
 {
-    window.clear(sf::Color::Black);
-    window.draw(spriteBackground);
-    window.display();
+    if (b_redraw)
+    {
+        window.clear(sf::Color::Black);
+        window.draw(spriteBackground);
+        window.display();
 
+        b_redraw = false;
+    }
 }
 
 

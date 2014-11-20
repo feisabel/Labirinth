@@ -16,7 +16,8 @@ bool Game::read_from_file()
 
 	entrada.open( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
 
-	if( entrada.is_open() ) {
+	if( entrada.is_open() )
+    {
 		int a, b;
 
 		if( !(entrada >> a) )
@@ -63,13 +64,13 @@ bool Game::read_from_file()
 					}
 					else if (x == 6)
 					{
-						Item h(true);
+						Item h(Item::HEAL);
 						h.pos() = Position(i, j);
 						hearts.push_back(h);
 					}
 					else if (x == 7)
 					{
-						Item a(false);
+						Item a(Item::AMMO);
 						a.pos() = Position(i, j);
 						ammuns.push_back(a);
 					}
@@ -82,6 +83,7 @@ bool Game::read_from_file()
 				}
 			}
 		}
+
         // Verifica se a leitura da matriz ocorreu corretamente.
         if( j != b ) {
         	std::cout << "não leu matriz" << std::endl;
@@ -100,6 +102,7 @@ bool Game::read_from_file()
 }
 
 Game::Game()
+: timer(10000)
 {
     if (!read_from_file()) return;
 
@@ -290,7 +293,7 @@ Game::Game()
 void Game::update()
 {
     sf::Event event;
-    while(window.pollEvent(event))
+    while(window.pollEvent(event) || timer.tick())
     {
         if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
         {
@@ -301,52 +304,66 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Left)
             {
                 spriteCharacter.setTexture(character_left);
-                if( player.direction() == 'l')
+                if( player.direction() == LEFT)
                 {
                     player.x()--;
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
                 }
-                player.direction('l');
+                player.direction() = LEFT;
+
+                b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Right)
             {
                 spriteCharacter.setTexture(character_right);
-                if( player.direction() == 'r')
+                if( player.direction() == RIGHT)
                 {
                     player.x()++;
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
                 }
-                player.direction('r');
+                player.direction() = RIGHT;
+            
+                b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Down)
             {
                 spriteCharacter.setTexture(character_front);
-                if( player.direction() == 'd')
+                if( player.direction() == DOWN)
                 {
                     player.y()++;
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
                 }
-                player.direction('d');
+                player.direction() = DOWN;
+
+                b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Up)
             {
                 spriteCharacter.setTexture(character_back);
-                if( player.direction() == 'u')
+                if( player.direction() == UP)
                 {
                     player.y()--;
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
                 }
-                player.direction('u');
+                player.direction() = UP;
+
+                b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Z)
             {
                 useAmount();
+
+                b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
             {
                 fire();
+
+                b_redraw = true;
             }
         }
+
+        if (timer.ended()) timer.reboot();
     }
     //active_traps();
 }
@@ -354,22 +371,24 @@ void Game::update()
 void Game::useAmount()
 {
     int i;
-    Item t(true);
+    Item t(Item::HEAL);
     list<Item>::iterator it;
     for(it = hearts.begin(), i = 0; it != hearts.end(); it++, i++)
     {
         t = *it;
-        if(t.pos() == player.pos()){
+        if(t.pos() == player.pos())
+        {
             t = hearts.erase(i);
-            player.change_hp(t.amount());
+            player.get(t);
         }
     }
     for(it = ammuns.begin(), i = 0; it != ammuns.end(); it++, i++)
     {
         t = *it;
-        if(t.pos() == player.pos()){
+        if(t.pos() == player.pos())
+        {
             t = ammuns.erase(i);
-            player.change_ammo(t.amount());
+            player.get(t);
         }
     }
 }
@@ -403,7 +422,7 @@ bool Game::showMonster(int i, int j)
 bool Game::showMed(int i, int j)
 {
     Position a(i, j);
-    Item e(true);
+    Item e(Item::HEAL);
     for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++)
     {
         e = *i;
@@ -439,7 +458,7 @@ bool Game::showTrap(int i, int j)
 bool Game::showAmmo(int i, int j)
 {
     Position a(i, j);
-    Item e(false);
+    Item e(Item::AMMO);
     for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++)
     {
         e = *i;
@@ -466,7 +485,7 @@ void Game::fire()
 {
     Entity bullet(player.x(), player.y());
     Position pos;
-    if (player.direction() == 'l')
+    if (player.direction() == LEFT)
     {
         spriteBullet.setTexture(bullet_left);
         bullet.x()--;
@@ -478,7 +497,7 @@ void Game::fire()
             bullet.x()--;
         }
     }
-    else if (player.direction() == 'r')
+    else if (player.direction() == RIGHT)
     {
         spriteBullet.setTexture(bullet_right);
         bullet.x()++;
@@ -490,7 +509,7 @@ void Game::fire()
             bullet.x()++;
         }
     }
-    else if (player.direction() == 'u')
+    else if (player.direction() == UP)
     {
         spriteBullet.setTexture(bullet_up);
         bullet.y()--;
@@ -579,75 +598,80 @@ void Game::define_wall (int i, int j)
 
 void Game::redraw()
 {
-    window.clear(sf::Color::Black);
-
-    int y = (WINDOW_HEIGHT - 9*56)/2;
-    for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
+    if (b_redraw)
     {
-    	int x = (WINDOW_WIDTH - 9*56)/2;
-        for( int i = player.x()-4; i <= player.x()+4; i++, x+=56 )
+        window.clear(sf::Color::Black);
+
+        int y = (WINDOW_HEIGHT - 9*56)/2;
+        for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
         {
-            if( maze.in_bounds(Position(i, j)) )
+        	int x = (WINDOW_WIDTH - 9*56)/2;
+            for( int i = player.x()-4; i <= player.x()+4; i++, x+=56 )
             {
-                if (maze[i][j].type() == Block::FLOOR)
+                if( maze.in_bounds(Position(i, j)) )
                 {
-                    spriteFloor.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteFloor);
-                }
-                else
-                {
-                    define_wall(i, j);
-                    spriteWall.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteWall);
-                }
+                    if (maze[i][j].type() == Block::FLOOR)
+                    {
+                        spriteFloor.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteFloor);
+                    }
+                    else
+                    {
+                        define_wall(i, j);
+                        spriteWall.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteWall);
+                    }
 
-                if(showSpawn(i, j))
-                {
-                    spriteSpawn.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteSpawn);
-                }
+                    if(showSpawn(i, j))
+                    {
+                        spriteSpawn.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteSpawn);
+                    }
 
-                if(showMonster(i, j))
-                {
-                    spriteMonster.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteMonster);
-                }
+                    if(showMonster(i, j))
+                    {
+                        spriteMonster.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteMonster);
+                    }
 
-                if(showAmmo(i, j))
-                {
-                    spriteAmmo.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteAmmo);
-                }
+                    if(showAmmo(i, j))
+                    {
+                        spriteAmmo.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteAmmo);
+                    }
 
-                if(showMed(i, j))
-                {
-                    spriteMed.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteMed);
-                }
+                    if(showMed(i, j))
+                    {
+                        spriteMed.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteMed);
+                    }
 
-                if(showTrap(i, j))
-                {
-                    spriteTrap.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteTrap);
-                }
+                    if(showTrap(i, j))
+                    {
+                        spriteTrap.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteTrap);
+                    }
 
-                if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
-                {
-                    spriteBullet.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteBullet);
-                    bullet_course.pop();
-                }
+                    if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
+                    {
+                        spriteBullet.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteBullet);
+                        bullet_course.pop();
+                    }
 
-                if(player.x() == i && player.y() == j)
-                {
-                    spriteCharacter.setPosition(sf::Vector2f(x, y));
-                    window.draw(spriteCharacter);
+                    if(player.x() == i && player.y() == j)
+                    {
+                        spriteCharacter.setPosition(sf::Vector2f(x, y));
+                        window.draw(spriteCharacter);
+                    }
                 }
             }
         }
-    }
 
-    window.display();
+        window.display();
+    
+        b_redraw = false;
+    }
 }
 
 void Game::restart()
@@ -659,7 +683,7 @@ void Game::restart()
 	enemies.clear();
     bullet_course.clear();
     player.pos() = maze.entrance();
-    player.direction('u');
+    player.direction() = UP;
     spriteCharacter.setTexture(character_back);
     read_from_file();
 }

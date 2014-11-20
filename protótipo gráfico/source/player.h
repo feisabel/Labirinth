@@ -7,20 +7,39 @@
 class Player : public Character
 {
 	static const int max_ammo = 30;
-public:
-	Player(): _ammo(max_ammo) {}
+	static const int max_hp = 10;
 
-	void mark_path();
-	void shoot();
-	bool get(Item i);
-	void change_ammo(int a) { for(; _ammo < max_ammo && a != 0; _ammo++, a--); }
-	int ammo() const { return _ammo; }
-	char direction() const { return _direction; }
-	void direction(char d) { _direction = d; }
+	static const unsigned fov = 4;
 
-private:
 	int _ammo;
-	char _direction;
+	Direction _direction;
+
+public:
+	Player() : _ammo(max_ammo) {}
+
+	bool get(Item i)
+	{
+		if (i.type() == Item::HEAL)
+		{
+			_hp += i.amount();
+			if (_hp > max_hp) _hp = max_hp;
+		}
+		else
+		{
+			_ammo += i.amount();
+			if (_ammo > max_ammo) _ammo = max_ammo;
+		}
+	}
+
+	int ammo() const { return _ammo; }
+
+	Direction direction() const { return _direction; }
+	Direction& direction() { return _direction; }
+
+	bool in_fov(const Entity& e)
+	{
+		return _pos.x-4 <= e.x() && e.x() <= _pos.x+4 && _pos.y-4 <= e.y() && e.y() <= _pos.y+4;
+	}
 };
 
 

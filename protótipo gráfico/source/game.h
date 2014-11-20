@@ -18,6 +18,8 @@ using custom::list;
 #include "scene_manager.h"
 #include "menu.h"
 #include "menucontinue.h"
+#include "timer.h"
+
 class Main;
 
 class Game : public Scene
@@ -75,6 +77,8 @@ public:
 	sf::Sprite spriteMed;
 	sf::Sprite spriteCharacter;
     sf::Sprite spriteBullet;
+
+    Timer timer;
 
 	Game();
 

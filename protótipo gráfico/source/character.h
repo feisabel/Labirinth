@@ -15,8 +15,6 @@ public:
 	void move_to(Position& p) { _pos = p; }
 	void receive_dmg(int dmg);
 
-	void change_hp(int a) { _hp+=a; }
-
 	int hp() const { return _hp; }
 	int vel() const { return _vel; }
 

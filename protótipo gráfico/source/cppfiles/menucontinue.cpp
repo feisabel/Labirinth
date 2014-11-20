@@ -6,7 +6,7 @@
 
 MenuContinue::MenuContinue()
 {
-        if (!font.loadFromFile("resources/fonts/journal.ttf"))
+    if (!font.loadFromFile("resources/fonts/journal.ttf"))
     {
        std::cout << "Erro ao inicializar a textura" << std::endl;
     }
@@ -26,6 +26,9 @@ MenuContinue::MenuContinue()
     title.setColor(sf::Color::White);
     title.setString("Under Paris");
     title.setPosition(sf::Vector2f(110,100));
+
+    rect.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
+    rect.setFillColor(sf::Color(0, 0, 0, 127));
 
     for( int c = 0, rectY = 300; c < 3; c++, rectY+= 80)
     {
@@ -49,18 +52,22 @@ MenuContinue::MenuContinue()
 
 void MenuContinue::redraw()
 {
-    window.clear(sf::Color::Black);
-    window.draw(title_teste);
-    window.draw(title);
-
-    //BOTÕES DO MENU
-    for( int c = 0; c < 3; c++)
+    if (b_redraw)
     {
-        window.draw(button[c].rect); //DESENHA
-        window.draw(button[c].content);
-    }
+        window.draw(rect);
+        window.draw(title_teste);
+        window.draw(title);
 
-    window.display();
+        //BOTÕES DO MENU
+        for( int c = 0; c < 3; c++)
+        {
+            window.draw(button[c].rect); //DESENHA
+            window.draw(button[c].content);
+        }
+
+        window.display();
+        b_redraw = false;
+    }
 }
 
 void MenuContinue::update()

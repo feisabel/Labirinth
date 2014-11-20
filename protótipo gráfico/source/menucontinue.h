@@ -20,6 +20,7 @@ public:
 
 private:
     Button button[3];
+    sf::RectangleShape rect;
     sf::RectangleShape title_teste;
     sf::Text title;
     sf::Font font;
