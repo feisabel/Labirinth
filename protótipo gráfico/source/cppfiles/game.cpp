@@ -484,16 +484,18 @@ bool Game::showSpawn(int i, int j)
 void Game::fire()
 {
     Entity bullet(player.x(), player.y());
+<<<<<<< HEAD
     Position pos;
     if (player.direction() == LEFT)
+=======
+    if (player.direction() == 'l')
+>>>>>>> 9d01b11537febd1575ed5fbedce4e151a45a319c
     {
         spriteBullet.setTexture(bullet_left);
         bullet.x()--;
-        pos.y = bullet.y();
         while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
         {
-            pos.x = bullet.x();
-            bullet_course.push( pos );
+            bullet_course.push( bullet.pos() );
             bullet.x()--;
         }
     }
@@ -501,11 +503,9 @@ void Game::fire()
     {
         spriteBullet.setTexture(bullet_right);
         bullet.x()++;
-        pos.y = bullet.y();
         while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
         {
-            pos.x = bullet.x();
-            bullet_course.push( pos );
+            bullet_course.push( bullet.pos() );
             bullet.x()++;
         }
     }
@@ -513,11 +513,9 @@ void Game::fire()
     {
         spriteBullet.setTexture(bullet_up);
         bullet.y()--;
-        pos.x = bullet.x();
         while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
         {
-            pos.y = bullet.y();
-            bullet_course.push( pos );
+            bullet_course.push( bullet.pos() );
             bullet.y()--;
         }
     }
@@ -525,11 +523,9 @@ void Game::fire()
     {
         spriteBullet.setTexture(bullet_down);
         bullet.y()++;
-        pos.x = bullet.x();
         while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
         {
-            pos.y = bullet.y();
-            bullet_course.push( pos );
+            bullet_course.push( bullet.pos() );
             bullet.y()++;
         }
     }
@@ -551,7 +547,7 @@ void Game::define_wall (int i, int j)
     pos.y += 2;
     if (!maze.in_bounds(pos) || maze[i][j+1].type() == Block::WALL)
         d = true;
-    
+
     if (u)
     {
         if (!l && !r && !d)
@@ -593,12 +589,19 @@ void Game::define_wall (int i, int j)
         else if (!l && !r)
             spriteWall.setTexture(wall_full);
     }
-    
+
 }
 
 void Game::redraw()
 {
+<<<<<<< HEAD
     if (b_redraw)
+=======
+    window.clear(sf::Color(51,34,60));
+
+    int y = (WINDOW_HEIGHT - 9*56)/2;
+    for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
+>>>>>>> 9d01b11537febd1575ed5fbedce4e151a45a319c
     {
         window.clear(sf::Color::Black);
 
