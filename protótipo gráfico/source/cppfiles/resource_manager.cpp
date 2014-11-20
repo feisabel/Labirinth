@@ -1,4 +1,13 @@
 #include "../resource_manager.h"
+#include <iostream>
+#include <string>
+
+size_t hash(std::string a)
+{
+    return a.size();
+}
+
+hash_table<std::string, sf::Texture> ResourceManager::textures(hash);
 
 void ResourceManager::load()
 {
@@ -109,7 +118,7 @@ void ResourceManager::load()
     }
     textures["char_right"] = char_right;
 
-	    
+
     sf::Texture bullet_down;
     if (!bullet_down.loadFromFile("bullet_down.png"))
     {
@@ -117,7 +126,7 @@ void ResourceManager::load()
         return;
     }
     textures["bullet_down"] = bullet_down;
-    
+
 
     sf::Texture bullet_up;
     if (!bullet_up.loadFromFile("bullet_up.png"))
@@ -126,7 +135,7 @@ void ResourceManager::load()
         return;
     }
     textures["bullet_up"] = bullet_up;
-    
+
 
     sf::Texture bullet_left;
     if (!bullet_left.loadFromFile("bullet_left.png"))
@@ -135,7 +144,7 @@ void ResourceManager::load()
         return;
     }
     textures["bullet_left"] = bullet_left;
-    
+
 
     sf::Texture bullet_right;
     if (!bullet_right.loadFromFile("bullet_right.png"))

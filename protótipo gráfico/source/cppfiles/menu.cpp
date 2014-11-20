@@ -4,7 +4,7 @@
 
 Menu::Menu()
 {
-    if (!background.loadFromFile("prototype1.png"))
+    if (!background.loadFromFile("resources/images/prototype1.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
