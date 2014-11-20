@@ -484,12 +484,9 @@ bool Game::showSpawn(int i, int j)
 void Game::fire()
 {
     Entity bullet(player.x(), player.y());
-<<<<<<< HEAD
+
     Position pos;
     if (player.direction() == LEFT)
-=======
-    if (player.direction() == 'l')
->>>>>>> 9d01b11537febd1575ed5fbedce4e151a45a319c
     {
         spriteBullet.setTexture(bullet_left);
         bullet.x()--;
