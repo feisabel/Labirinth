@@ -14,7 +14,7 @@ bool Game::read_from_file()
 {
 	std::ifstream entrada; 							   // Conexão com o arquivo "entrada.txt".
 
-	entrada.open ( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
+	entrada.open( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
 
 	if( entrada.is_open() ) {
 		int a, b;

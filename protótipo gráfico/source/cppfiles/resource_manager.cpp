@@ -2,12 +2,20 @@
 #include <iostream>
 #include <string>
 
-size_t hash(std::string a)
+
+size_t hashf(std::string s)
 {
-    return a.size();
+    size_t sum = 0;
+    for (size_t i = 0; i < s.size()/2; i++)
+    {
+        sum += 7*s[i] + 5*s[s.size()-i-1];
+    }
+    return sum;
 }
 
-hash_table<std::string, sf::Texture> ResourceManager::textures(hash);
+
+hash_table<std::string, sf::Texture> ResourceManager::textures(hashf);
+
 
 void ResourceManager::load()
 {
