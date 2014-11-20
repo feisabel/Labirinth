@@ -9,7 +9,7 @@ class Timer
     unsigned long long cont, max;
 
 public:
-    Timer(double usec) : cont(0), max(usec * 1000000 * CLOCKS_PER_SEC) {}
+    Timer(double usec) : cont(0), max(usec * CLOCKS_PER_SEC / 1000000) {}
     
     bool tick()
     {
