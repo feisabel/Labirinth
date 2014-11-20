@@ -15,14 +15,14 @@ Menu::Menu()
         button[c].content.setCharacterSize(32);
     }
 
-    title_teste.setSize(sf::Vector2f(150, 100));
+    title_teste.setSize(sf::Vector2f(150, 75));
     title_teste.setPosition(sf::Vector2f(100, 100));
     title_teste.setFillColor(sf::Color(0, 128, 255));
 
     title.setCharacterSize(40);
     title.setFont(font);
     title.setColor(sf::Color::White);
-    title.setString("O Labirinto");
+    title.setString("Under Paris");
     title.setPosition(sf::Vector2f(110,100));
 
     for( int c = 0, rectY = 300; c < 3; c++, rectY+= 80)
@@ -47,7 +47,6 @@ Menu::Menu()
         }
     }
 }
-
 
 
 void Menu::redraw()

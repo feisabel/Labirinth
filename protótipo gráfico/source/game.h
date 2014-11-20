@@ -17,6 +17,7 @@ using custom::list;
 #include "scene.h"
 #include "scene_manager.h"
 #include "menu.h"
+#include "menucontinue.h"
 class Main;
 
 class Game : public Scene
@@ -29,6 +30,7 @@ public:
 	list<Trap> traps;
 	list<Spawn> spawns;
 	list<Enemy> enemies;
+    queue<Position> bullet_course;
 
 
 	sf::Texture wall;
@@ -43,6 +45,10 @@ public:
 	sf::Texture character_front;
 	sf::Texture character_left;
 	sf::Texture character_right;
+    sf::Texture bullet_up;
+    sf::Texture bullet_down;
+    sf::Texture bullet_left;
+    sf::Texture bullet_right;
 
 
 	sf::Sprite spriteWall;
@@ -53,13 +59,16 @@ public:
 	sf::Sprite spriteAmmo;
 	sf::Sprite spriteMed;
 	sf::Sprite spriteCharacter;
+    sf::Sprite spriteBullet;
 
 	Game();
 
 	void update();
 	void redraw();
-
+	void restart();
     //void active_traps();
+    void useAmount();
+    void fire();
     bool showSpawn(int, int);
     bool showMonster(int, int);
 	bool showAmmo(int, int);

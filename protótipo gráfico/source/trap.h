@@ -13,6 +13,7 @@ public:
 
 	bool is_active() { return activated; }
 	void activate() { activated = true; }
+	void disactivate() { activated = false; }
 };
 
 

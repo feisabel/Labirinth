@@ -13,10 +13,14 @@ public:
 	void mark_path();
 	void shoot();
 	bool get(Item i);
+	void change_ammo(int a) { for(; _ammun < max_ammn && a != 0; _ammun++, a--); }
 	int ammunition() const { return _ammun; }
+	char direction() const { return _direction; }
+	void direction(char d) { _direction = d; }
 
-private:	
+private:
 	int _ammun;
+	char _direction;
 };
 
 

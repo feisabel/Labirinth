@@ -234,7 +234,7 @@ bool Main::quit = false;
 
 Game Main::game;
 Menu Main::menu;
-
+MenuContinue Main::menucontinue;
 
 void Main::loop ()
 {

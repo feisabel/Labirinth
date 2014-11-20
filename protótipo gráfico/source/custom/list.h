@@ -40,18 +40,18 @@ public:
 
 	const T& front() const;
 	const T& back() const;
-	const T& at(size_t) const;
+    T& at(size_t);
 
 	void push_front(const T&);
 	void push_back(const T&);
-	
+
 	T pop_front();
 	T pop_back();
 
 	void insert(const T&, size_t);
 	void insert(const T&, iterator&);
 	void insert(const T&, reverse_iterator&);
-	
+
 	T erase(size_t);
 	T erase(const iterator&);
 	T erase(const reverse_iterator&);
