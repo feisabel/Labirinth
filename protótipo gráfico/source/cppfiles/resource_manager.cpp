@@ -2,13 +2,6 @@
 #include <iostream>
 #include <string>
 
-size_t hash(std::string a)
-{
-    return a.size();
-}
-
-hash_table<std::string, sf::Texture> ResourceManager::textures(hash);
-
 
 size_t hashf(std::string s)
 {
@@ -17,6 +10,7 @@ size_t hashf(std::string s)
     {
         sum += 7*s[i] + 5*s[s.size()-i-1];
     }
+    return sum;
 }
 
 
