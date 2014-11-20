@@ -24,6 +24,7 @@ struct _node
 	_node(const T&);
 };
 
+
 }
 
 
