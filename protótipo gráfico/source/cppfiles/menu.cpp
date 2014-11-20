@@ -4,65 +4,21 @@
 
 Menu::Menu()
 {
-    if (!font.loadFromFile("journal.ttf"))
+    if (!background.loadFromFile("prototype1.png"))
     {
-       std::cout << "Erro ao inicializar a textura" << std::endl;
+        std::cout << "erro de textura" << std::endl;
+        return;
     }
-
-    for(int c = 0; c < 3; c++)
-    {
-        button[c].content.setFont(font);
-        button[c].content.setCharacterSize(32);
-    }
-
-    title_teste.setSize(sf::Vector2f(150, 75));
-    title_teste.setPosition(sf::Vector2f(100, 100));
-    title_teste.setFillColor(sf::Color(0, 128, 255));
-
-    title.setCharacterSize(40);
-    title.setFont(font);
-    title.setColor(sf::Color::White);
-    title.setString("Under Paris");
-    title.setPosition(sf::Vector2f(110,100));
-
-    for( int c = 0, rectY = 300; c < 3; c++, rectY+= 80)
-    {
-        button[c].rect.setSize(sf::Vector2f(150, 50));
-        button[c].setPosition(sf::Vector2f(300, rectY));
-        button[c].rect.setFillColor(sf::Color(0, 128, 255));
-
-        button[c].content.setColor(sf::Color::White);
-
-        //BOTAO INICIAR
-        if (c == 0) {
-            button[c].content.setString("Play");
-        }
-        //BOTAO CRÉDITOS
-        if (c == 1) {
-            button[c].content.setString("Credits");
-        }
-        //BOTAO RANKING
-        if (c == 2) {
-            button[c].content.setString("How to play");
-        }
-    }
+    spriteBackground.setTexture(background);
 }
 
 
 void Menu::redraw()
 {
     window.clear(sf::Color::Black);
-    window.draw(title_teste);
-    window.draw(title);
-
-    //BOTÕES DO MENU
-    for( int c = 0; c < 3; c++)
-    {
-        window.draw(button[c].rect); //DESENHA
-        window.draw(button[c].content);
-    }
-
+    window.draw(spriteBackground);
     window.display();
+
 }
 
 
@@ -85,17 +41,21 @@ void Menu::update()
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-                if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 300 && event.mouseButton.y < 345)
+                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 241 && event.mouseButton.y < 284)
                 {
                     SceneManager::change_scene(Main::game);
                 }
-                if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 380 && event.mouseButton.y < 425)
+                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 310 && event.mouseButton.y < 350)
                 {
-                    //credits();
+                    //howtoplay
                 }
-                if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
+                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 379 && event.mouseButton.y < 415)
                 {
-                    //howToPlay(&window);
+                    //ranking;
+                }
+                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 445 && event.mouseButton.y < 483)
+                {
+                    Main::quit = true;
                 }
             }
         }

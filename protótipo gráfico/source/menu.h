@@ -38,10 +38,13 @@ public:
     Menu();
 
 private:
-    Button button[3];
-    sf::RectangleShape title_teste;
-    sf::Text title;
-    sf::Font font;
+    //Button button[3];
+    //sf::RectangleShape title_teste;
+    //sf::Text title;
+    //sf::Font font;
+
+    sf::Texture background;
+    sf::Sprite spriteBackground;
 };
 
 #endif

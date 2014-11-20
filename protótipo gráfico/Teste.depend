@@ -368,7 +368,7 @@
 	"maze.h"
 	"custom/queue.h"
 
-1416430941 /home/ana/Área de Trabalho/Auau/Teste/source/character.h
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/character.h
 	"entity.h"
 
 1415850860 /home/ana/Área de Trabalho/Auau/Teste/source/entity.h
@@ -379,19 +379,19 @@
 	<iostream>
 	<cmath>
 
-1416416386 /home/ana/Área de Trabalho/Auau/Teste/source/custom/list.h
+1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/list.h
 	<cstddef>
 	"node.h"
 	"iterator.h"
 	"source/list.t.hpp"
 
-1416416474 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/list.t.hpp
+1416478278 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/list.t.hpp
 
-1416431028 /home/ana/Área de Trabalho/Auau/Teste/source/player.h
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/player.h
 	"item.h"
 	"character.h"
 
-1416431820 /home/ana/Área de Trabalho/Auau/Teste/source/item.h
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/item.h
 	"entity.h"
 	"random.h"
 
@@ -413,10 +413,11 @@
 
 1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/stack.t.hpp
 
-1416431592 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/game.cpp
+1416479277 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/game.cpp
+	"../menu.h"
 	"../game.h"
 	"../classmain.h"
-	"../menu.h"
+	"../menucontinue.h"
 	"../scene.h"
 	"../scene_manager.h"
 	"../enemy.h"
@@ -424,7 +425,7 @@
 	<fstream>
 	<iostream>
 
-1416430941 /home/ana/Área de Trabalho/Auau/Teste/source/game.h
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/game.h
 	"custom/list.h"
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
@@ -437,12 +438,13 @@
 	"scene.h"
 	"scene_manager.h"
 	"menu.h"
+	"menucontinue.h"
 
 1416322720 /home/ana/Área de Trabalho/Auau/Teste/source/spawn.h
 	"entity.h"
 	"enemy.h"
 
-1416414069 /home/ana/Área de Trabalho/Auau/Teste/source/trap.h
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/trap.h
 	"entity.h"
 
 1416322720 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/maze.cpp
@@ -479,7 +481,7 @@
 	"scene.h"
 	"classmain.h"
 
-1416322720 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/classmain.cpp
+1416447407 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/classmain.cpp
 	"../classmain.h"
 	"../game.h"
 	"../scene_manager.h"
@@ -488,14 +490,15 @@
 	<SFML/Window/Event.hpp>
 	<iostream>
 
-1416322720 /home/ana/Área de Trabalho/Auau/Teste/source/classmain.h
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/classmain.h
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window/Event.hpp>
 	"menu.h"
 	"game.h"
+	"menucontinue.h"
 
-1416322720 /home/ana/Área de Trabalho/Auau/Teste/source/menu.h
+1416480137 /home/ana/Área de Trabalho/Auau/Teste/source/menu.h
 	<SFML/Window.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window/Event.hpp>
@@ -512,7 +515,7 @@
 1416357672 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/main.cpp
 	"../classmain.h"
 
-1416409113 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/menu.cpp
+1416482778 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/menu.cpp
 	"../menu.h"
 	"../classmain.h"
 	"../scene_manager.h"
@@ -523,7 +526,7 @@
 1416322720 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/scene_manager.cpp
 	"../scene_manager.h"
 
-1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/node.h
+1416478278 /home/ana/Área de Trabalho/Auau/Teste/source/custom/node.h
 	"source/node.t.hpp"
 
 1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/node.t.hpp
@@ -536,11 +539,26 @@
 	"node.h"
 	"source/forward_iterator.t.hpp"
 
-1416416004 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/forward_iterator.t.hpp
+1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/forward_iterator.t.hpp
 
 1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/reverse_iterator.h
 	"node.h"
 	"source/reverse_iterator.t.hpp"
 
 1416358030 /home/ana/Área de Trabalho/Auau/Teste/source/custom/source/reverse_iterator.t.hpp
+
+1416447407 /home/ana/Área de Trabalho/Auau/Teste/source/menucontinue.h
+	<SFML/Window.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window/Event.hpp>
+	<iostream>
+	"scene.h"
+	"menu.h"
+
+1416447407 source:/home/ana/Área de Trabalho/Auau/Teste/source/cppfiles/menucontinue.cpp
+	"../classmain.h"
+	"../menu.h"
+	"../game.h"
+	"../menucontinue.h"
+	"../scene_manager.h"
 

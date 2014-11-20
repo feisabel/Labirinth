@@ -174,25 +174,25 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
         return;
     }
-    
+
     if (!bullet_down.loadFromFile("bullet_down.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
     }
-    
+
     if (!bullet_up.loadFromFile("bullet_up.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
     }
-    
+
     if (!bullet_left.loadFromFile("bullet_left.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
     }
-    
+
     if (!bullet_right.loadFromFile("bullet_right.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -495,7 +495,7 @@ void Game::redraw()
                     spriteTrap.setPosition(sf::Vector2f(x, y));
                     window.draw(spriteTrap);
                 }
-                
+
                 if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
                 {
                     spriteBullet.setPosition(sf::Vector2f(x, y));
@@ -523,5 +523,8 @@ void Game::restart()
 	spawns.clear();
 	enemies.clear();
     bullet_course.clear();
+    player.pos() = maze.entrance();
+    player.direction('u');
+    spriteCharacter.setTexture(character_back);
     read_from_file();
 }
