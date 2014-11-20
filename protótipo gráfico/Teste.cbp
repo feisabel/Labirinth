@@ -49,12 +49,14 @@
 		<Unit filename="source/cppfiles/main.cpp" />
 		<Unit filename="source/cppfiles/maze.cpp" />
 		<Unit filename="source/cppfiles/menu.cpp" />
+		<Unit filename="source/cppfiles/menucontinue.cpp" />
 		<Unit filename="source/cppfiles/position.cpp" />
 		<Unit filename="source/cppfiles/random.cpp" />
 		<Unit filename="source/cppfiles/scene.cpp" />
 		<Unit filename="source/cppfiles/scene_manager.cpp" />
 		<Unit filename="source/custom/deque.h" />
 		<Unit filename="source/custom/forward_iterator.h" />
+		<Unit filename="source/custom/hash_table.h" />
 		<Unit filename="source/custom/iterator.h" />
 		<Unit filename="source/custom/list.h" />
 		<Unit filename="source/custom/node.h" />
@@ -62,6 +64,7 @@
 		<Unit filename="source/custom/reverse_iterator.h" />
 		<Unit filename="source/custom/source/deque.t.hpp" />
 		<Unit filename="source/custom/source/forward_iterator.t.hpp" />
+		<Unit filename="source/custom/source/hash_table.t.hpp" />
 		<Unit filename="source/custom/source/list.t.hpp" />
 		<Unit filename="source/custom/source/node.t.hpp" />
 		<Unit filename="source/custom/source/queue.t.hpp" />
@@ -74,12 +77,14 @@
 		<Unit filename="source/item.h" />
 		<Unit filename="source/maze.h" />
 		<Unit filename="source/menu.h" />
+		<Unit filename="source/menucontinue.h" />
 		<Unit filename="source/player.h" />
 		<Unit filename="source/position.h" />
 		<Unit filename="source/random.h" />
 		<Unit filename="source/scene.h" />
 		<Unit filename="source/scene_manager.h" />
 		<Unit filename="source/spawn.h" />
+		<Unit filename="source/timer.h" />
 		<Unit filename="source/trap.h" />
 		<Extensions>
 			<code_completion />
