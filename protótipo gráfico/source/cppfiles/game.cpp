@@ -103,12 +103,6 @@ Game::Game()
 {
     if (!read_from_file()) return;
 
-    if (!wall.loadFromFile("resources/images/wall1.png"))
-    {
-        std::cout << "erro de textura" << std::endl;
-        return;
-    }
-
     if (!floor.loadFromFile("resources/images/floor1.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -198,10 +192,89 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
         return;
     }
+    if (!wall_left.loadFromFile("resources/images/wall_left.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_left_right.loadFromFile("resources/images/wall_left_right.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_left_up.loadFromFile("resources/images/wall_left_up.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_left_down.loadFromFile("resources/images/wall_left_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_left_right_up.loadFromFile("resources/images/wall_left_right_up.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_left_right_down.loadFromFile("resources/images/wall_left_right_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_down.loadFromFile("resources/images/wall_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_full.loadFromFile("resources/images/wall_full.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_unlit.loadFromFile("resources/images/wall_unlit.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_up.loadFromFile("resources/images/wall_up.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_up_down.loadFromFile("resources/images/wall_up_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_right.loadFromFile("resources/images/wall_right.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_right_up.loadFromFile("resources/images/wall_right_up.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_right_down.loadFromFile("resources/images/wall_right_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_left_up_down.loadFromFile("resources/images/wall_left_up_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!wall_right_up_down.loadFromFile("resources/images/wall_right_up_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
 
 
-
-    spriteWall.setTexture(wall);
+    spriteWall.setTexture(wall_full);
     spriteFloor.setTexture(floor);
     spriteTrap.setTexture(trap_off);
     spriteSpawn.setTexture(spawn);
@@ -443,6 +516,67 @@ void Game::fire()
     }
 }
 
+void Game::define_wall (int i, int j)
+{
+    Position pos(i-1, j);
+    bool l = false, r = false, u = false, d = false;
+    if (!maze.in_bounds(pos) || maze[i-1][j].type() == Block::WALL)
+        l = true;
+    pos.x += 2;
+    if (!maze.in_bounds(pos) || maze[i+1][j].type() == Block::WALL)
+        r = true;
+    pos.x--;
+    pos.y--;
+    if (!maze.in_bounds(pos) || maze[i][j-1].type() == Block::WALL)
+        u = true;
+    pos.y += 2;
+    if (!maze.in_bounds(pos) || maze[i][j+1].type() == Block::WALL)
+        d = true;
+    
+    if (u)
+    {
+        if (!l && !r && !d)
+            spriteWall.setTexture(wall_left_right_down);
+        else if (!l && r && !d)
+            spriteWall.setTexture(wall_left_down);
+        else if (!l && !r && d)
+            spriteWall.setTexture(wall_left_right);
+        else if (!l && r && d)
+            spriteWall.setTexture(wall_left);
+        else if (l && !r && !d)
+            spriteWall.setTexture(wall_right_down);
+        else if (l && r && !d)
+            spriteWall.setTexture(wall_down);
+        else if (l && r && d)
+            spriteWall.setTexture(wall_unlit);
+        else if(l && !r && d)
+            spriteWall.setTexture(wall_right);
+    }
+    else if (!u && d)
+    {
+        if (!l && !r)
+            spriteWall.setTexture(wall_left_right_up);
+        else if (l && !r)
+            spriteWall.setTexture(wall_right_up);
+        else if (!l && r)
+            spriteWall.setTexture(wall_left_up);
+        else if (l && r)
+            spriteWall.setTexture(wall_up);
+    }
+    else if (!u && !d)
+    {
+        if (l && r)
+            spriteWall.setTexture(wall_up_down);
+        else if (l && !r)
+            spriteWall.setTexture(wall_right_up_down);
+        else if (!l && r)
+            spriteWall.setTexture(wall_left_up_down);
+        else if (!l && !r)
+            spriteWall.setTexture(wall_full);
+    }
+    
+}
+
 void Game::redraw()
 {
     window.clear(sf::Color::Black);
@@ -462,6 +596,7 @@ void Game::redraw()
                 }
                 else
                 {
+                    define_wall(i, j);
                     spriteWall.setPosition(sf::Vector2f(x, y));
                     window.draw(spriteWall);
                 }

@@ -33,7 +33,6 @@ public:
     queue<Position> bullet_course;
 
 
-	sf::Texture wall;
 	sf::Texture floor;
 	sf::Texture trap_off;
 	sf::Texture trap_on;
@@ -49,6 +48,22 @@ public:
     sf::Texture bullet_down;
     sf::Texture bullet_left;
     sf::Texture bullet_right;
+    sf::Texture wall_left;
+    sf::Texture wall_left_right;
+    sf::Texture wall_left_up;
+    sf::Texture wall_left_down;
+    sf::Texture wall_left_right_up;
+    sf::Texture wall_left_right_down;
+    sf::Texture wall_down;
+    sf::Texture wall_full;
+    sf::Texture wall_unlit;
+    sf::Texture wall_up;
+    sf::Texture wall_up_down;
+    sf::Texture wall_right;
+    sf::Texture wall_right_up;
+    sf::Texture wall_right_down;
+    sf::Texture wall_left_up_down;
+    sf::Texture wall_right_up_down;
 
 
 	sf::Sprite spriteWall;
@@ -69,6 +84,7 @@ public:
     //void active_traps();
     void useAmount();
     void fire();
+    void define_wall(int, int);
     bool showSpawn(int, int);
     bool showMonster(int, int);
 	bool showAmmo(int, int);
