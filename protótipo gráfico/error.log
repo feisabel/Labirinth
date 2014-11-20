@@ -1,0 +1,844 @@
+==3065== Memcheck, a memory error detector
+==3065== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==3065== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3065== Command: ./test
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x407EE3: custom::list<Trap>::push_back(Trap const&) (list.t.hpp:163)
+==3065==    by 0x404990: Game::read_from_file() (game.cpp:56)
+==3065==    by 0x407A1B: Game::restart() (game.cpp:526)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf132448 is 24 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x403790: custom::list<Trap>::clear() (list.t.hpp:322)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x408027: custom::list<Item>::push_back(Item const&) (list.t.hpp:163)
+==3065==    by 0x404A91: Game::read_from_file() (game.cpp:68)
+==3065==    by 0x407A1B: Game::restart() (game.cpp:526)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131fa8 is 24 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x408027: custom::list<Item>::push_back(Item const&) (list.t.hpp:163)
+==3065==    by 0x404B0B: Game::read_from_file() (game.cpp:74)
+==3065==    by 0x407A1B: Game::restart() (game.cpp:526)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131f48 is 24 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x4080BD: custom::list<Enemy>::push_back(Enemy const&) (list.t.hpp:163)
+==3065==    by 0x404B83: Game::read_from_file() (game.cpp:80)
+==3065==    by 0x407A1B: Game::restart() (game.cpp:526)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131dc0 is 48 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x407F79: custom::list<Spawn>::push_back(Spawn const&) (list.t.hpp:163)
+==3065==    by 0x404A08: Game::read_from_file() (game.cpp:62)
+==3065==    by 0x407A1B: Game::restart() (game.cpp:526)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf132328 is 40 bytes inside a block of size 48 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x407D78: Spawn::operator=(Spawn const&) (spawn.h:8)
+==3065==    by 0x406D98: Game::showSpawn(int, int) (game.cpp:385)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130ff0 is 0 bytes inside a block of size 48 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408D68: custom::list<Enemy*>::mem_copy(custom::list<Enemy*> const&) (list.t.hpp:363)
+==3065==    by 0x4087BE: custom::list<Enemy*>::operator=(custom::list<Enemy*> const&) (list.t.hpp:49)
+==3065==    by 0x407D98: Spawn::operator=(Spawn const&) (spawn.h:8)
+==3065==    by 0x406D98: Game::showSpawn(int, int) (game.cpp:385)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130ff8 is 8 bytes inside a block of size 48 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408DC5: custom::list<Enemy*>::mem_copy(custom::list<Enemy*> const&) (list.t.hpp:363)
+==3065==    by 0x4087BE: custom::list<Enemy*>::operator=(custom::list<Enemy*> const&) (list.t.hpp:49)
+==3065==    by 0x407D98: Spawn::operator=(Spawn const&) (spawn.h:8)
+==3065==    by 0x406D98: Game::showSpawn(int, int) (game.cpp:385)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131070 is 16 bytes inside a block of size 24 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x402966: custom::list<Enemy*>::~list() (list.t.hpp:24)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408DCD: custom::list<Enemy*>::mem_copy(custom::list<Enemy*> const&) (list.t.hpp:363)
+==3065==    by 0x4087BE: custom::list<Enemy*>::operator=(custom::list<Enemy*> const&) (list.t.hpp:49)
+==3065==    by 0x407D98: Spawn::operator=(Spawn const&) (spawn.h:8)
+==3065==    by 0x406D98: Game::showSpawn(int, int) (game.cpp:385)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131000 is 16 bytes inside a block of size 48 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4087C3: custom::list<Enemy*>::operator=(custom::list<Enemy*> const&) (list.t.hpp:51)
+==3065==    by 0x407D98: Spawn::operator=(Spawn const&) (spawn.h:8)
+==3065==    by 0x406D98: Game::showSpawn(int, int) (game.cpp:385)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131008 is 24 bytes inside a block of size 48 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408763: custom::_forward_iterator<Spawn>::operator++(int) (forward_iterator.t.hpp:40)
+==3065==    by 0x406DCF: Game::showSpawn(int, int) (game.cpp:383)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131018 is 40 bytes inside a block of size 48 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x407D30: Enemy::operator=(Enemy const&) (enemy.h:12)
+==3065==    by 0x406964: Game::showMonster(int, int) (game.cpp:321)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130bf8 is 8 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x407D34: Enemy::operator=(Enemy const&) (enemy.h:12)
+==3065==    by 0x406964: Game::showMonster(int, int) (game.cpp:321)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130bf0 is 0 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408C16: custom::list<Position>::mem_copy(custom::list<Position> const&) (list.t.hpp:363)
+==3065==    by 0x4085F2: custom::list<Position>::operator=(custom::list<Position> const&) (list.t.hpp:49)
+==3065==    by 0x407D10: custom::queue<Position>::operator=(custom::queue<Position> const&) (queue.h:10)
+==3065==    by 0x407D58: Enemy::operator=(Enemy const&) (enemy.h:12)
+==3065==    by 0x406964: Game::showMonster(int, int) (game.cpp:321)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c00 is 16 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408C73: custom::list<Position>::mem_copy(custom::list<Position> const&) (list.t.hpp:363)
+==3065==    by 0x4085F2: custom::list<Position>::operator=(custom::list<Position> const&) (list.t.hpp:49)
+==3065==    by 0x407D10: custom::queue<Position>::operator=(custom::queue<Position> const&) (queue.h:10)
+==3065==    by 0x407D58: Enemy::operator=(Enemy const&) (enemy.h:12)
+==3065==    by 0x406964: Game::showMonster(int, int) (game.cpp:321)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c80 is 16 bytes inside a block of size 24 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40292C: custom::list<Position>::~list() (list.t.hpp:24)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408C7B: custom::list<Position>::mem_copy(custom::list<Position> const&) (list.t.hpp:363)
+==3065==    by 0x4085F2: custom::list<Position>::operator=(custom::list<Position> const&) (list.t.hpp:49)
+==3065==    by 0x407D10: custom::queue<Position>::operator=(custom::queue<Position> const&) (queue.h:10)
+==3065==    by 0x407D58: Enemy::operator=(Enemy const&) (enemy.h:12)
+==3065==    by 0x406964: Game::showMonster(int, int) (game.cpp:321)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c08 is 24 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4085F7: custom::list<Position>::operator=(custom::list<Position> const&) (list.t.hpp:51)
+==3065==    by 0x407D10: custom::queue<Position>::operator=(custom::queue<Position> const&) (queue.h:10)
+==3065==    by 0x407D58: Enemy::operator=(Enemy const&) (enemy.h:12)
+==3065==    by 0x406964: Game::showMonster(int, int) (game.cpp:321)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c10 is 32 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x408597: custom::_forward_iterator<Enemy>::operator++(int) (forward_iterator.t.hpp:40)
+==3065==    by 0x40699B: Game::showMonster(int, int) (game.cpp:319)
+==3065==    by 0x407675: Game::redraw() (game.cpp:475)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c20 is 48 bytes inside a block of size 56 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x406CB7: Game::showAmmo(int, int) (game.cpp:372)
+==3065==    by 0x4076D9: Game::redraw() (game.cpp:481)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a78 is 8 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x406CBB: Game::showAmmo(int, int) (game.cpp:372)
+==3065==    by 0x4076D9: Game::redraw() (game.cpp:481)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a70 is 0 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40844D: custom::_forward_iterator<Item>::operator++(int) (forward_iterator.t.hpp:40)
+==3065==    by 0x406CFC: Game::showAmmo(int, int) (game.cpp:370)
+==3065==    by 0x4076D9: Game::redraw() (game.cpp:481)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a88 is 24 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x406A5D: Game::showMed(int, int) (game.cpp:336)
+==3065==    by 0x40773D: Game::redraw() (game.cpp:487)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a18 is 8 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x406A61: Game::showMed(int, int) (game.cpp:336)
+==3065==    by 0x40773D: Game::redraw() (game.cpp:487)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a10 is 0 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40844D: custom::_forward_iterator<Item>::operator++(int) (forward_iterator.t.hpp:40)
+==3065==    by 0x406AA2: Game::showMed(int, int) (game.cpp:334)
+==3065==    by 0x40773D: Game::redraw() (game.cpp:487)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a28 is 24 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x406B2D: Game::showTrap(int, int) (game.cpp:351)
+==3065==    by 0x4077A1: Game::redraw() (game.cpp:493)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1309b0 is 0 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x403790: custom::list<Trap>::clear() (list.t.hpp:322)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 1
+==3065==    at 0x406B34: Game::showTrap(int, int) (game.cpp:351)
+==3065==    by 0x4077A1: Game::redraw() (game.cpp:493)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1309b8 is 8 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x403790: custom::list<Trap>::clear() (list.t.hpp:322)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4086A5: custom::_forward_iterator<Trap>::operator++(int) (forward_iterator.t.hpp:40)
+==3065==    by 0x406C27: Game::showTrap(int, int) (game.cpp:349)
+==3065==    by 0x4077A1: Game::redraw() (game.cpp:493)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1309c8 is 24 bytes inside a block of size 32 free'd
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x403790: custom::list<Trap>::clear() (list.t.hpp:322)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x403723: custom::list<Item>::clear() (list.t.hpp:321)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a88 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40372F: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1311f0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079B9: Game::restart() (game.cpp:520)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a70 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x403723: custom::list<Item>::clear() (list.t.hpp:321)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a28 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40372F: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131130 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40373A: custom::list<Item>::clear() (list.t.hpp:322)
+==3065==    by 0x4079C9: Game::restart() (game.cpp:521)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130a10 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x403779: custom::list<Trap>::clear() (list.t.hpp:321)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1309c8 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x403785: custom::list<Trap>::clear() (list.t.hpp:322)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130ae0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x403790: custom::list<Trap>::clear() (list.t.hpp:322)
+==3065==    by 0x4079D9: Game::restart() (game.cpp:522)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1309b0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4037D0: custom::list<Spawn>::clear() (list.t.hpp:321)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131018 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4037DC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131520 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4029E0: custom::list<Enemy*>::clear() (list.t.hpp:318)
+==3065==    by 0x402957: custom::list<Enemy*>::~list() (list.t.hpp:22)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130ff8 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4029E3: custom::list<Enemy*>::clear() (list.t.hpp:318)
+==3065==    by 0x402957: custom::list<Enemy*>::~list() (list.t.hpp:22)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131070 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x402A0D: custom::list<Enemy*>::clear() (list.t.hpp:320)
+==3065==    by 0x402957: custom::list<Enemy*>::~list() (list.t.hpp:22)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131000 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x402A1B: custom::list<Enemy*>::clear() (list.t.hpp:325)
+==3065==    by 0x402957: custom::list<Enemy*>::~list() (list.t.hpp:22)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131008 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40295C: custom::list<Enemy*>::~list() (list.t.hpp:24)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130ff8 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x402966: custom::list<Enemy*>::~list() (list.t.hpp:24)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131060 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40296B: custom::list<Enemy*>::~list() (list.t.hpp:25)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf131000 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x402976: custom::list<Enemy*>::~list() (list.t.hpp:25)
+==3065==    by 0x403515: Spawn::~Spawn() (spawn.h:8)
+==3065==    by 0x40352F: custom::_node<Spawn>::~_node() (node.h:16)
+==3065==    by 0x4037EC: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf1310c0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x4037F4: custom::list<Spawn>::clear() (list.t.hpp:322)
+==3065==    by 0x4079EB: Game::restart() (game.cpp:523)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130ff0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x403838: custom::list<Enemy>::clear() (list.t.hpp:321)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c20 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x403844: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130e18 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40298A: custom::list<Position>::clear() (list.t.hpp:318)
+==3065==    by 0x40291D: custom::list<Position>::~list() (list.t.hpp:22)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c00 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x40298D: custom::list<Position>::clear() (list.t.hpp:318)
+==3065==    by 0x40291D: custom::list<Position>::~list() (list.t.hpp:22)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c80 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x4029B7: custom::list<Position>::clear() (list.t.hpp:320)
+==3065==    by 0x40291D: custom::list<Position>::~list() (list.t.hpp:22)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c08 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid write of size 8
+==3065==    at 0x4029C5: custom::list<Position>::clear() (list.t.hpp:325)
+==3065==    by 0x40291D: custom::list<Position>::~list() (list.t.hpp:22)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c10 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x402922: custom::list<Position>::~list() (list.t.hpp:24)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c00 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40292C: custom::list<Position>::~list() (list.t.hpp:24)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c70 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid read of size 8
+==3065==    at 0x402931: custom::list<Position>::~list() (list.t.hpp:25)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130c08 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40293C: custom::list<Position>::~list() (list.t.hpp:25)
+==3065==    by 0x40288D: custom::queue<Position>::~queue() (queue.h:10)
+==3065==    by 0x4028AB: Enemy::~Enemy() (enemy.h:12)
+==3065==    by 0x4035A3: custom::_node<Enemy>::~_node() (node.h:16)
+==3065==    by 0x403854: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130cd0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== Invalid free() / delete / delete[] / realloc()
+==3065==    at 0x4C2C2BC: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3065==    by 0x40385C: custom::list<Enemy>::clear() (list.t.hpp:322)
+==3065==    by 0x4079FD: Game::restart() (game.cpp:524)
+==3065==    by 0x409D60: MenuContinue::update() (menucontinue.cpp:90)
+==3065==    by 0x4028CA: SceneManager::update() (scene_manager.h:11)
+==3065==    by 0x40275B: Main::loop() (classmain.cpp:245)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  Address 0xf130bf0 is not stack'd, malloc'd or (recently) free'd
+==3065== 
+==3065== 
+==3065== Process terminating with default action of signal 11 (SIGSEGV)
+==3065==  Access not within mapped region at address 0x10
+==3065==    at 0x408DC5: custom::list<Enemy*>::mem_copy(custom::list<Enemy*> const&) (list.t.hpp:363)
+==3065==    by 0x4087BE: custom::list<Enemy*>::operator=(custom::list<Enemy*> const&) (list.t.hpp:49)
+==3065==    by 0x407D98: Spawn::operator=(Spawn const&) (spawn.h:8)
+==3065==    by 0x406D98: Game::showSpawn(int, int) (game.cpp:385)
+==3065==    by 0x407611: Game::redraw() (game.cpp:469)
+==3065==    by 0x4028ED: SceneManager::redraw() (scene_manager.h:12)
+==3065==    by 0x402756: Main::loop() (classmain.cpp:244)
+==3065==    by 0x408EF5: main (main.cpp:6)
+==3065==  If you believe this happened as a result of a stack
+==3065==  overflow in your program's main thread (unlikely but
+==3065==  possible), you can try to increase the size of the
+==3065==  main thread stack using the --main-stacksize= flag.
+==3065==  The main thread stack size used in this run was 8388608.
+==3065== 
+==3065== HEAP SUMMARY:
+==3065==     in use at exit: 77,202,796 bytes in 22,059 blocks
+==3065==   total heap usage: 126,008 allocs, 103,996 frees, 252,664,638 bytes allocated
+==3065== 
+==3065== LEAK SUMMARY:
+==3065==    definitely lost: 1,344,416 bytes in 39 blocks
+==3065==    indirectly lost: 0 bytes in 0 blocks
+==3065==      possibly lost: 75,353,843 bytes in 20,694 blocks
+==3065==    still reachable: 504,537 bytes in 1,326 blocks
+==3065==         suppressed: 0 bytes in 0 blocks
+==3065== Rerun with --leak-check=full to see details of leaked memory
+==3065== 
+==3065== For counts of detected and suppressed errors, rerun with: -v
+==3065== ERROR SUMMARY: 1167617 errors from 58 contexts (suppressed: 2 from 1)

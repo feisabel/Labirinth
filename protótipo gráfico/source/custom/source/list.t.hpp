@@ -317,10 +317,16 @@ void list<T>::clear()
 {
 	typename list<T>::node* it = _begin->next;
 
-	while (it != _end) {
+	while (it != _end)
+	{
 		it = it->next;
 		delete it->prev;
 	}
+
+	_begin->next = _end;
+	_end->prev = _begin;
+
+	_size = 0;
 }
 
 
