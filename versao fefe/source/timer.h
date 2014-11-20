@@ -1,5 +1,5 @@
-#ifndef __timer__
-#define __timer__
+#ifndef __TIMER
+#define __TIMER
 
 #include <ctime>
 
@@ -9,7 +9,7 @@ class Timer
     unsigned long long cont, max;
 
 public:
-    Timer(double usec) : cont(0), max(usec * 1000000 * CLOCKS_PER_SEC) {}
+    Timer(double usec) : cont(0), max(usec * CLOCKS_PER_SEC / 1000000) {}
     
     bool tick()
     {
@@ -21,5 +21,6 @@ public:
     void reboot() { cont = 0; }
     unsigned long long time_remaining() const { return max - cont; }
 };
+
 
 #endif

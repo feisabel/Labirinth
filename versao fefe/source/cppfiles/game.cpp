@@ -6,7 +6,7 @@
 #include "../enemy.h"
 #include <fstream>
 #include <iostream>
-#include "timer.h"
+#include "../timer.h"
 
 // Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
 bool Game::read_from_file()

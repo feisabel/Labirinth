@@ -11,10 +11,9 @@ class Player : public Character
 public:
 	Player(): _ammun(max_ammn) {}
 
-	void mark_path();
-	void shoot();
-	bool get(Item i);
+	bool get(Item i);	
 	int ammunition() const { return _ammun; }
+
     char direction () const { return _direction; }
     void direction (char d) { _direction = d; }
 
