@@ -591,85 +591,84 @@ void Game::define_wall (int i, int j)
 
 void Game::redraw()
 {
-<<<<<<< HEAD
     if (b_redraw)
-=======
-    window.clear(sf::Color(51,34,60));
-
-    int y = (WINDOW_HEIGHT - 9*56)/2;
-    for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
->>>>>>> 9d01b11537febd1575ed5fbedce4e151a45a319c
     {
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color(51, 34, 60));
 
         int y = (WINDOW_HEIGHT - 9*56)/2;
         for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
         {
-        	int x = (WINDOW_WIDTH - 9*56)/2;
-            for( int i = player.x()-4; i <= player.x()+4; i++, x+=56 )
+            window.clear(sf::Color(51, 34, 60));
+
+            int y = (WINDOW_HEIGHT - 9*56)/2;
+            for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
             {
-                if( maze.in_bounds(Position(i, j)) )
+            	int x = (WINDOW_WIDTH - 9*56)/2;
+                for( int i = player.x()-4; i <= player.x()+4; i++, x+=56 )
                 {
-                    if (maze[i][j].type() == Block::FLOOR)
+                    if( maze.in_bounds(Position(i, j)) )
                     {
-                        spriteFloor.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteFloor);
-                    }
-                    else
-                    {
-                        define_wall(i, j);
-                        spriteWall.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteWall);
-                    }
+                        if (maze[i][j].type() == Block::FLOOR)
+                        {
+                            spriteFloor.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteFloor);
+                        }
+                        else
+                        {
+                            define_wall(i, j);
+                            spriteWall.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteWall);
+                        }
 
-                    if(showSpawn(i, j))
-                    {
-                        spriteSpawn.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteSpawn);
-                    }
+                        if(showSpawn(i, j))
+                        {
+                            spriteSpawn.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteSpawn);
+                        }
 
-                    if(showMonster(i, j))
-                    {
-                        spriteMonster.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteMonster);
-                    }
+                        if(showMonster(i, j))
+                        {
+                            spriteMonster.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteMonster);
+                        }
 
-                    if(showAmmo(i, j))
-                    {
-                        spriteAmmo.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteAmmo);
-                    }
+                        if(showAmmo(i, j))
+                        {
+                            spriteAmmo.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteAmmo);
+                        }
 
-                    if(showMed(i, j))
-                    {
-                        spriteMed.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteMed);
-                    }
+                        if(showMed(i, j))
+                        {
+                            spriteMed.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteMed);
+                        }
 
-                    if(showTrap(i, j))
-                    {
-                        spriteTrap.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteTrap);
-                    }
+                        if(showTrap(i, j))
+                        {
+                            spriteTrap.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteTrap);
+                        }
 
-                    if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
-                    {
-                        spriteBullet.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteBullet);
-                        bullet_course.pop();
-                    }
+                        if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
+                        {
+                            spriteBullet.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteBullet);
+                            bullet_course.pop();
+                        }
 
-                    if(player.x() == i && player.y() == j)
-                    {
-                        spriteCharacter.setPosition(sf::Vector2f(x, y));
-                        window.draw(spriteCharacter);
+                        if(player.x() == i && player.y() == j)
+                        {
+                            spriteCharacter.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteCharacter);
+                        }
                     }
                 }
             }
+
+            window.display();
         }
 
-        window.display();
-    
         b_redraw = false;
     }
 }

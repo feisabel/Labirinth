@@ -28,7 +28,7 @@ MenuContinue::MenuContinue()
     title.setPosition(sf::Vector2f(110,100));
 
     rect.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
-    rect.setFillColor(sf::Color(0, 0, 0, 127));
+    rect.setFillColor(sf::Color(0, 0, 0, 159));
 
     for( int c = 0, rectY = 300; c < 3; c++, rectY+= 80)
     {
