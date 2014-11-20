@@ -174,6 +174,30 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
         return;
     }
+    
+    if (!bullet_down.loadFromFile("bullet_down.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    
+    if (!bullet_up.loadFromFile("bullet_up.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    
+    if (!bullet_left.loadFromFile("bullet_left.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    
+    if (!bullet_right.loadFromFile("bullet_right.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
 
 
 
@@ -185,6 +209,7 @@ Game::Game()
     spriteAmmo.setTexture(ammo);
     spriteMed.setTexture(med);
     spriteCharacter.setTexture(character_back);
+    spriteBullet.setTexture(bullet_down);
 
     player.pos() = maze.entrance();
 }
@@ -243,6 +268,10 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Z)
             {
                 useAmount();
+            }
+            else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
+            {
+                fire();
             }
         }
     }
@@ -360,6 +389,60 @@ bool Game::showSpawn(int i, int j)
     return false;
 }
 
+void Game::fire()
+{
+    Entity bullet(player.x(), player.y());
+    Position pos;
+    if (player.direction() == 'l')
+    {
+        spriteBullet.setTexture(bullet_left);
+        bullet.x()--;
+        pos.y = bullet.y();
+        while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
+        {
+            pos.x = bullet.x();
+            bullet_course.push( pos );
+            bullet.x()--;
+        }
+    }
+    else if (player.direction() == 'r')
+    {
+        spriteBullet.setTexture(bullet_right);
+        bullet.x()++;
+        pos.y = bullet.y();
+        while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
+        {
+            pos.x = bullet.x();
+            bullet_course.push( pos );
+            bullet.x()++;
+        }
+    }
+    else if (player.direction() == 'u')
+    {
+        spriteBullet.setTexture(bullet_up);
+        bullet.y()--;
+        pos.x = bullet.x();
+        while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
+        {
+            pos.y = bullet.y();
+            bullet_course.push( pos );
+            bullet.y()--;
+        }
+    }
+    else
+    {
+        spriteBullet.setTexture(bullet_down);
+        bullet.y()++;
+        pos.x = bullet.x();
+        while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
+        {
+            pos.y = bullet.y();
+            bullet_course.push( pos );
+            bullet.y()++;
+        }
+    }
+}
+
 void Game::redraw()
 {
     window.clear(sf::Color::Black);
@@ -412,6 +495,13 @@ void Game::redraw()
                     spriteTrap.setPosition(sf::Vector2f(x, y));
                     window.draw(spriteTrap);
                 }
+                
+                if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
+                {
+                    spriteBullet.setPosition(sf::Vector2f(x, y));
+                    window.draw(spriteBullet);
+                    bullet_course.pop();
+                }
 
                 if(player.x() == i && player.y() == j)
                 {
@@ -423,4 +513,15 @@ void Game::redraw()
     }
 
     window.display();
+}
+
+void Game::restart()
+{
+    ammuns.clear();    // A definir.
+	hearts.clear();
+	traps.clear();
+	spawns.clear();
+	enemies.clear();
+    bullet_course.clear();
+    read_from_file();
 }
