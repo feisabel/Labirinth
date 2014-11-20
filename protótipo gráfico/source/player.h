@@ -6,20 +6,20 @@
 
 class Player : public Character
 {
-	static const int max_ammn = 30;
+	static const int max_ammo = 30;
 public:
-	Player(): _ammun(max_ammn) {}
+	Player(): _ammo(max_ammo) {}
 
 	void mark_path();
 	void shoot();
 	bool get(Item i);
-	void change_ammo(int a) { for(; _ammun < max_ammn && a != 0; _ammun++, a--); }
-	int ammunition() const { return _ammun; }
+	void change_ammo(int a) { for(; _ammo < max_ammo && a != 0; _ammo++, a--); }
+	int ammo() const { return _ammo; }
 	char direction() const { return _direction; }
 	void direction(char d) { _direction = d; }
 
 private:
-	int _ammun;
+	int _ammo;
 	char _direction;
 };
 
