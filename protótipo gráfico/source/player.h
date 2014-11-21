@@ -17,7 +17,7 @@ class Player : public Character
 public:
 	Player() : _ammo(max_ammo) {}
 
-	bool get(Item i)
+	void get(Item i)
 	{
 		if (i.type() == Item::HEAL)
 		{

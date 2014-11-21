@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "scene.h"
+#include "timer.h"
 
 class Main;
 
@@ -36,12 +37,7 @@ public:
     void redraw();
     void update();
     Menu();
-
 private:
-    //Button button[3];
-    //sf::RectangleShape title_teste;
-    //sf::Text title;
-    //sf::Font font;
 
     sf::Texture background;
     sf::Sprite spriteBackground;

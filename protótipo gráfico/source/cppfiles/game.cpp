@@ -322,7 +322,7 @@ void Game::update()
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
                 }
                 player.direction() = RIGHT;
-            
+
                 b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Down)
@@ -619,7 +619,7 @@ void Game::redraw()
                             spriteWall.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteWall);
                         }
-
+//a partir daqui
                         if(showSpawn(i, j))
                         {
                             spriteSpawn.setPosition(sf::Vector2f(x, y));

@@ -2,9 +2,9 @@
 #include "../classmain.h"
 #include "../scene_manager.h"
 
-Menu::Menu()
+howToPlay::howToPlay()
 {
-    if (!background.loadFromFile("resources/images/prototype1.png"))
+    if (!background.loadFromFile("resources/images/how_to_play1.png"))
     {
         std::cout << "erro de textura" << std::endl;
         return;
@@ -13,7 +13,7 @@ Menu::Menu()
 }
 
 
-void Menu::redraw()
+void howToPlay::redraw()
 {
     b_redraw = true; //alterei aqui
     if (b_redraw)
@@ -26,7 +26,7 @@ void Menu::redraw()
     }
 }
 
-void Menu::update()
+void howToPlay::update()
 {
     // check all the window's events that were triggered since the last iteration of the loop
     sf::Event event;
@@ -45,24 +45,12 @@ void Menu::update()
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 241 && event.mouseButton.y < 284)
+                if(event.mouseButton.x > 12 && event.mouseButton.x < 68 && event.mouseButton.y > 508 && event.mouseButton.y < 532)
                 {
-                    SceneManager::change_scene(Main::game);
-                }
-                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 310 && event.mouseButton.y < 350)
-                {
-                    SceneManager::change_scene(Main::howtoplay);
-                }
-                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 379 && event.mouseButton.y < 415)
-                {
-                    //ranking;
-                }
-                if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 445 && event.mouseButton.y < 483)
-                {
-                    Main::quit = true;
+                    SceneManager::change_scene(Main::menu);
                 }
             }
         }
     }
-
 }
+
