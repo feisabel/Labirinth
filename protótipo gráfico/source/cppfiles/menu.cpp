@@ -55,7 +55,7 @@ void Menu::update()
                 }
                 if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 379 && event.mouseButton.y < 415)
                 {
-                    //ranking;
+                    SceneManager::change_scene(Main::ranking);
                 }
                 if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 445 && event.mouseButton.y < 483)
                 {

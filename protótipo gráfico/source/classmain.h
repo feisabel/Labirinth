@@ -10,6 +10,7 @@
 #include "menucontinue.h"
 #include "howtoplay.h"
 #include "endgame.h"
+#include "ranking.h"
 
 class Main
 {
@@ -19,6 +20,7 @@ public:
     static MenuContinue menucontinue;
 	static howToPlay howtoplay;
 	static EndGame endgame;
+	static Ranking ranking;
 	static bool quit;
 
     Main() {}

@@ -47,10 +47,9 @@ public:
 	{
 		return _pos.x-4 <= e.x() && e.x() <= _pos.x+4 && _pos.y-4 <= e.y() && e.y() <= _pos.y+4;
 	}
-    int count_points()
+    void add_points()
     {
-        _points = _ammo*10 + _hp*30 + 300/(_end.asSeconds()-_start.asSeconds());
-        return _points;
+        _points+= (_ammo*30 + _hp*50);
     }
 };
 

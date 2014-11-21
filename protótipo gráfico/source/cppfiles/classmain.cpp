@@ -15,6 +15,7 @@ Menu Main::menu;
 MenuContinue Main::menucontinue;
 howToPlay Main::howtoplay;
 EndGame Main::endgame;
+Ranking Main::ranking;
 
 void Main::loop ()
 {

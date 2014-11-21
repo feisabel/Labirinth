@@ -366,7 +366,7 @@ void Game::update()
             if(player.pos() == maze.exit())
             {
                 player.end();
-                player.count_points();
+                player.add_points();
                 SceneManager::change_scene(Main::endgame);
             }
         }

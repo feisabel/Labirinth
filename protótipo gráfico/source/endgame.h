@@ -18,6 +18,8 @@ public:
 
     EndGame();
 
+    void add_ranking();
+
     std::string str;
     std::string points;
     sf::RectangleShape rect;

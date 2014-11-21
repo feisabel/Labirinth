@@ -6,10 +6,12 @@
 #include <SFML/System/String.hpp>
 #include <string>
 #include <sstream>
+#include <fstream>
 
 EndGame::EndGame()
 {
     std::stringstream ss;
+    Main::game.player.add_points();
     ss << Main::game.player.points();
     points = ss.str();
 
@@ -47,11 +49,10 @@ text3.setPosition(sf::Vector2f(170,295));
     text5.setPosition(sf::Vector2f(170,330));
 }
 
-void EndGame::update(){
-
+void EndGame::update()
+{
 
     std::string a;
-
     sf::Event event;
     while(window.pollEvent(event))
     {
@@ -69,6 +70,13 @@ void EndGame::update(){
                 str = str.substr( 0, (str.size() -1));
                 text3.setString(str);
             }
+            if (event.key.code == sf::Keyboard::Return)
+            {
+                add_ranking();
+                str = "";
+                Main::game.restart();
+                SceneManager::change_scene(Main::menu);
+            }
         }
         if (event.type == sf::Event::TextEntered)
         {
@@ -84,7 +92,8 @@ void EndGame::update(){
     }
 }
 
-void EndGame::redraw(){
+void EndGame::redraw()
+{
     b_redraw = true;
     if (b_redraw)
     {
@@ -97,4 +106,19 @@ void EndGame::redraw(){
         window.display();
         b_redraw = false;
     }
+}
+
+void EndGame::add_ranking()
+{
+    std::ofstream saida;
+    saida.open( "levels/ranking.txt", std::ifstream::app );
+
+    if( saida.is_open() )
+    {
+        saida << str;
+        saida << " ";
+        saida << points;
+        saida << "\n";
+    }
+    saida.close();
 }
