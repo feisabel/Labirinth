@@ -14,6 +14,7 @@ Game Main::game;
 Menu Main::menu;
 MenuContinue Main::menucontinue;
 howToPlay Main::howtoplay;
+EndGame Main::endgame;
 
 void Main::loop ()
 {

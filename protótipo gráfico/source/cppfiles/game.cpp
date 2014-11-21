@@ -4,6 +4,7 @@
 #include "../menucontinue.h"
 #include "../scene.h"
 #include "../scene_manager.h"
+#include "../endgame.h"
 #include "../enemy.h"
 #include "../item.h"
 #include <fstream>
@@ -292,6 +293,7 @@ Game::Game()
 
 void Game::update()
 {
+    player.start();
     sf::Event event;
     while(window.pollEvent(event) || timer.tick())
     {
@@ -360,6 +362,12 @@ void Game::update()
                 fire();
 
                 b_redraw = true;
+            }
+            if(player.pos() == maze.exit())
+            {
+                player.end();
+                player.count_points();
+                SceneManager::change_scene(Main::endgame);
             }
         }
 
