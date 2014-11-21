@@ -2,6 +2,13 @@
 #include "../classmain.h"
 #include "../scene_manager.h"
 
+std::string number(int n)
+{
+    std::stringstream ss;
+    ss << n;
+    return ss.str();
+}
+
 Ranking::Ranking()
 {
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
@@ -14,7 +21,28 @@ Ranking::Ranking()
         std::cout << "erro de textura" << std::endl;
         return;
     }
+    read_from_file();
+    while(myRanking.size() > 10)
+    {
+        myRanking.pop_back();
+    }
+
     spriteBackground.setTexture(background);
+
+    int j = 220;
+    int ii = 0;
+
+    for(list<players>::iterator i = myRanking.begin(); i != myRanking.end(); i++)
+    {
+        rank[ii].name.setFont(font);
+        rank[ii].points.setFont(font);
+        rank[ii].name.setPosition(130, j);
+        rank[ii].points.setPosition(260, j);
+        rank[ii].name.setString((*i).name);
+        rank[ii].points.setString(number((*i).points));
+        ii++; j+=30;
+    }
+
 }
 
 void Ranking::redraw()
@@ -24,6 +52,11 @@ void Ranking::redraw()
     {
         window.clear(sf::Color::Black);
         window.draw(spriteBackground);
+        for( int i = 0; i < myRanking.size(); i++)
+        {
+            window.draw(rank[i].name); //PROBLEMA AQUI
+            window.draw(rank[i].points);
+        }
         window.display();
         b_redraw = false;
     }
@@ -54,4 +87,29 @@ void Ranking::update()
             }
         }
     }
+}
+
+void Ranking::read_from_file()
+{
+    std::ifstream entrada;
+    char name[10];
+    players new_player;
+    int p;
+    entrada.open( "levels/ranking.txt", std::ifstream::in );
+    if( entrada.is_open() )
+    {
+        while((entrada >> name) && (entrada >> p))
+        {
+            std::string name_i(name);
+            new_player.add_information(name_i, p);
+            int i = 0;
+            if(!myRanking.empty())
+            {
+                while( p < myRanking.at(i).points )
+            i++;
+            }
+            myRanking.insert(new_player, i);
+        }
+    }
+    entrada.close();
 }
