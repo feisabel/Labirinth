@@ -6,7 +6,9 @@
 #include "../scene_manager.h"
 #include "../endgame.h"
 #include "../enemy.h"
+#include "../maze.h"
 #include "../item.h"
+#include "../position.h"
 #include <fstream>
 #include <iostream>
 
@@ -106,6 +108,12 @@ Game::Game()
 : timer(10000)
 {
     if (!read_from_file()) return;
+
+    if (!exit.loadFromFile("resources/images/exit.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
 
     if (!floor.loadFromFile("resources/images/floor1.png"))
     {
@@ -278,6 +286,7 @@ Game::Game()
     }
 
 
+    spriteExit.setTexture(exit);
     spriteWall.setTexture(wall_full);
     spriteFloor.setTexture(floor);
     spriteTrap.setTexture(trap_off);
@@ -359,7 +368,11 @@ void Game::update()
             }
             else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
             {
-                fire();
+                if(player.ammo())
+                {
+                    fire();
+                    player.ammo_fire();
+                }
 
                 b_redraw = true;
             }
@@ -632,6 +645,13 @@ void Game::redraw()
                         {
                             spriteSpawn.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteSpawn);
+                        }
+                        Position a(i, j);
+                        if(maze.exit() == a)
+                        {
+                            std::cout << "passou aqui" << std::endl;
+                            spriteExit.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteExit);
                         }
 
                         if(showMonster(i, j))

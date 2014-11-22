@@ -39,6 +39,7 @@ public:
 	}
 
 	int ammo() const { return _ammo; }
+    void ammo_fire() { _ammo--; }
     int points() const { return _points; }
 	Direction direction() const { return _direction; }
 	Direction& direction() { return _direction; }

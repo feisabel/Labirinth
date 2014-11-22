@@ -44,6 +44,7 @@ public:
     void redraw();
     void update();
     void read_from_file();
+    void refresh();
     Ranking();
 private:
     p rank[10];

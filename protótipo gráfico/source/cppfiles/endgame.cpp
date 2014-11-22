@@ -34,7 +34,7 @@ EndGame::EndGame()
     text3.setCharacterSize(30);
     text3.setFont(font);
     text3.setColor(sf::Color::White);
-	text3.setPosition(sf::Vector2f(170,295));
+text3.setPosition(sf::Vector2f(170,295));
 
     text4.setCharacterSize(20);
     text4.setFont(font);

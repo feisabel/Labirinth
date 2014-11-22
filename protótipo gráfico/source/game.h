@@ -34,7 +34,7 @@ public:
 	list<Enemy> enemies;
     queue<Position> bullet_course;
 
-
+    sf::Texture exit;
 	sf::Texture floor;
 	sf::Texture trap_off;
 	sf::Texture trap_on;
@@ -68,6 +68,7 @@ public:
     sf::Texture wall_right_up_down;
 
 
+	sf::Sprite spriteExit;
 	sf::Sprite spriteWall;
 	sf::Sprite spriteFloor;
     sf::Sprite spriteTrap;
