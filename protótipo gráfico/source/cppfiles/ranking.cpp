@@ -9,18 +9,8 @@ std::string number(int n)
     return ss.str();
 }
 
-Ranking::Ranking()
+void Ranking::refresh()
 {
-    if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
-    {
-       std::cout << "Erro ao inicializar a textura" << std::endl;
-    }
-
-    if (!background.loadFromFile("resources/images/ranking1.png"))
-    {
-        std::cout << "erro de textura" << std::endl;
-        return;
-    }
     read_from_file();
     while(myRanking.size() > 10)
     {
@@ -43,6 +33,20 @@ Ranking::Ranking()
         ii++; j+=30;
     }
 
+}
+Ranking::Ranking()
+{
+    if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
+    {
+       std::cout << "Erro ao inicializar a textura" << std::endl;
+    }
+
+    if (!background.loadFromFile("resources/images/ranking1.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    refresh();
 }
 
 void Ranking::redraw()

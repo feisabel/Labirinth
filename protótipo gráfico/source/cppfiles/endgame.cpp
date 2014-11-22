@@ -121,4 +121,5 @@ void EndGame::add_ranking()
         saida << "\n";
     }
     saida.close();
+    Main::ranking.refresh();
 }
