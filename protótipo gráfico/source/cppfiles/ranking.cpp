@@ -11,6 +11,7 @@ std::string number(int n)
 
 void Ranking::refresh()
 {
+    myRanking.clear();
     read_from_file();
     while(myRanking.size() > 10)
     {
