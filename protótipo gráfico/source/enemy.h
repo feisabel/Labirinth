@@ -14,16 +14,17 @@ class Enemy : public Character
 {
 	queue<Position> route;
 	
-	Timer sleep;
 	bool chasing;
+	bool hit;
 
 public:
-	Enemy() : sleep(2000000), chasing(false) { sleep.end(); }
+	Enemy() : chasing(false), hit(false) {}
 
 	void init_chase();
 	bool trace_route(Player&, Maze&);
 	bool chase(Player&, Maze&);
 	bool is_chasing();
+	bool hit_player();
 };
 
 

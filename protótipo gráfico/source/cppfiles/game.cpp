@@ -376,13 +376,22 @@ void Game::update()
     }
 
     list<Enemy>::iterator it;
-    for (it = enemies.begin(); it != enemies.end(); it++)
-    {
-        if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
-        else if (it->is_chasing())
+    for (it = enemies.begin(); it != enemies.end();)
+    {   
+        if (it->hit_player())
         {
-            it->chase(player, maze);
+            enemies.erase(it++);
             b_redraw = true;
+        }
+        else
+        {
+            if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
+            else if (it->is_chasing())
+            {
+                it->chase(player, maze);
+                b_redraw = true;
+            }
+            ++it;
         }
     }
 

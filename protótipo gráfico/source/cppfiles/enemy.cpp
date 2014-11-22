@@ -59,6 +59,11 @@ void Enemy::init_chase()
 	chasing = true;
 }
 
+bool Enemy::hit_player()
+{
+	return hit;
+}
+
 bool Enemy::chase(Player& player, Maze& maze)
 {	
 	if (chasing)
@@ -74,21 +79,19 @@ bool Enemy::chase(Player& player, Maze& maze)
 				_pos = old_pos;
 
 				player.receive_dmg(1);
-				
+
 				chasing = false;
-				return false;
+				hit = true;
 			}
 		}
 		else
 		{
 			bool found_route = trace_route(player, maze);
-			if (!found_route) return false;
+			return found_route;
 		}
-		
-		return true;
 	}
 
-	return false;
+	return chasing;
 }
 
 
