@@ -12,8 +12,7 @@ protected:
 public:
 	Character(): _hp(5), _vel(0) {}
 
-	void move_to(Position& p) { _pos = p; }
-	void receive_dmg(int dmg);
+	void receive_dmg(int dmg) { _hp -= dmg; if (_hp < 0) _hp = 0; }
 
 	int hp() const { return _hp; }
 	int vel() const { return _vel; }

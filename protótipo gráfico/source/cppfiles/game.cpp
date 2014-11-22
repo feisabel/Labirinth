@@ -393,12 +393,20 @@ void Game::update()
     list<Enemy>::iterator it;
     for (it = enemies.begin(); it != enemies.end(); it++)
     {
-        if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
+        if (it->collided_with(player)) player.receive_dmg(1);
+        else if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
         else if (it->is_chasing())
         {
             it->chase(player, maze);
             b_redraw = true;
         }
+    }
+
+    if (player.hp() == 0)
+    {
+        player.end();
+        player.add_points();
+        SceneManager::change_scene(Main::endgame);
     }
 
     //active_traps();
