@@ -391,7 +391,7 @@ void Game::update()
         }
     }
 
-    if (player.hp() == 0)
+    if (player.hp() <= 0)
     {
         player.end();
         player.add_points();
