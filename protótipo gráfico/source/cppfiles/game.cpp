@@ -394,7 +394,11 @@ void Game::update()
     for (it = enemies.begin(); it != enemies.end(); it++)
     {
         if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
-        else if (it->is_chasing()) it->chase(player, maze);
+        else if (it->is_chasing())
+        {
+            it->chase(player, maze);
+            b_redraw = true;
+        }
     }
 
     //active_traps();
@@ -657,10 +661,10 @@ void Game::redraw()
                             spriteSpawn.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteSpawn);
                         }
+
                         Position a(i, j);
                         if(maze.exit() == a)
                         {
-                            std::cout << "passou aqui" << std::endl;
                             spriteExit.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteExit);
                         }

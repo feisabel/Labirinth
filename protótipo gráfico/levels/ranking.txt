@@ -1,3 +1,5 @@
 carol 1150
 jp 1150
 ana 1150
+jph 1150
+jpg 1150
