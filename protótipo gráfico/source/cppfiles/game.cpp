@@ -106,7 +106,6 @@ bool Game::read_from_file()
 }
 
 Game::Game()
-: timer(1000000.0/FPS)
 {
     if (!read_from_file()) return;
 
@@ -290,9 +289,6 @@ void Game::update()
 {
     player.start();
     sf::Event event;
-
-    while(timer.tick());
-    timer.reboot();
 
     while(window.pollEvent(event))
     {

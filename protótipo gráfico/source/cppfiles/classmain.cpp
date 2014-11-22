@@ -10,6 +10,8 @@
 
 bool Main::quit = false;
 
+Timer Main::timer(1000000.0/FPS);
+
 Game Main::game;
 Menu Main::menu;
 MenuContinue Main::menucontinue;
@@ -20,10 +22,15 @@ Ranking Main::ranking;
 void Main::loop ()
 {
     SceneManager::change_scene(menu);
+
     while (!quit)
     {
+    	while (!timer.ended()) timer.tick();
+    	timer.reboot();
+
         SceneManager::redraw();
         SceneManager::update();
     }
+    
     Scene::close();
 }
