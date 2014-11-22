@@ -416,7 +416,14 @@ void Game::update()
         b_redraw = true;
     }
 
-    //active_traps();
+    for(list<Trap>::iterator it = traps.begin(); it != traps.end(); it++)
+    {
+        if(it->pos() == player.pos())
+        {
+            player.hp()--;
+        }
+    }
+    active_traps();
 }
 
 void Game::useAmount()
@@ -444,17 +451,21 @@ void Game::useAmount()
     }
 }
 
-/*void Game::active_traps()
+void Game::active_traps()
 {
-    for(int i = 0; i < traps.size(); i++)
+    for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
     {
-        Trap *t = &traps.at(i);
-        if(t->is_active())
-            t->activate();
-        else
-            t->disactivate();
+        if(i->is_active())
+        {
+            i->disactivate();
+        }
+        else{
+            i->activate();
+        }
+        b_redraw = true;
     }
-}*/
+}
+
 
 bool Game::showMonster(int i, int j)
 {

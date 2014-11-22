@@ -92,7 +92,7 @@ public:
 	void update();
 	void redraw();
 	void restart();
-    //void active_traps();
+    void active_traps();
     void useAmount();
     void fire();
     void define_wall(int, int);
