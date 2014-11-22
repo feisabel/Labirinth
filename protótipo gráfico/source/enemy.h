@@ -12,11 +12,15 @@ using custom::queue;
 class Enemy : public Character
 {
 	queue<Position> route;
-public:
-	Enemy() {}
+	bool chasing;
 
+public:
+	Enemy() : chasing(false) {}
+
+	void init_chase();
 	bool trace_route(Player&, Maze&);
 	bool chase(Player&, Maze&);
+	bool is_chasing();
 };
 
 

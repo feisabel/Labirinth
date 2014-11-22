@@ -24,6 +24,7 @@ public:
 
 	void start(){ _start = clock.getElapsedTime(); }
 	void end(){ _end = clock.getElapsedTime(); }
+	
 	void get(Item i)
 	{
 		if (i.type() == Item::HEAL)
@@ -40,13 +41,15 @@ public:
 
 	int ammo() const { return _ammo; }
     int points() const { return _points; }
+	
 	Direction direction() const { return _direction; }
 	Direction& direction() { return _direction; }
 
-	bool in_fov(const Entity& e)
+	bool can_see(const Entity& e)
 	{
 		return _pos.x-4 <= e.x() && e.x() <= _pos.x+4 && _pos.y-4 <= e.y() && e.y() <= _pos.y+4;
 	}
+
     void add_points()
     {
         _points+= (_ammo*30 + _hp*50);

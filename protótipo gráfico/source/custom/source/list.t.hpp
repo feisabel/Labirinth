@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 namespace custom
 {
 
@@ -118,7 +120,8 @@ typename list<T>::const_reverse_iterator list<T>::rend() const
 // o primeiro elemento
 template <class T>
 const T& list<T>::front() const
-{
+{	
+	if (_size == 0) throw std::runtime_error("Invalid front_access: list is empty!");
 	return _begin->next->data;
 }
 
@@ -126,13 +129,15 @@ const T& list<T>::front() const
 template <class T>
 const T& list<T>::back() const
 {
+	if (_size == 0) throw std::runtime_error("Invalid back_access: list is empty!");
 	return _end->prev->data;
 }
 
 // o elemento que está na posição dada
 template <class T>
 const T& list<T>::at(size_t pos) const
-{
+{	
+	if (_size == 0) throw std::runtime_error("Invalid at_access: list is empty!");
 	return search(pos)->data;;
 }
 
@@ -170,6 +175,7 @@ void list<T>::push_back(const T& o)
 template <class T>
 T list<T>::pop_front()
 {
+	if (_size == 0) throw std::runtime_error("Invalid pop_front_deletion: list is empty!");
 	typename list<T>::node* tmp = _begin->next;
 
 	_begin->next = _begin->next->next;
@@ -187,6 +193,7 @@ T list<T>::pop_front()
 template <class T>
 T list<T>::pop_back()
 {	
+	if (_size == 0) throw std::runtime_error("Invalid pop_back_deletion: list is empty!");
 	typename list<T>::node* tmp = _end->prev;
 
 	_end->prev = _end->prev->prev;
@@ -263,6 +270,7 @@ void list<T>::insert(const T& o, list<T>::reverse_iterator& it)
 template <class T>
 T list<T>::erase(size_t pos)
 {	
+	if (pos >= _size) throw std::runtime_error("Invalid erase_deletion: list is empty!");
 	typename list<T>::node* tmp = search(pos);
 
 	tmp->prev->next = tmp->next;
@@ -281,6 +289,7 @@ T list<T>::erase(size_t pos)
 template <class T>
 T list<T>::erase(const list<T>::iterator& it)
 {	
+	if (_size == 0) throw std::runtime_error("Invalid erase_deletion: list is empty!");
 	it.pointer->prev->next = it.pointer->next;
 	it.pointer->next->prev = it.pointer->prev;
 
@@ -297,6 +306,7 @@ T list<T>::erase(const list<T>::iterator& it)
 template <class T>
 T list<T>::erase(const list<T>::reverse_iterator& it)
 {	
+	if (_size == 0) throw std::runtime_error("Invalid erase_deletion: list is empty!");
 	it.pointer->prev->next = it.pointer->next;
 	it.pointer->next->prev = it.pointer->prev;
 
@@ -372,6 +382,7 @@ void list<T>::mem_copy(const list<T>& o)
 	}
 
 	itt->next = _end;
+	_end->prev = itt;
 }
 
 

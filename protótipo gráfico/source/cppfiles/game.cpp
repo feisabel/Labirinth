@@ -295,7 +295,11 @@ void Game::update()
 {
     player.start();
     sf::Event event;
-    while(window.pollEvent(event) || timer.tick())
+
+    while(timer.tick());
+    timer.reboot();
+
+    while(window.pollEvent(event))
     {
         if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
         {
@@ -370,9 +374,16 @@ void Game::update()
                 SceneManager::change_scene(Main::endgame);
             }
         }
-
-        if (timer.ended()) timer.reboot();
     }
+
+
+    list<Enemy>::iterator it;
+    for (it = enemies.begin(); it != enemies.end(); it++)
+    {
+        if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
+        else if (it->is_chasing()) it->chase(player, maze);
+    }
+
     //active_traps();
 }
 

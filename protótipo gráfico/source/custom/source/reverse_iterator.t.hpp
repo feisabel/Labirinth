@@ -24,6 +24,12 @@ T& _reverse_iterator<T>::operator*() const
 	return pointer->data;
 }
 
+template <class T>
+T* _reverse_iterator<T>::operator->() const
+{
+	return &pointer->data;
+}
+
 
 // operadores de avanço
 template <class T>
@@ -106,6 +112,12 @@ template <class T>
 const T& _const_reverse_iterator<T>::operator*() const
 {
 	return pointer->data;
+}
+
+template <class T>
+const T* _const_reverse_iterator<T>::operator->() const
+{
+	return &pointer->data;
 }
 
 

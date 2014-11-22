@@ -21,6 +21,7 @@ public:
 	_forward_iterator(_node<T>*);
 	
 	T& operator*() const;
+	T* operator->() const;
 
 	_forward_iterator<T>& operator++();
 	_forward_iterator<T> operator++(int);
@@ -52,6 +53,7 @@ public:
 	_const_forward_iterator<T>& operator= (_forward_iterator<T>&);
 
 	const T& operator*() const;
+	const T* operator->() const;
 
 	_const_forward_iterator<T>& operator++();
 	_const_forward_iterator<T> operator++(int);

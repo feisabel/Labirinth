@@ -24,6 +24,13 @@ T& _forward_iterator<T>::operator*() const
 	return pointer->data;
 }
 
+template <class T>
+T* _forward_iterator<T>::operator->() const
+{
+	return &pointer->data;
+}
+
+
 
 // operadores de avanço
 template <class T>
@@ -106,6 +113,12 @@ template <class T>
 const T& _const_forward_iterator<T>::operator*() const
 {
 	return pointer->data;
+}
+
+template <class T>
+const T* _const_forward_iterator<T>::operator->() const
+{
+	return &pointer->data;
 }
 
 
