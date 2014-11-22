@@ -301,7 +301,6 @@ Game::Game()
 
     player.pos() = maze.entrance();
     music.setLoop(true);
-    playMusic(true);
 }
 
 void Game::update()
@@ -386,6 +385,7 @@ void Game::update()
             }
             if(player.pos() == maze.exit())
             {
+                playMusic(false);
                 player.end();
                 player.add_points();
                 SceneManager::change_scene(Main::endgame);
