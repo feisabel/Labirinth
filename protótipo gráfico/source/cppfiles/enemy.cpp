@@ -63,22 +63,31 @@ bool Enemy::chase(Player& player, Maze& maze)
 {	
 	if (chasing)
 	{
-		if (collided_with(player))
+		if (!route.empty())
 		{
-			route.clear();
-			chasing = false;
-			return false;
+			Position old_pos = _pos;
+			_pos = route.pop();
+
+			if (collided_with(player))
+			{
+				route.clear();
+				_pos = old_pos;
+
+				player.receive_dmg(1);
+				
+				chasing = false;
+				return false;
+			}
 		}
-		else if (route.empty())
+		else
 		{
 			bool found_route = trace_route(player, maze);
 			if (!found_route) return false;
 		}
-		 
-		_pos = route.pop();
 		
 		return true;
 	}
+
 	return false;
 }
 

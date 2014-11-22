@@ -20,6 +20,8 @@ using custom::list;
 #include "menucontinue.h"
 #include "timer.h"
 
+#define FPS 24
+
 class Main;
 
 class Game : public Scene
@@ -78,6 +80,10 @@ public:
 	sf::Sprite spriteMed;
 	sf::Sprite spriteCharacter;
     sf::Sprite spriteBullet;
+
+    sf::Font font;
+
+    sf::Text player_hp;
 
     Timer timer;
 

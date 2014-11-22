@@ -15,6 +15,10 @@ MenuContinue::MenuContinue()
     {
         button[c].content.setFont(font);
         button[c].content.setCharacterSize(32);
+        button[c].content.setColor(sf::Color::White);
+
+        button[c].rect.setSize(sf::Vector2f(150, 50));   
+        button[c].rect.setFillColor(sf::Color(0, 128, 255));
     }
 
     title_teste.setSize(sf::Vector2f(150, 75));
@@ -32,11 +36,7 @@ MenuContinue::MenuContinue()
 
     for( int c = 0, rectY = 300; c < 3; c++, rectY+= 80)
     {
-        button[c].rect.setSize(sf::Vector2f(150, 50));
         button[c].setPosition(sf::Vector2f(300, rectY));
-        button[c].rect.setFillColor(sf::Color(0, 128, 255));
-
-        button[c].content.setColor(sf::Color::White);
 
         if (c == 0) {
             button[c].content.setString("Resume");

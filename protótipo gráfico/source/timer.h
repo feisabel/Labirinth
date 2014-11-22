@@ -23,6 +23,7 @@ public:
     }
     
     bool ended() { return counter == 0; }
+    void end() { counter = 0; }
 
     void reboot() { counter = max; }
 

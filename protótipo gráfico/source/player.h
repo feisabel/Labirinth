@@ -7,9 +7,11 @@
 
 class Player : public Character
 {
+public:
 	static const int max_ammo = 30;
 	static const int max_hp = 10;
 
+private:
 	static const unsigned fov = 4;
 
 	sf::Clock clock;
@@ -20,7 +22,7 @@ class Player : public Character
 	Direction _direction;
 
 public:
-	Player() : _ammo(max_ammo), _points(0) {}
+	Player() : _ammo(max_ammo), _points(0) { _hp = max_hp; }
 
 	void start(){ _start = clock.getElapsedTime(); }
 	void end(){ _end = clock.getElapsedTime(); }
@@ -40,6 +42,7 @@ public:
 	}
 
 	int ammo() const { return _ammo; }
+	int& ammo() { return _ammo; }
     void ammo_fire() { _ammo--; }
     int points() const { return _points; }
 	
