@@ -424,6 +424,12 @@ void Game::update()
             enemies.erase(it++);
             b_redraw = true;
         }
+        else if (it->hit_bullet())
+        {
+            enemies.erase(it++);
+            b_redraw = true;
+            bullet_course.clear();
+        }
         else
         {   
             if (it->is_chasing())
@@ -446,6 +452,9 @@ void Game::update()
         }
     }
 
+    if (!bullet_course.empty() && !player.can_see(bullet_course.front()))
+        bullet_course.pop();
+    
     if (player.hp() <= 0)
     {
         player.end();
