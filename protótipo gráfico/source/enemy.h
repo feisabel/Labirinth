@@ -21,12 +21,13 @@ private:
 	queue<Position> route;
 
 	bool chasing;
-	bool hit;
+	bool hit_p;
+    bool hit_b;
 	bool set_awake;
 
 public:
-	Enemy() : state(AWAKE), set_awake(false), chasing(false), hit(false) {}
-	Enemy(State s) : state(s), set_awake(false), chasing(false), hit(false) {}
+	Enemy() : state(AWAKE), set_awake(false), chasing(false), hit_p(false), hit_b(false) {}
+	Enemy(State s) : state(s), set_awake(false), chasing(false), hit_p(false), hit_b(false) {}
 
 	void init_awake() { set_awake = true; }
 	bool inited_awake() { return set_awake; }
@@ -41,6 +42,7 @@ public:
 	bool chase(Player&, Maze&);
 
 	bool hit_player();
+    bool hit_bullet();
 };
 
 

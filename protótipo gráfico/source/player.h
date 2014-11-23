@@ -53,6 +53,11 @@ public:
 	{
 		return _pos.x-2 <= e.x() && e.x() <= _pos.x+2 && _pos.y-2 <= e.y() && e.y() <= _pos.y+2;
 	}
+    
+    bool can_see(const Position& e)
+	{
+		return (_pos.x-4 <= e.x) && (e.x <= _pos.x+4) && (_pos.y-4 <= e.y) && (e.y <= _pos.y+4);
+	}
 
     void add_points(int a)
     {
