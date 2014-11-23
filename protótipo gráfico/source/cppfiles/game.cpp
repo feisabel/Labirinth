@@ -548,7 +548,18 @@ void Game::update()
     std::stringstream ss(player_hp.getString());
     ss >> old_hp;
     if (old_hp != player.hp())
-    {
+    {   
+        if (0 < player.hp() && player.hp() <= Player::max_hp/5)
+            spriteHeart.setTexture(h1);
+        else if (Player::max_hp/5 < player.hp() && player.hp() <= 2*Player::max_hp/5)
+            spriteHeart.setTexture(h2);
+        else if (2*Player::max_hp/5 < player.hp() && player.hp() <= 3*Player::max_hp/5)
+            spriteHeart.setTexture(h3);
+        else if (3*Player::max_hp/5 < player.hp() && player.hp() <= 4*Player::max_hp/5)
+            spriteHeart.setTexture(h4);
+        else if (4*Player::max_hp/5 < player.hp() && player.hp() <= Player::max_hp)
+            spriteHeart.setTexture(h5);
+
         std::stringstream ss1;
         ss1 << player.hp() << "hp";
 
