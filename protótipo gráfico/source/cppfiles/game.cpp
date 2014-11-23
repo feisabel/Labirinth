@@ -16,93 +16,93 @@
 // Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
 bool Game::read_from_file()
 {
-	std::ifstream entrada; 							   // Conexão com o arquivo "entrada.txt".
+    std::ifstream entrada;                             // Conexão com o arquivo "entrada.txt".
 
-	entrada.open( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
+    entrada.open( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
 
-	if( entrada.is_open() )
+    if( entrada.is_open() )
     {
-		int a, b;
+        int a, b;
 
-		if( !(entrada >> a) )
-		{
-			entrada.close();
-			std::cout << "não leu a" << std::endl;
-			return false;
-		}
-		if( !(entrada >> b) )
-		{
-			entrada.close();
-			std::cout << "não leu a" << std::endl;
-			return false;
-		}
+        if( !(entrada >> a) )
+        {
+            entrada.close();
+            std::cout << "não leu a" << std::endl;
+            return false;
+        }
+        if( !(entrada >> b) )
+        {
+            entrada.close();
+            std::cout << "não leu a" << std::endl;
+            return false;
+        }
 
-		maze.init(a, b);
+        maze.init(a, b);
 
         int j;
-		for (j=0; j<b; j++)
-		{
-			for (int i=0; i<a; i++)
-			{
-				int x;
-				entrada >> x;
+        for (j=0; j<b; j++)
+        {
+            for (int i=0; i<a; i++)
+            {
+                int x;
+                entrada >> x;
 
-				if (x == 1) maze[i][j].type() = Block::WALL;
-				else
-				{
-					maze[i][j].type() = Block::FLOOR;
+                if (x == 1) maze[i][j].type() = Block::WALL;
+                else
+                {
+                    maze[i][j].type() = Block::FLOOR;
 
-					if (x == 2) maze.entrance() = Position(i, j);
-					else if (x == 3) maze.exit() = Position(i, j);
-					else if (x == 4)
-					{
-						Trap t;
-						t.pos() = Position(i, j);
-						traps.push_back(t);
-					}
-					else if (x == 5)
-					{
-						Spawn s;
-						s.pos() = Position(i, j);
-						spawns.push_back(s);
-					}
-					else if (x == 6)
-					{
-						Item h(Item::HEAL);
-						h.pos() = Position(i, j);
-						hearts.push_back(h);
-					}
-					else if (x == 7)
-					{
-						Item a(Item::AMMO);
-						a.pos() = Position(i, j);
-						ammuns.push_back(a);
-					}
-					else if (x == 8)
-					{
-						Enemy e;
-						e.pos() = Position(i, j);
-						enemies.push_back(e);
-					}
-				}
-			}
-		}
+                    if (x == 2) maze.entrance() = Position(i, j);
+                    else if (x == 3) maze.exit() = Position(i, j);
+                    else if (x == 4)
+                    {
+                        Trap t;
+                        t.pos() = Position(i, j);
+                        traps.push_back(t);
+                    }
+                    else if (x == 5)
+                    {
+                        Enemy s(Enemy::SLEEP);
+                        s.pos() = Position(i, j);
+                        enemies.push_back(s);
+                    }
+                    else if (x == 6)
+                    {
+                        Item h(Item::HEAL);
+                        h.pos() = Position(i, j);
+                        hearts.push_back(h);
+                    }
+                    else if (x == 7)
+                    {
+                        Item a(Item::AMMO);
+                        a.pos() = Position(i, j);
+                        ammuns.push_back(a);
+                    }
+                    else if (x == 8)
+                    {
+                        Enemy e(Enemy::AWAKE);
+                        e.pos() = Position(i, j);
+                        enemies.push_back(e);
+                    }
+                }
+            }
+        }
 
         // Verifica se a leitura da matriz ocorreu corretamente.
         if( j != b ) {
-        	std::cout << "não leu matriz" << std::endl;
-        	entrada.close();
-        	return false;
+            std::cout << "não leu matriz" << std::endl;
+            entrada.close();
+            return false;
         }
-	}
-	else {
-		std::cout << "não abriu arquivo" << std::endl;
-		entrada.close();
-		return false;
-	}
+    }
+    else {
+        std::cout << "não abriu arquivo" << std::endl;
+        entrada.close();
+        return false;
+    }
 
-	entrada.close();
-	return true;
+    entrada.close();
+    return true;
 }
 
 Game::Game()
@@ -421,18 +421,27 @@ void Game::update()
     {
         if (it->hit_player())
         {
-            player.add_points(-20);
             enemies.erase(it++);
             b_redraw = true;
         }
         else
-        {
-            if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
-            else if (it->is_chasing())
+        {   
+            if (it->is_chasing())
             {
                 it->chase(player, maze);
                 b_redraw = true;
             }
+            else if (player.can_see(*it))
+            {
+                if (!it->inited_awake()) it->init_awake();
+                else if (!it->is_awake())
+                {
+                    it->awake();
+                    b_redraw = true;
+                }
+                else if (!it->is_chasing()) it->init_chase();
+            }
+            
             ++it;
         }
     }
@@ -457,6 +466,7 @@ void Game::update()
 
         b_redraw = true;
     }
+    
     active_traps();
     for(list<Trap>::iterator it = traps.begin(); it != traps.end(); it++)
     {
@@ -512,29 +522,30 @@ void Game::active_traps()
 bool Game::showMonster(int i, int j)
 {
     Position a(i, j);
-    Enemy e;
     for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
     {
-        e = *i;
-        if(e.pos() == a)
-        {
-            return true;
-        }
+        if(i->pos() == a && i->is_awake()) return true;
     }
     return false;
 }
 
+bool Game::showSpawn(int i, int j)
+{
+    Position a(i, j);
+    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
+    {
+        if(i->pos() == a && !i->is_awake()) return true;
+    }
+    return false;
+}
+
+
 bool Game::showMed(int i, int j)
 {
     Position a(i, j);
-    Item e(Item::HEAL);
     for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++)
     {
-        e = *i;
-        if(e.pos() == a)
-        {
-            return true;
-        }
+        if(i->pos() == a) return true;
     }
     return false;
 }
@@ -542,16 +553,14 @@ bool Game::showMed(int i, int j)
 bool Game::showTrap(int i, int j)
 {
     Position a(i, j);
-    Trap e;
     for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
     {
-        e = *i;
-        if(e.pos() == a && e.is_active())
+        if(i->pos() == a && !i->is_active())
         {
             spriteTrap.setTexture(trap_on);
             return true;
         }
-        else if( e.pos() == a && !e.is_active())
+        else if(i->pos() == a && i->is_active())
         {
             spriteTrap.setTexture(trap_off);
             return true;
@@ -563,25 +572,9 @@ bool Game::showTrap(int i, int j)
 bool Game::showAmmo(int i, int j)
 {
     Position a(i, j);
-    Item e(Item::AMMO);
     for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++)
     {
-        e = *i;
-        if(e.pos() == a)
-            return true;
-    }
-    return false;
-}
-
-bool Game::showSpawn(int i, int j)
-{
-    Position a(i, j);
-    Spawn e;
-    for(list<Spawn>::iterator i = spawns.begin(); i != spawns.end(); i++)
-    {
-        e = *i;
-        if(e.pos() == a)
-            return true;
+        if(i->pos() == a) return true;
     }
     return false;
 }
