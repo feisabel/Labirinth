@@ -103,7 +103,9 @@ bool Game::read_from_file()
     }
 
     entrada.close();
-    return true;
+
+
+    return true;//verify_maze(maze);
 }
 
 Game::Game()
@@ -486,6 +488,8 @@ void Game::update()
     {
         if (it->hit_player())
         {
+            player.add_points(-30);
+
             enemies.erase(it++);
 
             int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
@@ -584,6 +588,20 @@ void Game::update()
         }
     }
 }
+
+
+bool Game::verify_maze(Maze& maze)
+{
+    stack<Position> dfs;
+
+    dfs.push(maze.entrance());
+
+    while (!dfs.empty && dfs.top() != maze.exit())
+    {
+
+    }
+}
+
 
 void Game::useAmount()
 {

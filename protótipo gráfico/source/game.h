@@ -115,18 +115,25 @@ public:
 
 	void update();
 	void redraw();
-	void restart();
+	
+    void restart();
     void active_traps();
+
     void useAmount();
     void fire();
+    
     void define_wall(int, int);
+    
     bool showSpawn(int, int);
     bool showMonster(int, int);
 	bool showAmmo(int, int);
 	bool showMed(int, int);
 	bool showTrap(int, int);
-	bool read_from_file();
-	void playMusic(bool a)
+	
+    bool read_from_file();
+	bool verify_maze(Maze&);
+
+    void playMusic(bool a)
 	{
 	    if(a){
             music.play();
