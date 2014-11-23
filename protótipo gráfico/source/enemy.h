@@ -20,14 +20,18 @@ private:
 
 	queue<Position> route;
 
+	Direction dir;
+
 	bool chasing;
 	bool hit_p;
     bool hit_b;
 	bool set_awake;
 
 public:
-	Enemy() : state(AWAKE), set_awake(false), chasing(false), hit_p(false), hit_b(false) {}
-	Enemy(State s) : state(s), set_awake(false), chasing(false), hit_p(false), hit_b(false) {}
+	Enemy() : state(AWAKE), dir(UP), set_awake(false), chasing(false), hit_p(false), hit_b(false) {}
+	Enemy(State s) : state(s), dir(UP), set_awake(false), chasing(false), hit_p(false), hit_b(false) {}
+
+	Direction direction() { return dir; }
 
 	void init_awake() { set_awake = true; }
 	bool inited_awake() { return set_awake; }

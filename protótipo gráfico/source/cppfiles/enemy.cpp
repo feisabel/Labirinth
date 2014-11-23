@@ -78,6 +78,11 @@ bool Enemy::chase(Player& player, Maze& maze, queue<Position>& bullet_course)
 			Position old_pos = _pos;
 			_pos = route.pop();
             
+			if (_pos == get_adjacent(old_pos, LEFT)) dir = LEFT;
+			else if (_pos == get_adjacent(old_pos, RIGHT)) dir = RIGHT;
+			else if (_pos == get_adjacent(old_pos, UP)) dir = UP;
+			else if (_pos == get_adjacent(old_pos, DOWN)) dir = DOWN;
+
 			if (collided_with(player))
 			{
 				route.clear();

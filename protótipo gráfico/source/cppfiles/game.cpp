@@ -269,6 +269,21 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
+    if (!monster_back.loadFromFile("resources/images/skeleton_front.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
+    if (!monster_left.loadFromFile("resources/images/skeleton_left.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
+    if (!monster_right.loadFromFile("resources/images/skeleton_right.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
     if (!ammo.loadFromFile("resources/images/ammo.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -405,7 +420,7 @@ Game::Game()
     spriteBullet.setTexture(bullet_down);
     
     soundGunfire.setBuffer(gunfire);
-    soundGunfire.setVolume(50);
+    soundGunfire.setVolume(40);
 
     player.pos() = maze.entrance();
     
@@ -706,7 +721,15 @@ bool Game::showMonster(int i, int j)
     Position a(i, j);
     for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
     {
-        if(i->pos() == a && i->is_awake()) return true;
+        if(i->pos() == a && i->is_awake())
+        {
+            if (i->direction() == UP) spriteMonster.setTexture(monster_back);
+            else if (i->direction() == DOWN) spriteMonster.setTexture(monster_front);
+            else if (i->direction() == LEFT) spriteMonster.setTexture(monster_left);
+            else if (i->direction() == RIGHT) spriteMonster.setTexture(monster_right);
+            
+            return true;
+        }
     }
     return false;
 }

@@ -50,14 +50,13 @@ MenuContinue::MenuContinue()
 
     rect.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
     rect.setFillColor(sf::Color(0, 0, 0, 170));
-
-
 }
 
 void MenuContinue::redraw()
 {
     if (b_redraw)
     {
+        window.draw(rect);
         window.draw(title);
         window.draw(spriteExit);
         window.draw(spriteMenu);

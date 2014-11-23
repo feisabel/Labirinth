@@ -60,6 +60,9 @@ public:
 	sf::Texture trap_on;
 	sf::Texture spawn;
 	sf::Texture monster_front;
+    sf::Texture monster_back;
+    sf::Texture monster_left;
+    sf::Texture monster_right;
 	sf::Texture ammo;
 	sf::Texture med;
 	sf::Texture character_back;
