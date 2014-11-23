@@ -39,6 +39,8 @@ public:
 
     sf::Music music;
     bool playing;
+    
+    sf::SoundBuffer gunfire;
 
     sf::SoundBuffer bufferZombieAwake;
     sf::SoundBuffer bufferZombieDead;
@@ -94,6 +96,8 @@ public:
 	sf::Sprite spriteCharacter;
     sf::Sprite spriteBullet;
     sf::Sprite spriteFadeOut;
+    
+    sf::Sound soundGunfire;
 
     sf::Font font;
 

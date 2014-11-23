@@ -130,6 +130,11 @@ Game::Game()
     {
         std::cout << "erro" << std::endl;
     }
+    
+    if (!gunfire.loadFromFile("resources/sounds/gunfire_effect.ogg"))
+    {
+        std::cout << "erro" << std::endl;
+    }
 
     if (!musicplayON.loadFromFile("resources/images/volume.png"))
     {
@@ -314,6 +319,8 @@ Game::Game()
     spriteMed.setTexture(med);
     spriteCharacter.setTexture(character_back);
     spriteBullet.setTexture(bullet_down);
+    
+    soundGunfire.setBuffer(gunfire);
 
     player.pos() = maze.entrance();
     
@@ -627,6 +634,9 @@ bool Game::showAmmo(int i, int j)
 
 void Game::fire()
 {
+    if (playing)
+        soundGunfire.play();
+    
     Entity bullet(player.x(), player.y());
 
     Position pos;
