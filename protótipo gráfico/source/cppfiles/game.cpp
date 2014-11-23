@@ -370,7 +370,7 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Z)
             {
                 useAmount();
-
+                player.add_points(30);
                 b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
@@ -387,7 +387,7 @@ void Game::update()
             {
                 playMusic(false);
                 player.end();
-                player.add_points();
+                player.add_points(100);
                 SceneManager::change_scene(Main::endgame);
             }
         }
@@ -416,6 +416,7 @@ void Game::update()
     {
         if (it->hit_player())
         {
+            player.add_points(-20);
             enemies.erase(it++);
             b_redraw = true;
         }
@@ -434,7 +435,7 @@ void Game::update()
     if (player.hp() <= 0)
     {
         player.end();
-        player.add_points();
+        player.add_points(-100);
         SceneManager::change_scene(Main::endgame);
         restart();
     }
@@ -456,6 +457,7 @@ void Game::update()
     {
         if(it->pos() == player.pos())
         {
+            player.add_points(-10);
             player.hp()--;
         }
     }

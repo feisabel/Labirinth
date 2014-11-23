@@ -11,7 +11,6 @@
 EndGame::EndGame()
 {
     std::stringstream ss;
-    Main::game.player.add_points();
     ss << Main::game.player.points();
     points = ss.str();
 

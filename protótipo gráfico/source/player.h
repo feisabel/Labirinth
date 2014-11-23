@@ -26,7 +26,7 @@ public:
 
 	void start(){ _start = clock.getElapsedTime(); }
 	void end(){ _end = clock.getElapsedTime(); }
-	
+
 	void get(Item i)
 	{
 		if (i.type() == Item::HEAL)
@@ -44,8 +44,8 @@ public:
 	int ammo() const { return _ammo; }
 	int& ammo() { return _ammo; }
     void ammo_fire() { _ammo--; }
-    int points() const { return _points; }
-	
+    int& points() { return _points; }
+
 	Direction direction() const { return _direction; }
 	Direction& direction() { return _direction; }
 
@@ -54,9 +54,9 @@ public:
 		return _pos.x-4 <= e.x() && e.x() <= _pos.x+4 && _pos.y-4 <= e.y() && e.y() <= _pos.y+4;
 	}
 
-    void add_points()
+    void add_points(int a)
     {
-        _points+= (_ammo*30 + _hp*50);
+        _points+= a;
     }
 };
 
