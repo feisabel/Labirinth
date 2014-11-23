@@ -126,6 +126,38 @@ Game::Game()
 
     player_hp.setPosition(sf::Vector2f(50, 50));
 
+    player_ammo.setCharacterSize(20);
+    player_ammo.setFont(font);
+    player_ammo.setColor(sf::Color::White);
+
+    std::stringstream ss1;
+    ss1 << player.ammo() <<"ammo";
+    player_ammo.setString(ss1.str());
+
+    player_ammo.setPosition(sf::Vector2f(150, 20));
+
+
+    if (!h1.loadFromFile("resources/images/heart1.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+    if (!h2.loadFromFile("resources/images/heart2.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+    if (!h3.loadFromFile("resources/images/heart3.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+    if (!h4.loadFromFile("resources/images/heart4.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+    if (!h5.loadFromFile("resources/images/heart5.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
     if (!music.openFromFile("resources/sounds/maze_music.ogg"))
     {
         std::cout << "erro" << std::endl;
@@ -306,6 +338,10 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
+    spriteAmmoToSee.setTexture(ammo);
+    spriteAmmoToSee.setPosition(sf::Vector2f(100, 10));
+    spriteHeart.setTexture(h5);
+    spriteHeart.setPosition(sf::Vector2f(15, 20));
     spriteFadeOut.setTexture(fade_out);
     spriteMusic.setTexture(musicplayON);
     spriteMusic.setPosition(sf::Vector2f(504, 5));
@@ -682,6 +718,9 @@ void Game::fire()
             bullet.y()++;
         }
     }
+    std::stringstream ss1;
+    ss1 << player.ammo() <<"ammo";
+    player_ammo.setString(ss1.str());
 }
 
 void Game::define_wall (int i, int j)
@@ -831,8 +870,10 @@ void Game::redraw()
 
             window.draw(spriteFadeOut);
             window.draw(player_hp);
+            window.draw(player_ammo);
             window.draw(spriteMusic);
-
+			window.draw(spriteHeart);
+            window.draw(spriteAmmoToSee);
             window.display();
         }
 
@@ -852,6 +893,10 @@ void Game::restart()
     player.direction() = UP;
     player.hp() = Player::max_hp;
     player.ammo() = Player::max_ammo;
+
+    std::stringstream ss1;
+    ss1 << player.ammo() <<"ammo";
+    player_ammo.setString(ss1.str());
 
     spriteCharacter.setTexture(character_back);
     read_from_file();

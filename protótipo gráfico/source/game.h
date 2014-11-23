@@ -48,6 +48,7 @@ public:
     sf::Sound zombie_awake;
     sf::Sound zombie_dead;
 
+    sf::Texture h1, h2, h3, h4, h5;
     sf::Texture musicplayON;
     sf::Texture musicplayOFF;
     sf::Texture exit;
@@ -84,6 +85,8 @@ public:
     sf::Texture wall_right_up_down;
     sf::Texture fade_out;
 
+    sf::Sprite spriteAmmoToSee;
+    sf::Sprite spriteHeart;
     sf::Sprite spriteMusic;
 	sf::Sprite spriteExit;
 	sf::Sprite spriteWall;
@@ -102,6 +105,7 @@ public:
     sf::Font font;
 
     sf::Text player_hp;
+    sf::Text player_ammo;
 
     Timer timer;
 
