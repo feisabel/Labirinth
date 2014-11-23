@@ -155,6 +155,9 @@ Game::Game()
         std::cout << "erro de fonte" << std::endl;
     }
 
+    circle.setFillColor(sf::Color::Red);
+    circleEnd.setFillColor(sf::Color::Black);
+    
     player_hp.setCharacterSize(20);
     player_hp.setFont(font);
     player_hp.setColor(sf::Color::White);
@@ -382,7 +385,7 @@ Game::Game()
     }
 
     spriteMap.setTexture(map);
-    spriteMap.setPosition(sf::Vector2f(400, 50));
+    spriteMap.setPosition(sf::Vector2f(415, 66));
     spriteAmmoToSee.setTexture(ammo);
     spriteAmmoToSee.setPosition(sf::Vector2f(100, 10));
     spriteHeart.setTexture(h5);
@@ -406,7 +409,7 @@ Game::Game()
 
     player.pos() = maze.entrance();
     
-    circleEnd.setPosition(sf::Vector2f(430+13*112*maze.exit().x/560, 80+13*112*maze.exit().y/560));
+    circleEnd.setPosition(sf::Vector2f(430+7*112*maze.exit().x/560, 80+7*112*maze.exit().y/560));
     changeXY();
     
     zombie_awake.setBuffer(bufferZombieAwake);
@@ -955,16 +958,16 @@ void Game::redraw()
                     }
                 }
             }
-
+			
+			window.draw(spriteMap);
+			window.draw(circle);
+			window.draw(circleEnd);
             window.draw(spriteFadeOut);
             window.draw(player_hp);
             window.draw(player_ammo);
             window.draw(spriteMusic);
 			window.draw(spriteHeart);
-			window.draw(spriteMap);
-			window.draw(circle);
-			window.draw(circleEnd);
-            window.draw(spriteAmmoToSee);
+			window.draw(spriteAmmoToSee);
             window.display();
         }
 
@@ -1000,7 +1003,7 @@ void Game::restart()
 
 void Game::changeXY()
 {
-    xX = 13*112*player.x()/560;
-    yY = 13*112*player.y()/560;
+    xX = 7*112*player.x()/560;
+    yY = 7*112*player.y()/560;
     circle.setPosition(sf::Vector2f(430+xX, 80+yY));
 }
