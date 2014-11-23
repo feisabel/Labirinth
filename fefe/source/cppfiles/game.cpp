@@ -62,9 +62,9 @@ bool Game::read_from_file()
 					}
 					else if (x == 5)
 					{
-						Enemy s(Enemy::SLEEP);
+						Spawn s;
 						s.pos() = Position(i, j);
-						enemies.push_back(s);
+						spawns.push_back(s);
 					}
 					else if (x == 6)
 					{
@@ -80,7 +80,7 @@ bool Game::read_from_file()
 					}
 					else if (x == 8)
 					{
-						Enemy e(Enemy::AWAKE);
+						Enemy e;
 						e.pos() = Position(i, j);
 						enemies.push_back(e);
 					}
@@ -129,97 +129,92 @@ Game::Game()
     {
         std::cout << "erro" << std::endl;
     }
-
+    
     if (!musicplayON.loadFromFile("resources/images/volume.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!musicplayOFF.loadFromFile("resources/images/mudo.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
-    if (!fade_out.loadFromFile("resources/images/fade_out.png"))
-    {
-        std::cout << "erro de textura" << std::endl;
-    }
-
+    
     if (!exit.loadFromFile("resources/images/exit.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!floor.loadFromFile("resources/images/floor1.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!trap_off.loadFromFile("resources/images/trap_off3.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!trap_on.loadFromFile("resources/images/trap_on3.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!spawn.loadFromFile("resources/images/spawn1.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!monster_front.loadFromFile("resources/images/skeleton_front.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!ammo.loadFromFile("resources/images/ammo.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!med.loadFromFile("resources/images/medkit.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_back.loadFromFile("resources/images/char_back.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_front.loadFromFile("resources/images/char_front.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_left.loadFromFile("resources/images/char_left.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_right.loadFromFile("resources/images/char_right.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_down.loadFromFile("resources/images/bullet_down.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_up.loadFromFile("resources/images/bullet_up.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_left.loadFromFile("resources/images/bullet_left.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_right.loadFromFile("resources/images/bullet_right.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -235,7 +230,7 @@ Game::Game()
     if (!wall_left_up.loadFromFile("resources/images/wall_left_up.png"))
     {
         std::cout << "erro de textura" << std::endl;
-
+        
     }
     if (!wall_left_down.loadFromFile("resources/images/wall_left_down.png"))
     {
@@ -290,7 +285,7 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
-    spriteFadeOut.setTexture(fade_out);
+
     spriteMusic.setTexture(musicplayON);
     spriteMusic.setPosition(sf::Vector2f(504, 5));
     spriteExit.setTexture(exit);
@@ -306,6 +301,7 @@ Game::Game()
 
     player.pos() = maze.entrance();
     music.setLoop(true);
+    playMusic(true);
 }
 
 void Game::update()
@@ -375,7 +371,7 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Z)
             {
                 useAmount();
-                player.add_points(30);
+
                 b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
@@ -390,9 +386,8 @@ void Game::update()
             }
             if(player.pos() == maze.exit())
             {
-                playMusic(false);
                 player.end();
-                player.add_points(100);
+                player.add_points();
                 SceneManager::change_scene(Main::endgame);
             }
         }
@@ -421,36 +416,30 @@ void Game::update()
     {
         if (it->hit_player())
         {
-            player.add_points(-20);
             enemies.erase(it++);
             b_redraw = true;
         }
+        else if (it->hit_bullet())
+            bullet_course.clear();
         else
-        {   
-            if (it->is_chasing())
+        {
+            if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
+            else if (it->is_chasing())
             {
-                it->chase(player, maze);
+                it->chase(player, maze, bullet_course);
                 b_redraw = true;
             }
-            else if (player.can_see(*it))
-            {
-                if (!it->inited_awake()) it->init_awake();
-                else if (!it->is_awake())
-                {
-                    it->awake();
-                    b_redraw = true;
-                }
-                else if (!it->is_chasing()) it->init_chase();
-            }
-            
             ++it;
         }
     }
+    
+    if (!bullet_course.empty() && !player.can_see(bullet_course.front()))
+            bullet_course.pop();
 
     if (player.hp() <= 0)
     {
         player.end();
-        player.add_points(-100);
+        player.add_points();
         SceneManager::change_scene(Main::endgame);
         restart();
     }
@@ -472,7 +461,6 @@ void Game::update()
     {
         if(it->pos() == player.pos())
         {
-            player.add_points(-10);
             player.hp()--;
         }
     }
@@ -522,30 +510,29 @@ void Game::active_traps()
 bool Game::showMonster(int i, int j)
 {
     Position a(i, j);
+    Enemy e;
     for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
     {
-        if(i->pos() == a && i->is_awake()) return true;
+        e = *i;
+        if(e.pos() == a)
+        {
+            return true;
+        }
     }
     return false;
 }
-
-bool Game::showSpawn(int i, int j)
-{
-    Position a(i, j);
-    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
-    {
-        if(i->pos() == a && !i->is_awake()) return true;
-    }
-    return false;
-}
-
 
 bool Game::showMed(int i, int j)
 {
     Position a(i, j);
+    Item e(Item::HEAL);
     for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++)
     {
-        if(i->pos() == a) return true;
+        e = *i;
+        if(e.pos() == a)
+        {
+            return true;
+        }
     }
     return false;
 }
@@ -553,14 +540,16 @@ bool Game::showMed(int i, int j)
 bool Game::showTrap(int i, int j)
 {
     Position a(i, j);
+    Trap e;
     for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
     {
-        if(i->pos() == a && !i->is_active())
+        e = *i;
+        if(e.pos() == a && e.is_active())
         {
             spriteTrap.setTexture(trap_on);
             return true;
         }
-        else if(i->pos() == a && i->is_active())
+        else if( e.pos() == a && !e.is_active())
         {
             spriteTrap.setTexture(trap_off);
             return true;
@@ -572,9 +561,25 @@ bool Game::showTrap(int i, int j)
 bool Game::showAmmo(int i, int j)
 {
     Position a(i, j);
+    Item e(Item::AMMO);
     for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++)
     {
-        if(i->pos() == a) return true;
+        e = *i;
+        if(e.pos() == a)
+            return true;
+    }
+    return false;
+}
+
+bool Game::showSpawn(int i, int j)
+{
+    Position a(i, j);
+    Spawn e;
+    for(list<Spawn>::iterator i = spawns.begin(); i != spawns.end(); i++)
+    {
+        e = *i;
+        if(e.pos() == a)
+            return true;
     }
     return false;
 }
@@ -771,11 +776,8 @@ void Game::redraw()
                 }
             }
 
-            window.draw(spriteFadeOut);
-
             window.draw(player_hp);
             window.draw(spriteMusic);
-            
             window.display();
         }
 
@@ -788,6 +790,7 @@ void Game::restart()
     ammuns.clear();    // A definir.
 	hearts.clear();
 	traps.clear();
+	spawns.clear();
 	enemies.clear();
     bullet_course.clear();
 
