@@ -22,7 +22,7 @@ private:
 	Direction _direction;
 
 public:
-	Player() : _ammo(max_ammo), _points(0) { _hp = max_hp; }
+	Player() : _ammo(14), _points(0) { _hp = max_hp; }
 
 	void start(){ _start = clock.getElapsedTime(); }
 	void end(){ _end = clock.getElapsedTime(); }
