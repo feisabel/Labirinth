@@ -124,7 +124,7 @@ Game::Game()
     ss << player.hp() << "hp";
     player_hp.setString(ss.str());
 
-    player_hp.setPosition(sf::Vector2f(50, 50));
+    player_hp.setPosition(sf::Vector2f(50, 30));
 
     player_ammo.setCharacterSize(20);
     player_ammo.setFont(font);
@@ -134,7 +134,7 @@ Game::Game()
     ss1 << player.ammo() <<"ammo";
     player_ammo.setString(ss1.str());
 
-    player_ammo.setPosition(sf::Vector2f(150, 20));
+    player_ammo.setPosition(sf::Vector2f(150, 30));
 
 
     if (!h1.loadFromFile("resources/images/heart1.png"))
@@ -439,10 +439,10 @@ void Game::update()
             }
             else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
             {
-                if(player.ammo())
+                if(player.ammo() > 0)
                 {
-                    fire();
                     player.ammo_fire();
+                    fire();
                 }
 
                 b_redraw = true;
@@ -671,7 +671,6 @@ bool Game::showAmmo(int i, int j)
 
 void Game::fire()
 {
-
     if (playing)
         soundGunfire.play();
 
@@ -719,7 +718,7 @@ void Game::fire()
         }
     }
     std::stringstream ss1;
-    ss1 << player.ammo() <<"ammo";
+    ss1 << player.ammo() << "ammo";
     player_ammo.setString(ss1.str());
 }
 
@@ -894,8 +893,12 @@ void Game::restart()
     player.hp() = Player::max_hp;
     player.ammo() = Player::max_ammo;
 
+    std::stringstream ss;
+    ss << player.hp() << "hp";
+    player_hp.setString(ss.str());
+
     std::stringstream ss1;
-    ss1 << player.ammo() <<"ammo";
+    ss1 << player.ammo() << "ammo";
     player_ammo.setString(ss1.str());
 
     spriteCharacter.setTexture(character_back);
