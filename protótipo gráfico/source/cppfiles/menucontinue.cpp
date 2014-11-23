@@ -89,11 +89,11 @@ void MenuContinue::update()
             {
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 250 && event.mouseButton.y < 295)
                 {
-                    Main::game.restart();
                     SceneManager::change_scene(Main::game);
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 310 && event.mouseButton.y < 455)
                 {
+                    Main::game.restart();
                     SceneManager::change_scene(Main::game);
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 370 && event.mouseButton.y < 415)
