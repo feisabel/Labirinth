@@ -372,6 +372,13 @@ void Game::update()
     player.start();
     sf::Event event;
 
+    static bool printed = false;
+    if (!printed)
+    {
+        std::cout << timer.remaining() << std::endl;
+        printed = true;
+    }
+
     while(timer.tick());
     timer.reboot();
 
