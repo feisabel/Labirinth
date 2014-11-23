@@ -11,20 +11,37 @@ MenuContinue::MenuContinue()
        std::cout << "Erro ao inicializar a textura" << std::endl;
     }
 
-    for(int c = 0; c < 3; c++)
+    if (!exit.loadFromFile("resources/images/button_exit_off.png"))
     {
-        button[c].content.setFont(font);
-        button[c].content.setCharacterSize(32);
-        button[c].content.setColor(sf::Color::White);
-
-        button[c].rect.setSize(sf::Vector2f(150, 50));
-        button[c].rect.setFillColor(sf::Color(0, 128, 255));
+        std::cout << "erro de textura" << std::endl;
+        return;
     }
 
-    title_teste.setSize(sf::Vector2f(150, 75));
-    title_teste.setPosition(sf::Vector2f(100, 100));
-    title_teste.setFillColor(sf::Color(0, 128, 255));
+    if (!resume.loadFromFile("resources/images/button_resume_off.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
 
+    if (!menu.loadFromFile("resources/images/button_menu_off.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+    if (!restart.loadFromFile("resources/images/button_restart_off.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+        return;
+    }
+
+    spriteExit.setTexture(exit);
+    spriteExit.setPosition(sf::Vector2f(300,430));
+    spriteMenu.setTexture(menu);
+    spriteMenu.setPosition(sf::Vector2f(300,370));
+    spriteRestart.setTexture(restart);
+    spriteRestart.setPosition(sf::Vector2f(300,310));
+    spriteResume.setTexture(resume);
+    spriteResume.setPosition(sf::Vector2f(300,250));
     title.setCharacterSize(40);
     title.setFont(font);
     title.setColor(sf::Color::White);
@@ -34,36 +51,19 @@ MenuContinue::MenuContinue()
     rect.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
     rect.setFillColor(sf::Color(0, 0, 0, 170));
 
-    for( int c = 0, rectY = 300; c < 3; c++, rectY+= 80)
-    {
-        button[c].setPosition(sf::Vector2f(300, rectY));
 
-        if (c == 0) {
-            button[c].content.setString("Resume");
-        }
-        if (c == 1) {
-            button[c].content.setString("Restart");
-        }
-        if (c == 2) {
-            button[c].content.setString("Menu");
-        }
-    }
 }
 
 void MenuContinue::redraw()
 {
     if (b_redraw)
     {
-        window.draw(rect);
-        window.draw(title_teste);
         window.draw(title);
-
+        window.draw(spriteExit);
+        window.draw(spriteMenu);
+        window.draw(spriteRestart);
+        window.draw(spriteResume);
         //BOTÕES DO MENU
-        for( int c = 0; c < 3; c++)
-        {
-            window.draw(button[c].rect); //DESENHA
-            window.draw(button[c].content);
-        }
 
         window.display();
         b_redraw = false;
@@ -81,26 +81,30 @@ void MenuContinue::update()
         {
             if (event.key.code == sf::Keyboard::Escape)
             {
-                Main::quit = true;
+                SceneManager::change_scene(Main::game);
             }
         }
         if (event.type == sf::Event::MouseButtonPressed)
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-                if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 300 && event.mouseButton.y < 345)
-                {
-                    SceneManager::change_scene(Main::game);
-                }
-                if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 380 && event.mouseButton.y < 425)
+                if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 250 && event.mouseButton.y < 295)
                 {
                     Main::game.restart();
                     SceneManager::change_scene(Main::game);
                 }
-                if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
+                if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 310 && event.mouseButton.y < 455)
+                {
+                    SceneManager::change_scene(Main::game);
+                }
+                if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 370 && event.mouseButton.y < 415)
                 {
                     Main::game.playMusic(false);
                     SceneManager::change_scene(Main::menu);
+                }
+                if(event.mouseButton.x > 300 && event.mouseButton.x < 450 && event.mouseButton.y > 430 && event.mouseButton.y < 475)
+                {
+                    Main::quit = true;
                 }
             }
         }

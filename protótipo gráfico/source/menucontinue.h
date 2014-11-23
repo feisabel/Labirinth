@@ -19,9 +19,17 @@ public:
     MenuContinue();
 
 private:
-    Button button[3];
+    sf::Texture exit;
+    sf::Texture resume;
+    sf::Texture menu;
+    sf::Texture restart;
+
+    sf::Sprite spriteExit;
+    sf::Sprite spriteResume;
+    sf::Sprite spriteMenu;
+    sf::Sprite spriteRestart;
+
     sf::RectangleShape rect;
-    sf::RectangleShape title_teste;
     sf::Text title;
     sf::Font font;
 };
