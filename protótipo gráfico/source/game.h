@@ -50,6 +50,7 @@ public:
     sf::Sound zombie_awake;
     sf::Sound zombie_dead;
 
+    sf::Texture cross;
     sf::Texture map;
     sf::Texture h1, h2, h3, h4, h5;
     sf::Texture musicplayON;
@@ -91,6 +92,7 @@ public:
     sf::Texture wall_right_up_down;
     sf::Texture fade_out;
 
+    sf::Sprite spriteCross;
     sf::Sprite spriteMap;
     sf::Sprite spriteAmmoToSee;
     sf::Sprite spriteHeart;
@@ -115,8 +117,7 @@ public:
     sf::Text player_ammo;
 
     sf::CircleShape circle;
-    sf::CircleShape circleEnd;
-
+   
     Timer timer;
 
 	Game();

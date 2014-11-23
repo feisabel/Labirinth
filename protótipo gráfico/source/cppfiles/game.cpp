@@ -146,7 +146,7 @@ bool Game::verify_maze(Maze& maze)
 
 
 Game::Game()
-: timer(1000000.0/FPS), inited(true), circle(3, 15), circleEnd(5, 40)
+: timer(1000000.0/FPS), inited(true), circle(3, 15)
 {
     if (!read_from_file()) inited = false;
 
@@ -156,7 +156,6 @@ Game::Game()
     }
 
     circle.setFillColor(sf::Color::Red);
-    circleEnd.setFillColor(sf::Color::Black);
     
     player_hp.setCharacterSize(20);
     player_hp.setFont(font);
@@ -178,7 +177,10 @@ Game::Game()
 
     player_ammo.setPosition(sf::Vector2f(150, 30));
 
-
+	if (!cross.loadFromFile("resources/images/cross.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
     if (!map.loadFromFile("resources/images/map.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -399,6 +401,7 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
+    spriteCross.setTexture(cross);
     spriteMap.setTexture(map);
     spriteMap.setPosition(sf::Vector2f(415, 66));
     spriteAmmoToSee.setTexture(ammo);
@@ -424,7 +427,7 @@ Game::Game()
 
     player.pos() = maze.entrance();
     
-    circleEnd.setPosition(sf::Vector2f(430+7*112*maze.exit().x/560, 80+7*112*maze.exit().y/560));
+    spriteCross.setPosition(sf::Vector2f(430+7*112*maze.exit().x/560, 80+7*112*maze.exit().y/560));
     changeXY();
     
     zombie_awake.setBuffer(bufferZombieAwake);
@@ -983,9 +986,9 @@ void Game::redraw()
             }
 			
 			window.draw(spriteMap);
+			window.draw(spriteCross);
 			window.draw(circle);
-			window.draw(circleEnd);
-            window.draw(spriteFadeOut);
+			window.draw(spriteFadeOut);
             window.draw(player_hp);
             window.draw(player_ammo);
             window.draw(spriteMusic);
