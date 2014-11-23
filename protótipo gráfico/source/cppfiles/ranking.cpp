@@ -110,8 +110,7 @@ void Ranking::read_from_file()
             int i = 0;
             if(!myRanking.empty())
             {
-                while( p < myRanking.at(i).points && i+1 != myRanking.size() )
-            i++;
+                while( i != myRanking.size() && p < myRanking.at(i).points ) i++;
             }
             myRanking.insert(new_player, i);
         }
