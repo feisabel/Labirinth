@@ -141,6 +141,16 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
+    if (!bufferZombieAwake.loadFromFile("resources/sounds/alive_effect.flac"))
+    {
+        std::cout << "erro" << std::endl;
+    }
+
+    if (!bufferZombieDead.loadFromFile("resources/sounds/dead_effect.flac"))
+    {
+        std::cout << "erro" << std::endl;
+    }
+
     if (!fade_out.loadFromFile("resources/images/fade_out.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -306,6 +316,10 @@ Game::Game()
     spriteBullet.setTexture(bullet_down);
 
     player.pos() = maze.entrance();
+    
+    zombie_awake.setBuffer(bufferZombieAwake);
+    zombie_dead.setBuffer(bufferZombieDead);
+
     music.setLoop(true);
 }
 
@@ -423,14 +437,27 @@ void Game::update()
         if (it->hit_player())
         {
             enemies.erase(it++);
+
+            int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
+            zombie_dead.setVolume(value);
+
+            if (playing) zombie_dead.play();
+
             b_redraw = true;
         }
         else if (it->hit_bullet())
         {
             player.add_points(20);
+
             enemies.erase(it++);
-            b_redraw = true;
             bullet_course.clear();
+
+            int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
+            zombie_dead.setVolume(value);
+
+            if (playing) zombie_dead.play();
+
+            b_redraw = true;
         }
         else
         {   
@@ -448,6 +475,14 @@ void Game::update()
                     b_redraw = true;
                 }
                 else if (!it->is_chasing()) it->init_chase();
+
+                if (it->is_awake())
+                {
+                    int value = 100/(player.pos().distance_to(it->pos())-1);
+
+                    zombie_awake.setVolume(value);
+                    if (playing) zombie_awake.play();
+                }
             }
             
             ++it;

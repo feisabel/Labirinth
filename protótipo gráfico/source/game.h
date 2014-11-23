@@ -40,6 +40,12 @@ public:
     sf::Music music;
     bool playing;
 
+    sf::SoundBuffer bufferZombieAwake;
+    sf::SoundBuffer bufferZombieDead;
+    
+    sf::Sound zombie_awake;
+    sf::Sound zombie_dead;
+
     sf::Texture musicplayON;
     sf::Texture musicplayOFF;
     sf::Texture exit;
