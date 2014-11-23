@@ -321,6 +321,7 @@ Game::Game()
     spriteBullet.setTexture(bullet_down);
     
     soundGunfire.setBuffer(gunfire);
+    soundGunfire.setVolume(50);
 
     player.pos() = maze.entrance();
     
@@ -634,9 +635,10 @@ bool Game::showAmmo(int i, int j)
 
 void Game::fire()
 {
+
     if (playing)
         soundGunfire.play();
-    
+
     Entity bullet(player.x(), player.y());
 
     Position pos;
