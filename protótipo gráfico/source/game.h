@@ -39,6 +39,8 @@ public:
 
     sf::Music music;
     bool playing;
+    
+    sf::SoundBuffer gunfire;
 
     sf::Texture musicplayON;
     sf::Texture musicplayOFF;
@@ -88,6 +90,8 @@ public:
 	sf::Sprite spriteCharacter;
     sf::Sprite spriteBullet;
     sf::Sprite spriteFadeOut;
+    
+    sf::Sound soundGunfire;
 
     sf::Font font;
 
