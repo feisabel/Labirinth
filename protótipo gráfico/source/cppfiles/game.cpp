@@ -729,12 +729,6 @@ void Game::redraw()
                             window.draw(spriteExit);
                         }
 
-                        if(showMonster(i, j))
-                        {
-                            spriteMonster.setPosition(sf::Vector2f(x, y));
-                            window.draw(spriteMonster);
-                        }
-
                         if(showAmmo(i, j))
                         {
                             spriteAmmo.setPosition(sf::Vector2f(x, y));
@@ -760,6 +754,12 @@ void Game::redraw()
                             bullet_course.pop();
                         }
 
+                        if(showMonster(i, j))
+                        {
+                            spriteMonster.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteMonster);
+                        }
+
                         if(player.x() == i && player.y() == j)
                         {
                             spriteCharacter.setPosition(sf::Vector2f(x, y));
@@ -773,7 +773,7 @@ void Game::redraw()
 
             window.draw(player_hp);
             window.draw(spriteMusic);
-            
+
             window.display();
         }
 
