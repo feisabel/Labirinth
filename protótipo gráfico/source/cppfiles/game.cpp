@@ -137,6 +137,10 @@ Game::Game()
     player_ammo.setPosition(sf::Vector2f(150, 30));
 
 
+    if (!map.loadFromFile("resources/images/map.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
     if (!h1.loadFromFile("resources/images/heart1.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -338,6 +342,8 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
+    spriteMap.setTexture(map);
+    spriteMap.setPosition(sf::Vector2f(400, 50));
     spriteAmmoToSee.setTexture(ammo);
     spriteAmmoToSee.setPosition(sf::Vector2f(100, 10));
     spriteHeart.setTexture(h5);
@@ -890,6 +896,7 @@ void Game::redraw()
             window.draw(player_ammo);
             window.draw(spriteMusic);
 			window.draw(spriteHeart);
+			window.draw(spriteMap);
             window.draw(spriteAmmoToSee);
             window.display();
         }

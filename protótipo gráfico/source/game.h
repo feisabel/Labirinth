@@ -48,6 +48,7 @@ public:
     sf::Sound zombie_awake;
     sf::Sound zombie_dead;
 
+    sf::Texture map;
     sf::Texture h1, h2, h3, h4, h5;
     sf::Texture musicplayON;
     sf::Texture musicplayOFF;
@@ -85,6 +86,7 @@ public:
     sf::Texture wall_right_up_down;
     sf::Texture fade_out;
 
+    sf::Sprite spriteMap;
     sf::Sprite spriteAmmoToSee;
     sf::Sprite spriteHeart;
     sf::Sprite spriteMusic;
