@@ -1,33 +1,31 @@
 #ifndef __TIMER
 #define __TIMER
 
-#include <ctime>
-
+#include <SFML/System/Clock.hpp>
 
 class Timer
 {
-    unsigned long long counter;
-    unsigned long long max;
+    sf::Clock clock;
+    sf::Int64 limit;
 
 public:
-    Timer(double usec) : counter(usec * CLOCKS_PER_SEC / 1000000) {}
+    Timer(sf::Int64 usec) : limit(usec) {}
     
     bool tick()
     {
-    	if (counter > 0)
+    	if (clock.getElapsedTime().asMicroseconds() >= limit)
         {
-            --counter;
+            clock.restart();
             return true;
         }
     	else return false;
     }
     
-    bool ended() { return counter == 0; }
-    void end() { counter = 0; }
+    bool ended() const { return clock.getElapsedTime().asMicroseconds() >= limit; }
 
-    void reboot() { counter = max; }
+    void reboot() { clock.restart(); }
 
-    unsigned long long remaining() const { return counter; }
+    sf::Int64 remaining() const { return clock.getElapsedTime().asMicroseconds(); }
 };
 
 

@@ -378,13 +378,6 @@ void Game::update()
     player.start();
     sf::Event event;
 
-    static bool printed = false;
-    if (!printed)
-    {
-        std::cout << timer.remaining() << std::endl;
-        printed = true;
-    }
-
     while(timer.tick());
     timer.reboot();
 
@@ -604,6 +597,23 @@ void Game::useAmount()
         {
             t = hearts.erase(i);
             player.get(t);
+
+            if (0 < player.hp() && player.hp() <= Player::max_hp/5)
+                spriteHeart.setTexture(h1);
+            else if (Player::max_hp/5 < player.hp() && player.hp() <= 2*Player::max_hp/5)
+                spriteHeart.setTexture(h2);
+            else if (2*Player::max_hp/5 < player.hp() && player.hp() <= 3*Player::max_hp/5)
+                spriteHeart.setTexture(h3);
+            else if (3*Player::max_hp/5 < player.hp() && player.hp() <= 4*Player::max_hp/5)
+                spriteHeart.setTexture(h4);
+            else if (4*Player::max_hp/5 < player.hp() && player.hp() <= Player::max_hp)
+                spriteHeart.setTexture(h5);
+
+            std::stringstream ss;
+            ss << player.hp() << "hp";
+            player_hp.setString(ss.str());
+
+            return;
         }
     }
     for(it = ammuns.begin(), i = 0; it != ammuns.end(); it++, i++)
@@ -613,6 +623,12 @@ void Game::useAmount()
         {
             t = ammuns.erase(i);
             player.get(t);
+
+            std::stringstream ss;
+            ss << player.ammo() << "ammo";
+            player_ammo.setString(ss.str());
+        
+            return;
         }
     }
 }
@@ -927,5 +943,6 @@ void Game::restart()
     player_ammo.setString(ss1.str());
 
     spriteCharacter.setTexture(character_back);
+    spriteHeart.setTexture(h5);
     read_from_file();
 }
