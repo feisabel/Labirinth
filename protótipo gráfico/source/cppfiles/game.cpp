@@ -10,6 +10,10 @@
 #include "../maze.h"
 #include "../item.h"
 #include "../position.h"
+
+#include "../custom/stack.h"
+using custom::stack;
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -105,13 +109,46 @@ bool Game::read_from_file()
     entrada.close();
 
 
-    return true;//verify_maze(maze);
+    return true; //verify_maze(maze);
 }
+
+
+
+bool Game::verify_maze(Maze& maze)
+{
+    stack<Position> dfs;
+    stack<Position> marked;
+
+    dfs.push(maze.entrance());
+
+    while (!dfs.empty() && dfs.top() != maze.exit())
+    {
+        marked.push(dfs.top());
+
+        Position left = get_adjacent(dfs.top(), LEFT);
+        Position right = get_adjacent(dfs.top(), RIGHT);
+        Position up = get_adjacent(dfs.top(), UP);
+        Position down = get_adjacent(dfs.top(), DOWN);
+        
+        if (maze.in_bounds(left) && maze[left.x][left.y].type() == Block::FLOOR && !marked.includes(left))
+            dfs.push(left);
+        else if (maze.in_bounds(right) && maze[right.x][right.y].type() == Block::FLOOR && !marked.includes(right))
+            dfs.push(right);
+        else if (maze.in_bounds(up) && maze[up.x][up.y].type() == Block::FLOOR && !marked.includes(up))
+            dfs.push(up);
+        else if (maze.in_bounds(down) && maze[down.x][down.y].type() == Block::FLOOR && !marked.includes(down))
+            dfs.push(down);
+        else dfs.pop();
+    }
+
+    return !dfs.empty();
+}
+
 
 Game::Game()
 : timer(1000000.0/FPS), circle(3, 15), circleEnd(5, 40)
 {
-    if (!read_from_file()) return;
+    if (!read_from_file());
 
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
@@ -593,19 +630,6 @@ void Game::update()
             player.add_points(-10);
             player.hp()--;
         }
-    }
-}
-
-
-bool Game::verify_maze(Maze& maze)
-{
-    stack<Position> dfs;
-
-    dfs.push(maze.entrance());
-
-    while (!dfs.empty && dfs.top() != maze.exit())
-    {
-
     }
 }
 
