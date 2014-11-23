@@ -109,6 +109,9 @@ public:
     sf::Text player_hp;
     sf::Text player_ammo;
 
+    sf::CircleShape circle;
+    sf::CircleShape circleEnd;
+
     Timer timer;
 
 	Game();
@@ -144,6 +147,8 @@ public:
             playing = false;
         }
     }
+    int xX, yY;
+    void changeXY();
 };
 
 #endif
