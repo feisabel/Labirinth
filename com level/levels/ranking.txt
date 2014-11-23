@@ -1,0 +1,16 @@
+carol 1150
+jp 1150
+ana 1150
+jph 1150
+jpg 1150
+jph 1150
+jph 1400
+carol 1400
+jph 1400
+jph 1400
+jph 270
+jph -200
+jph 450
+UHUUL 230
+carol 60
+okay -380
