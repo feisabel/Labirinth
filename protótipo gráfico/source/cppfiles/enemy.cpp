@@ -55,7 +55,7 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 
 
 void Enemy::init_chase()
-{
+{	
 	chasing = true;
 }
 

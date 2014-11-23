@@ -11,7 +11,7 @@ using custom::list;
 
 #include "player.h"
 #include "maze.h"
-#include "spawn.h"
+#include "enemy.h"
 #include "trap.h"
 #include "item.h"
 #include "scene.h"
@@ -30,7 +30,6 @@ public:
 	list<Item> ammuns;    // A definir.
 	list<Item> hearts;
 	list<Trap> traps;
-	list<Spawn> spawns;
 	list<Enemy> enemies;
     queue<Position> bullet_course;
 
