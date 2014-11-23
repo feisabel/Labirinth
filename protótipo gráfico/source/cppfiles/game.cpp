@@ -1,3 +1,4 @@
+
 #include "../menu.h"
 #include "../game.h"
 #include "../classmain.h"
@@ -425,17 +426,27 @@ void Game::update()
             enemies.erase(it++);
             b_redraw = true;
         }
+        else if (it->hit_bullet())
+        {
+            player.add_points(20);
+            enemies.erase(it++);
+            b_redraw = true;
+            bullet_course.clear();
+        }
         else
         {
             if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
             else if (it->is_chasing())
             {
-                it->chase(player, maze);
+                it->chase(player, maze, bullet_course);
                 b_redraw = true;
             }
             ++it;
         }
     }
+    
+    if (!bullet_course.empty() && !player.can_see(bullet_course.front()))
+        bullet_course.pop();
     
     if (player.hp() <= 0)
     {

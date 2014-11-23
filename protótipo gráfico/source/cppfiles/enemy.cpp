@@ -64,25 +64,33 @@ bool Enemy::hit_player()
 	return hit;
 }
 
-bool Enemy::chase(Player& player, Maze& maze)
-{	
+bool Enemy::chase(Player& player, Maze& maze, queue<Position>& bullet_course)
+{
 	if (chasing)
 	{
 		if (!route.empty())
 		{
 			Position old_pos = _pos;
 			_pos = route.pop();
-
+            
 			if (collided_with(player))
 			{
 				route.clear();
 				_pos = old_pos;
-
+                
 				player.receive_dmg(1);
-
+                
 				chasing = false;
-				hit = true;
+				hit_p = true;
 			}
+            else if (!bullet_course.empty() && collided_with(bullet_course.front()))
+            {
+                route.clear();
+                _pos = old_pos;
+                
+                chasing = false;
+                hit_b = true;
+            }
 		}
 		else
 		{
@@ -90,7 +98,7 @@ bool Enemy::chase(Player& player, Maze& maze)
 			return found_route;
 		}
 	}
-
+    
 	return chasing;
 }
 

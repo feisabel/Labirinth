@@ -25,6 +25,11 @@ public:
 	{
 		return _pos == e._pos;
 	}
+    
+    bool collided_with(const Position& e) const
+    {
+        return _pos == e;
+    }
 };
 
 #endif
