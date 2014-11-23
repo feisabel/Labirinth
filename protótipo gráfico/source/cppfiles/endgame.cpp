@@ -84,7 +84,6 @@ void EndGame::update()
                 a = static_cast<char>(event.text.unicode);
                 str+=a;
                 text3.setString(str);
-                std::cout << str << std::endl;
             }
         }
     }
