@@ -107,7 +107,7 @@ bool Game::read_from_file()
 }
 
 Game::Game()
-: timer(1000000.0/FPS)
+: timer(1000000.0/FPS), circle(3, 15), circleEnd(5, 40)
 {
     if (!read_from_file()) return;
 
@@ -367,6 +367,9 @@ Game::Game()
 
     player.pos() = maze.entrance();
     
+    circleEnd.setPosition(sf::Vector2f(430+13*112*maze.exit().x/560, 80+13*112*maze.exit().y/560));
+    changeXY();
+    
     zombie_awake.setBuffer(bufferZombieAwake);
     zombie_dead.setBuffer(bufferZombieDead);
 
@@ -398,6 +401,7 @@ void Game::update()
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
                 }
                 player.direction() = LEFT;
+                changeXY();
 
                 b_redraw = true;
             }
@@ -410,6 +414,7 @@ void Game::update()
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
                 }
                 player.direction() = RIGHT;
+                changeXY();
 
                 b_redraw = true;
             }
@@ -422,6 +427,7 @@ void Game::update()
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
                 }
                 player.direction() = DOWN;
+                changeXY();
 
                 b_redraw = true;
             }
@@ -434,6 +440,7 @@ void Game::update()
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
                 }
                 player.direction() = UP;
+                changeXY();
 
                 b_redraw = true;
             }
@@ -913,6 +920,8 @@ void Game::redraw()
             window.draw(spriteMusic);
 			window.draw(spriteHeart);
 			window.draw(spriteMap);
+			window.draw(circle);
+			window.draw(circleEnd);
             window.draw(spriteAmmoToSee);
             window.display();
         }
@@ -945,4 +954,11 @@ void Game::restart()
     spriteCharacter.setTexture(character_back);
     spriteHeart.setTexture(h5);
     read_from_file();
+}
+
+void Game::changeXY()
+{
+    xX = 13*112*player.x()/560;
+    yY = 13*112*player.y()/560;
+    circle.setPosition(sf::Vector2f(430+xX, 80+yY));
 }
