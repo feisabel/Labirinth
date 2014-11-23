@@ -74,6 +74,7 @@ public:
     sf::Texture wall_right_down;
     sf::Texture wall_left_up_down;
     sf::Texture wall_right_up_down;
+    sf::Texture fade_out;
 
     sf::Sprite spriteMusic;
 	sf::Sprite spriteExit;
@@ -86,6 +87,7 @@ public:
 	sf::Sprite spriteMed;
 	sf::Sprite spriteCharacter;
     sf::Sprite spriteBullet;
+    sf::Sprite spriteFadeOut;
 
     sf::Font font;
 

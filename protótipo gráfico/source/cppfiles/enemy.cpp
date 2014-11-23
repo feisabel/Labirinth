@@ -8,6 +8,8 @@ using custom::queue;
 using custom::stack;
 
 
+
+
 bool Enemy::trace_route(Player& player, Maze& maze)
 {
 	stack<Position> result;

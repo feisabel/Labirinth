@@ -140,6 +140,11 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
+    if (!fade_out.loadFromFile("resources/images/fade_out.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
     if (!exit.loadFromFile("resources/images/exit.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -285,7 +290,7 @@ Game::Game()
         std::cout << "erro de textura" << std::endl;
     }
 
-
+    spriteFadeOut.setTexture(fade_out);
     spriteMusic.setTexture(musicplayON);
     spriteMusic.setPosition(sf::Vector2f(504, 5));
     spriteExit.setTexture(exit);
@@ -764,8 +769,11 @@ void Game::redraw()
                 }
             }
 
+            window.draw(spriteFadeOut);
+
             window.draw(player_hp);
             window.draw(spriteMusic);
+            
             window.display();
         }
 

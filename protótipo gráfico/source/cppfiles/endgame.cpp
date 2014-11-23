@@ -69,6 +69,7 @@ void EndGame::update()
             {
                 str = str.substr( 0, (str.size() -1));
                 text3.setString(str);
+                b_redraw = true;
             }
             if (event.key.code == sf::Keyboard::Return)
             {
@@ -76,6 +77,7 @@ void EndGame::update()
                 str = "";
                 Main::game.restart();
                 SceneManager::change_scene(Main::menu);
+                b_redraw = true;
             }
         }
         if (event.type == sf::Event::TextEntered)
@@ -86,7 +88,7 @@ void EndGame::update()
                 a = static_cast<char>(event.text.unicode);
                 str+=a;
                 text3.setString(str);
-                std::cout << str << std::endl;
+                b_redraw = true;
             }
         }
     }
@@ -94,7 +96,6 @@ void EndGame::update()
 
 void EndGame::redraw()
 {
-    b_redraw = true;
     if (b_redraw)
     {
         window.clear(sf::Color(51, 34, 60));
