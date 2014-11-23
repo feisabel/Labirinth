@@ -8,8 +8,6 @@ using custom::queue;
 using custom::stack;
 
 
-
-
 bool Enemy::trace_route(Player& player, Maze& maze)
 {
 	stack<Position> result;
@@ -57,7 +55,7 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 
 
 void Enemy::init_chase()
-{	
+{
 	chasing = true;
 }
 

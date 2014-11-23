@@ -47,6 +47,7 @@ void Menu::update()
             {
                 if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 241 && event.mouseButton.y < 284)
                 {
+                    Main::game.playMusic(true);
                     SceneManager::change_scene(Main::game);
                 }
                 if(event.mouseButton.x > 332 && event.mouseButton.x < 473 && event.mouseButton.y > 310 && event.mouseButton.y < 350)

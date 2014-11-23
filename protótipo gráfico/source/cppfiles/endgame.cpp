@@ -10,10 +10,7 @@
 
 EndGame::EndGame()
 {
-    std::stringstream ss;
-    Main::game.player.add_points();
-    ss << Main::game.player.points();
-    points = ss.str();
+
 
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
@@ -34,7 +31,7 @@ EndGame::EndGame()
     text3.setCharacterSize(30);
     text3.setFont(font);
     text3.setColor(sf::Color::White);
-text3.setPosition(sf::Vector2f(170,295));
+    text3.setPosition(sf::Vector2f(170,295));
 
     text4.setCharacterSize(20);
     text4.setFont(font);
@@ -45,12 +42,13 @@ text3.setPosition(sf::Vector2f(170,295));
     text5.setCharacterSize(30);
     text5.setFont(font);
     text5.setColor(sf::Color::White);
-    text5.setString("Points: "+ points);
     text5.setPosition(sf::Vector2f(170,330));
 }
 
 void EndGame::update()
 {
+    points(Main::game.player.points());
+    text5.setString("Points: "+ _points);
 
     std::string a;
     sf::Event event;
@@ -69,7 +67,6 @@ void EndGame::update()
             {
                 str = str.substr( 0, (str.size() -1));
                 text3.setString(str);
-                b_redraw = true;
             }
             if (event.key.code == sf::Keyboard::Return)
             {
@@ -77,7 +74,6 @@ void EndGame::update()
                 str = "";
                 Main::game.restart();
                 SceneManager::change_scene(Main::menu);
-                b_redraw = true;
             }
         }
         if (event.type == sf::Event::TextEntered)
@@ -88,7 +84,7 @@ void EndGame::update()
                 a = static_cast<char>(event.text.unicode);
                 str+=a;
                 text3.setString(str);
-                b_redraw = true;
+                std::cout << str << std::endl;
             }
         }
     }
@@ -96,6 +92,7 @@ void EndGame::update()
 
 void EndGame::redraw()
 {
+    b_redraw = true;
     if (b_redraw)
     {
         window.clear(sf::Color(51, 34, 60));
@@ -118,7 +115,7 @@ void EndGame::add_ranking()
     {
         saida << str;
         saida << " ";
-        saida << points;
+        saida << _points;
         saida << "\n";
     }
     saida.close();
