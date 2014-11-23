@@ -17,7 +17,7 @@ MenuContinue::MenuContinue()
         button[c].content.setCharacterSize(32);
         button[c].content.setColor(sf::Color::White);
 
-        button[c].rect.setSize(sf::Vector2f(150, 50));
+        button[c].rect.setSize(sf::Vector2f(150, 50));   
         button[c].rect.setFillColor(sf::Color(0, 128, 255));
     }
 
@@ -99,7 +99,6 @@ void MenuContinue::update()
                 }
                 if(event.mouseButton.x > 300 && event.mouseButton.x < 500 && event.mouseButton.y > 460 && event.mouseButton.y < 505)
                 {
-                    Main::game.playMusic(false);
                     SceneManager::change_scene(Main::menu);
                 }
             }

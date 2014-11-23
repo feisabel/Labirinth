@@ -26,7 +26,7 @@ public:
 
 	void start(){ _start = clock.getElapsedTime(); }
 	void end(){ _end = clock.getElapsedTime(); }
-
+	
 	void get(Item i)
 	{
 		if (i.type() == Item::HEAL)
@@ -44,19 +44,25 @@ public:
 	int ammo() const { return _ammo; }
 	int& ammo() { return _ammo; }
     void ammo_fire() { _ammo--; }
-    int& points() { return _points; }
-
+    int points() const { return _points; }
+	
 	Direction direction() const { return _direction; }
 	Direction& direction() { return _direction; }
 
 	bool can_see(const Entity& e)
 	{
-		return _pos.x-2 <= e.x() && e.x() <= _pos.x+2 && _pos.y-2 <= e.y() && e.y() <= _pos.y+2;
+		return _pos.x-4 <= e.x() && e.x() <= _pos.x+4 && _pos.y-4 <= e.y() && e.y() <= _pos.y+4;
+	}
+    
+    bool can_see(const Position& e)
+	{
+		return (_pos.x-4 <= e.x) && (e.x <= _pos.x+4) && (_pos.y-4 <= e.y) && (e.y <= _pos.y+4);
 	}
 
-    void add_points(int a)
+
+    void add_points()
     {
-        _points+= a;
+        _points+= (_ammo*30 + _hp*50);
     }
 };
 

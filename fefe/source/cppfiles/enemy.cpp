@@ -61,10 +61,15 @@ void Enemy::init_chase()
 
 bool Enemy::hit_player()
 {
-	return hit;
+	return hit_p;
 }
 
-bool Enemy::chase(Player& player, Maze& maze)
+bool Enemy::hit_bullet()
+{
+    return hit_b;
+}
+
+bool Enemy::chase(Player& player, Maze& maze, queue<Position>& bullet_course)
 {	
 	if (chasing)
 	{
@@ -81,8 +86,16 @@ bool Enemy::chase(Player& player, Maze& maze)
 				player.receive_dmg(1);
 
 				chasing = false;
-				hit = true;
+				hit_p = true;
 			}
+            else if (!bullet_course.empty() && collided_with(bullet_course.front()))
+            {
+                route.clear();
+                _pos = old_pos;
+                
+                chasing = false;
+                hit_b = true;
+            }
 		}
 		else
 		{

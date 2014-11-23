@@ -129,92 +129,92 @@ Game::Game()
     {
         std::cout << "erro" << std::endl;
     }
-
+    
     if (!musicplayON.loadFromFile("resources/images/volume.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!musicplayOFF.loadFromFile("resources/images/mudo.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!exit.loadFromFile("resources/images/exit.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!floor.loadFromFile("resources/images/floor1.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!trap_off.loadFromFile("resources/images/trap_off3.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!trap_on.loadFromFile("resources/images/trap_on3.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!spawn.loadFromFile("resources/images/spawn1.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!monster_front.loadFromFile("resources/images/skeleton_front.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!ammo.loadFromFile("resources/images/ammo.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!med.loadFromFile("resources/images/medkit.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_back.loadFromFile("resources/images/char_back.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_front.loadFromFile("resources/images/char_front.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_left.loadFromFile("resources/images/char_left.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!character_right.loadFromFile("resources/images/char_right.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_down.loadFromFile("resources/images/bullet_down.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_up.loadFromFile("resources/images/bullet_up.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_left.loadFromFile("resources/images/bullet_left.png"))
     {
         std::cout << "erro de textura" << std::endl;
     }
-
+    
     if (!bullet_right.loadFromFile("resources/images/bullet_right.png"))
     {
         std::cout << "erro de textura" << std::endl;
@@ -230,7 +230,7 @@ Game::Game()
     if (!wall_left_up.loadFromFile("resources/images/wall_left_up.png"))
     {
         std::cout << "erro de textura" << std::endl;
-
+        
     }
     if (!wall_left_down.loadFromFile("resources/images/wall_left_down.png"))
     {
@@ -301,6 +301,7 @@ Game::Game()
 
     player.pos() = maze.entrance();
     music.setLoop(true);
+    playMusic(true);
 }
 
 void Game::update()
@@ -370,7 +371,7 @@ void Game::update()
             else if (event.key.code == sf::Keyboard::Z)
             {
                 useAmount();
-                player.add_points(30);
+
                 b_redraw = true;
             }
             else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
@@ -385,9 +386,8 @@ void Game::update()
             }
             if(player.pos() == maze.exit())
             {
-                playMusic(false);
                 player.end();
-                player.add_points(100);
+                player.add_points();
                 SceneManager::change_scene(Main::endgame);
             }
         }
@@ -416,26 +416,30 @@ void Game::update()
     {
         if (it->hit_player())
         {
-            player.add_points(-20);
             enemies.erase(it++);
             b_redraw = true;
         }
+        else if (it->hit_bullet())
+            bullet_course.clear();
         else
         {
             if (player.can_see(*it) && !it->is_chasing()) it->init_chase();
             else if (it->is_chasing())
             {
-                it->chase(player, maze);
+                it->chase(player, maze, bullet_course);
                 b_redraw = true;
             }
             ++it;
         }
     }
+    
+    if (!bullet_course.empty() && !player.can_see(bullet_course.front()))
+            bullet_course.pop();
 
     if (player.hp() <= 0)
     {
         player.end();
-        player.add_points(-100);
+        player.add_points();
         SceneManager::change_scene(Main::endgame);
         restart();
     }
@@ -457,7 +461,6 @@ void Game::update()
     {
         if(it->pos() == player.pos())
         {
-            player.add_points(-10);
             player.hp()--;
         }
     }
@@ -733,6 +736,12 @@ void Game::redraw()
                             window.draw(spriteExit);
                         }
 
+                        if(showMonster(i, j))
+                        {
+                            spriteMonster.setPosition(sf::Vector2f(x, y));
+                            window.draw(spriteMonster);
+                        }
+
                         if(showAmmo(i, j))
                         {
                             spriteAmmo.setPosition(sf::Vector2f(x, y));
@@ -758,12 +767,6 @@ void Game::redraw()
                             bullet_course.pop();
                         }
 
-                        if(showMonster(i, j))
-                        {
-                            spriteMonster.setPosition(sf::Vector2f(x, y));
-                            window.draw(spriteMonster);
-                        }
-
                         if(player.x() == i && player.y() == j)
                         {
                             spriteCharacter.setPosition(sf::Vector2f(x, y));
@@ -775,7 +778,6 @@ void Game::redraw()
 
             window.draw(player_hp);
             window.draw(spriteMusic);
-
             window.display();
         }
 

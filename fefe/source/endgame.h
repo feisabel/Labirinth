@@ -5,7 +5,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
 #include <iostream>
-#include <sstream>
 
 #include "scene.h"
 #include "menu.h"
@@ -20,15 +19,9 @@ public:
     EndGame();
 
     void add_ranking();
-    void points(int a)
-    {
-        std::stringstream ss;
-        ss << a;
-        //std::cout << player.points() <<std::endl;
-        _points = ss.str();
-    }
+
     std::string str;
-    std::string _points;
+    std::string points;
     sf::RectangleShape rect;
     sf::Text text1;
     sf::Text text2;

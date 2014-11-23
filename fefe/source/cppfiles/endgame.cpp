@@ -10,7 +10,10 @@
 
 EndGame::EndGame()
 {
-
+    std::stringstream ss;
+    Main::game.player.add_points();
+    ss << Main::game.player.points();
+    points = ss.str();
 
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
@@ -31,7 +34,7 @@ EndGame::EndGame()
     text3.setCharacterSize(30);
     text3.setFont(font);
     text3.setColor(sf::Color::White);
-    text3.setPosition(sf::Vector2f(170,295));
+text3.setPosition(sf::Vector2f(170,295));
 
     text4.setCharacterSize(20);
     text4.setFont(font);
@@ -42,13 +45,12 @@ EndGame::EndGame()
     text5.setCharacterSize(30);
     text5.setFont(font);
     text5.setColor(sf::Color::White);
+    text5.setString("Points: "+ points);
     text5.setPosition(sf::Vector2f(170,330));
 }
 
 void EndGame::update()
 {
-    points(Main::game.player.points());
-    text5.setString("Points: "+ _points);
 
     std::string a;
     sf::Event event;
@@ -115,7 +117,7 @@ void EndGame::add_ranking()
     {
         saida << str;
         saida << " ";
-        saida << _points;
+        saida << points;
         saida << "\n";
     }
     saida.close();
