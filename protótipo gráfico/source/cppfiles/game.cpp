@@ -116,6 +116,9 @@ Game::Game()
         std::cout << "erro de fonte" << std::endl;
     }
 
+    circle.setFillColor(sf::Color::Red);
+    circleEnd.setFillColor(sf::Color::Black);
+    
     player_hp.setCharacterSize(20);
     player_hp.setFont(font);
     player_hp.setColor(sf::Color::White);
