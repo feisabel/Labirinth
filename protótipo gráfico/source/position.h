@@ -42,7 +42,7 @@ struct Position
 
 
 list<Position> get_adjacents(const Position&);
-Position get_adjacent(const Position&, Direction);
+Position get_adjacent(const Position&, const Direction&);
 
 std::ostream& operator<< (std::ostream&, const Position&);
 std::istream& operator>> (std::istream&, Position&);

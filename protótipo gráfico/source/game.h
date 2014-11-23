@@ -37,6 +37,8 @@ public:
 	list<Enemy> enemies;
     queue<Position> bullet_course;
 
+    bool inited;
+
     sf::Music music;
     bool playing;
     

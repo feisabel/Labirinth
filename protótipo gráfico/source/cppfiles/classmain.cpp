@@ -19,6 +19,12 @@ Ranking Main::ranking;
 
 void Main::loop ()
 {
+	if (!game.inited)
+	{
+		std::cerr << "Arquivo inválido: labirinto não tem solução" << std::endl;
+		return;
+	}
+
     SceneManager::change_scene(menu);
     while (!quit)
     {

@@ -109,7 +109,7 @@ bool Game::read_from_file()
     entrada.close();
 
 
-    return true; //verify_maze(maze);
+    return verify_maze(maze);
 }
 
 
@@ -129,7 +129,7 @@ bool Game::verify_maze(Maze& maze)
         Position right = get_adjacent(dfs.top(), RIGHT);
         Position up = get_adjacent(dfs.top(), UP);
         Position down = get_adjacent(dfs.top(), DOWN);
-        
+
         if (maze.in_bounds(left) && maze[left.x][left.y].type() == Block::FLOOR && !marked.includes(left))
             dfs.push(left);
         else if (maze.in_bounds(right) && maze[right.x][right.y].type() == Block::FLOOR && !marked.includes(right))
@@ -146,9 +146,9 @@ bool Game::verify_maze(Maze& maze)
 
 
 Game::Game()
-: timer(1000000.0/FPS), circle(3, 15), circleEnd(5, 40)
+: timer(1000000.0/FPS), inited(true), circle(3, 15), circleEnd(5, 40)
 {
-    if (!read_from_file());
+    if (!read_from_file()) inited = false;
 
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
