@@ -131,7 +131,7 @@ Game::Game()
         std::cout << "erro" << std::endl;
     }
     
-    if (!gunfire.openFromFile("resources/sounds/gunfire_effect.ogg"))
+    if (!gunfire.loadFromFile("resources/sounds/gunfire_effect.ogg"))
     {
         std::cout << "erro" << std::endl;
     }
