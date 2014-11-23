@@ -39,7 +39,7 @@ public:
 	bool is_chasing();
 
 	bool trace_route(Player&, Maze&);
-	bool chase(Player&, Maze&);
+	bool chase(Player&, Maze&, queue<Position>&);
 
 	bool hit_player();
     bool hit_bullet();
