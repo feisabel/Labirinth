@@ -15,6 +15,7 @@ Menu::Menu()
 
 void Menu::redraw()
 {
+    b_redraw = true;
     if (b_redraw)
     {
         window.clear(sf::Color::Black);

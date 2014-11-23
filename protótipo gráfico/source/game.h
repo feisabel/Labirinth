@@ -8,6 +8,8 @@ using custom::list;
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Audio/Music.hpp>
 
 #include "player.h"
 #include "maze.h"
@@ -19,6 +21,8 @@ using custom::list;
 #include "menu.h"
 #include "menucontinue.h"
 #include "timer.h"
+
+#define FPS 24
 
 class Main;
 
@@ -33,6 +37,11 @@ public:
 	list<Enemy> enemies;
     queue<Position> bullet_course;
 
+    sf::Music music;
+    bool playing;
+
+    sf::Texture musicplayON;
+    sf::Texture musicplayOFF;
     sf::Texture exit;
 	sf::Texture floor;
 	sf::Texture trap_off;
@@ -66,7 +75,7 @@ public:
     sf::Texture wall_left_up_down;
     sf::Texture wall_right_up_down;
 
-
+    sf::Sprite spriteMusic;
 	sf::Sprite spriteExit;
 	sf::Sprite spriteWall;
 	sf::Sprite spriteFloor;
@@ -82,12 +91,14 @@ public:
 
     sf::Text player_hp;
 
+    Timer timer;
+
 	Game();
 
 	void update();
 	void redraw();
 	void restart();
-    //void active_traps();
+    void active_traps();
     void useAmount();
     void fire();
     void define_wall(int, int);
@@ -97,6 +108,17 @@ public:
 	bool showMed(int, int);
 	bool showTrap(int, int);
 	bool read_from_file();
+	void playMusic(bool a)
+	{
+	    if(a){
+            music.play();
+            playing = true;
+	    }
+        else{
+            music.pause();
+            playing = false;
+        }
+    }
 };
 
 #endif

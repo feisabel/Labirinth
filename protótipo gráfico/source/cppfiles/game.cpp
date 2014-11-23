@@ -106,6 +106,7 @@ bool Game::read_from_file()
 }
 
 Game::Game()
+: timer(1000000.0/FPS)
 {
     if (!read_from_file()) return;
 
@@ -117,12 +118,27 @@ Game::Game()
     player_hp.setCharacterSize(20);
     player_hp.setFont(font);
     player_hp.setColor(sf::Color::White);
-    
+
     std::stringstream ss;
     ss << player.hp() << "hp";
     player_hp.setString(ss.str());
 
     player_hp.setPosition(sf::Vector2f(50, 50));
+
+    if (!music.openFromFile("resources/sounds/maze_music.ogg"))
+    {
+        std::cout << "erro" << std::endl;
+    }
+
+    if (!musicplayON.loadFromFile("resources/images/volume.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
+
+    if (!musicplayOFF.loadFromFile("resources/images/mudo.png"))
+    {
+        std::cout << "erro de textura" << std::endl;
+    }
 
     if (!exit.loadFromFile("resources/images/exit.png"))
     {
@@ -214,7 +230,7 @@ Game::Game()
     if (!wall_left_up.loadFromFile("resources/images/wall_left_up.png"))
     {
         std::cout << "erro de textura" << std::endl;
-    
+
     }
     if (!wall_left_down.loadFromFile("resources/images/wall_left_down.png"))
     {
@@ -270,6 +286,8 @@ Game::Game()
     }
 
 
+    spriteMusic.setTexture(musicplayON);
+    spriteMusic.setPosition(sf::Vector2f(504, 5));
     spriteExit.setTexture(exit);
     spriteWall.setTexture(wall_full);
     spriteFloor.setTexture(floor);
@@ -282,13 +300,17 @@ Game::Game()
     spriteBullet.setTexture(bullet_down);
 
     player.pos() = maze.entrance();
-
+    music.setLoop(true);
+    playMusic(true);
 }
 
 void Game::update()
 {
     player.start();
     sf::Event event;
+
+    while(timer.tick());
+    timer.reboot();
 
     while(window.pollEvent(event))
     {
@@ -369,11 +391,29 @@ void Game::update()
                 SceneManager::change_scene(Main::endgame);
             }
         }
+        if (event.type == sf::Event::MouseButtonPressed)
+        {
+            if (event.mouseButton.button == sf::Mouse::Left)
+            {
+                if(event.mouseButton.x > 520 && event.mouseButton.x < 544 && event.mouseButton.y > 25 && event.mouseButton.y < 40)
+                {
+                    if(playing){
+                        playMusic(false);
+                        spriteMusic.setTexture(musicplayOFF);
+                    }
+                    else{
+                        playMusic(true);
+                        spriteMusic.setTexture(musicplayON);
+                    }
+                    b_redraw = true;
+                }
+            }
+        }
     }
 
     list<Enemy>::iterator it;
     for (it = enemies.begin(); it != enemies.end();)
-    {   
+    {
         if (it->hit_player())
         {
             enemies.erase(it++);
@@ -401,7 +441,7 @@ void Game::update()
         }
     }
 
-    if (player.hp() == 0)
+    if (player.hp() <= 0)
     {
         player.end();
         player.add_points();
@@ -421,8 +461,14 @@ void Game::update()
 
         b_redraw = true;
     }
-
-    //active_traps();
+    active_traps();
+    for(list<Trap>::iterator it = traps.begin(); it != traps.end(); it++)
+    {
+        if(it->pos() == player.pos())
+        {
+            player.hp()--;
+        }
+    }
 }
 
 void Game::useAmount()
@@ -450,17 +496,21 @@ void Game::useAmount()
     }
 }
 
-/*void Game::active_traps()
+void Game::active_traps()
 {
-    for(int i = 0; i < traps.size(); i++)
+    for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
     {
-        Trap *t = &traps.at(i);
-        if(t->is_active())
-            t->activate();
-        else
-            t->disactivate();
+        if(i->is_active())
+        {
+            i->disactivate();
+        }
+        else{
+            i->activate();
+        }
+        b_redraw = true;
     }
-}*/
+}
+
 
 bool Game::showMonster(int i, int j)
 {
@@ -715,7 +765,7 @@ void Game::redraw()
             }
 
             window.draw(player_hp);
-
+            window.draw(spriteMusic);
             window.display();
         }
 
@@ -735,7 +785,7 @@ void Game::restart()
     player.direction() = UP;
     player.hp() = Player::max_hp;
     player.ammo() = Player::max_ammo;
-    
+
     spriteCharacter.setTexture(character_back);
     read_from_file();
 }

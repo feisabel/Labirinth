@@ -12,8 +12,6 @@
 #include "endgame.h"
 #include "ranking.h"
 
-#define FPS 24
-
 class Main
 {
 public:
@@ -23,10 +21,9 @@ public:
 	static howToPlay howtoplay;
 	static EndGame endgame;
 	static Ranking ranking;
-
-	static Timer timer;
-
 	static bool quit;
+
+    Main() {}
 
     void loop();
 };
