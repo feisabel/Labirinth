@@ -14,24 +14,24 @@ class Main;
 class MenuContinue : public Scene
 {
 public:
-    void redraw();
-    void update();
+    void redraw(); //Método que desenha na tela as modificações
+    void update(); //Método que recebe os eventos e faz as modificações necessárias
     MenuContinue();
 
 private:
-    sf::Texture exit;
-    sf::Texture resume;
-    sf::Texture menu;
-    sf::Texture restart;
+    sf::Texture exit; //Textura do botão exit
+    sf::Texture resume; //Textura do botão resume
+    sf::Texture menu; //Textura do botão menu
+    sf::Texture restart; //Textura do botão restart
 
-    sf::Sprite spriteExit;
-    sf::Sprite spriteResume;
-    sf::Sprite spriteMenu;
-    sf::Sprite spriteRestart;
+    sf::Sprite spriteExit; //Sprite do botão exit
+    sf::Sprite spriteResume; //Sprite do botão resume
+    sf::Sprite spriteMenu; //Sprite do botão menu
+    sf::Sprite spriteRestart; //Sprite do botão restart
 
-    sf::RectangleShape rect;
-    sf::Text title;
-    sf::Font font;
+    sf::RectangleShape rect; //Declaração de um retângulo
+    sf::Text title; //Texto para o título
+    sf::Font font; //Declaração da fonte
 };
 
 #endif
