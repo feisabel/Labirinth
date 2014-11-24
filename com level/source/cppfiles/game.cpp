@@ -1213,6 +1213,7 @@ void Game::changeLevel(int lvl)
     std::stringstream ss2;
     ss2 << "level" << level;
     player_level.setString(ss2.str());
+    changeXY();
     spriteCross.setPosition(sf::Vector2f(430+7*maze.exit().x/5, 80+7*maze.exit().y/5));
     spriteCharacter.setTexture(character_back);
 }
