@@ -24,8 +24,10 @@ private:
 public:
 	Player() : _ammo(14), _points(0) { _hp = max_hp; }
 
-	void start(){ _start = clock.getElapsedTime(); }
-	void end(){ _end = clock.getElapsedTime(); }
+	void p_start(){ _start = clock.getElapsedTime(); }
+	void p_end(){ _end = clock.getElapsedTime(); }
+    int start(){ return _start.asSeconds(); }
+    int end(){ return _end.asSeconds(); }
 
 	void get(Item i)
 	{
@@ -53,7 +55,7 @@ public:
 	{
 		return _pos.x-4 <= e.x() && e.x() <= _pos.x+4 && _pos.y-4 <= e.y() && e.y() <= _pos.y+4;
 	}
-    
+
     bool can_see(const Position& e)
 	{
 		return (_pos.x-4 <= e.x) && (e.x <= _pos.x+4) && (_pos.y-4 <= e.y) && (e.y <= _pos.y+4);

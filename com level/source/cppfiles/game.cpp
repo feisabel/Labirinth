@@ -28,7 +28,7 @@ bool Game::read_from_file(int i = 1)
     else if( i == 2 )
         entrada.open( "levels/entrada2.txt", std::ifstream::in );
     else
-        entrada.open( "levels/entrada2.txt", std::ifstream::in );
+        entrada.open( "levels/entrada3.txt", std::ifstream::in );
 
     if( entrada.is_open() )
     {
@@ -115,7 +115,6 @@ bool Game::read_from_file(int i = 1)
 
     return verify_maze(maze);
 }
-
 
 
 bool Game::verify_maze(Maze& maze)
@@ -546,31 +545,8 @@ void Game::update()
                 }
                 else
                 {
-                level++;
-                ammuns.clear();    // A definir.
-                hearts.clear();
-                traps.clear();
-                enemies.clear();
-                bullet_course.clear();
-
-                read_from_file(level);
-                player.pos() = maze.entrance();
-                player.direction() = UP;
-
-                std::stringstream ss;
-                ss << player.hp() << "hp";
-                player_hp.setString(ss.str());
-
-                std::stringstream ss1;
-                ss1 << player.ammo() << "ammo";
-                player_ammo.setString(ss1.str());
-
-                std::stringstream ss2;
-                ss2 << "level" << level;
-                player_level.setString(ss2.str());
-
-                spriteCharacter.setTexture(character_back);
-                }
+                changeLevel(level+1);
+                                }
             }
         }
         if (event.type == sf::Event::MouseButtonPressed)
@@ -659,6 +635,7 @@ void Game::update()
     if (player.hp() <= 0)
     {
         playMusic(false);
+        changeLevel(1);
         player.end();
         player.add_points(-100);
         SceneManager::change_scene(Main::endgame);
@@ -1079,4 +1056,41 @@ void Game::changeXY()
     xX = 7*player.x()/5;
     yY = 7*player.y()/5;
     circle.setPosition(sf::Vector2f(430+xX, 80+yY));
+}
+
+void Game::changeLevel(int lvl)
+{
+    if(lvl != 1)
+    {
+        player.p_end();
+        player.add_points(player.end()- player.start());
+    }
+    level = lvl;
+    ammuns.clear();    // A definir.
+    hearts.clear();
+    traps.clear();
+    enemies.clear();
+    bullet_course.clear();
+    maze.maze_null();
+    if(!read_from_file(level))
+    {
+        std::cout << "erro com a entrada" << std::endl;
+        Main::quit = true;
+    }
+    player.pos() = maze.entrance();
+    player.direction() = UP;
+
+    std::stringstream ss;
+    ss << player.hp() << "hp";
+    player_hp.setString(ss.str());
+
+    std::stringstream ss1;
+    ss1 << player.ammo() << "ammo";
+    player_ammo.setString(ss1.str());
+
+    std::stringstream ss2;
+    ss2 << "level" << level;
+    player_level.setString(ss2.str());
+    spriteCross.setPosition(sf::Vector2f(430+7*maze.exit().x/5, 80+7*maze.exit().y/5));
+    spriteCharacter.setTexture(character_back);
 }

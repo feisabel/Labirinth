@@ -143,6 +143,7 @@ public:
 
     bool read_from_file(int);
 	bool verify_maze(Maze&);
+    void changeLevel(int);
 
     void playMusic(bool a)
 	{

@@ -17,11 +17,12 @@ public:
 	size_t rows() const;
 	size_t cols() const;
 
+    void maze_null() { matrix = NULL; }
 	bool in_bounds(const Position&) const;
 
 	Position& entrance();
 	const Position& entrance() const;
-	
+
 	Position& exit();
 	const Position& exit() const;
 

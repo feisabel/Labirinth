@@ -60,6 +60,7 @@ void EndGame::update()
         {
             if (event.key.code == sf::Keyboard::Escape)
             {
+                str = "";
                 Main::game.restart();
                 SceneManager::change_scene(Main::menu);
             }
