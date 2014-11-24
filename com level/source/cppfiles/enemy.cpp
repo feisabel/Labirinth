@@ -35,7 +35,7 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 		while (!result.empty())
 		{
 			Position x = result.pop();
-			if (x.is_adjacent_to(path.top()))
+			if (x.adjacent_to(path.top()))
 			{
 				path.push(x);
 			}

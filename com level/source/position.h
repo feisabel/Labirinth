@@ -7,44 +7,47 @@ using custom::list;
 #include <iostream>
 #include <cmath>
 
-enum Direction {UP, DOWN, LEFT, RIGHT};
+
+
+/*	classe Position:
+		representa uma posição em uma matriz bidimensional.
+*/
 
 struct Position
 {
-	int x;
-	int y;
-	Position () : x(0), y(0) {}
-	Position (int a, int b) : x(a), y(b) {}
+	int x;		// coordenada x
+	int y;		// coordenada y
 
-	bool operator== (const Position& other) const
-	{
-		return other.x == x && other.y == y;
-	}
+	// construtores
+	Position ();			// construtor padrão
+	Position (int, int);	// construtor que recebe dois inteiros
 
-	bool operator!= (const Position& other) const
-	{
-		return !operator==(other);
-	}
-
-	bool is_adjacent_to (const Position& other) const
-	{
-		return ( x == other.x && y == other.y + 1 )
-			|| ( x == other.x && y == other.y - 1 )
-			|| ( y == other.y && x == other.x + 1 )
-			|| ( y == other.y && x == other.x - 1 );
-	}
-
-	int distance_to(const Position& other) const
-	{
-		return sqrt(pow((other.x - x), 2) + pow((other.y - y), 2));
-	}
+	// comparação
+	bool operator== (const Position&) const; 	// compara duas posições; retorna true se têm as mesmas coordenada, false caso contrário
+	bool operator!= (const Position&) const;	// compara duas posições; retorna false se têm as mesmas coordenada, true caso contrário
+	bool adjacent_to (const Position&) const; 	// compara duas posições; retorna true caso a posição passada seja adjacente a essa, false caso contrário
+	
+	// operação
+	int distance_to(const Position&) const;		// retorna a distância entre essa e outra posição 
 };
 
 
-list<Position> get_adjacents(const Position&);
-Position get_adjacent(const Position&, const Direction&);
+// tipo Direction, representa uma direção
+enum Direction {UP, DOWN, LEFT, RIGHT};
 
+
+// retorna uma lista contendo as quatro posições adjacentes à pos
+list<Position> get_adjacents(const Position& pos);		
+
+// retorna a posição que se localiza na direção dir da posição pos 
+Position get_adjacent(const Position& pos, const Direction& dir);
+
+
+// escrita de uma posição na saída padrão
 std::ostream& operator<< (std::ostream&, const Position&);
+
+// leitura de uma posição da entrada padrão
 std::istream& operator>> (std::istream&, Position&);
+
 
 #endif
