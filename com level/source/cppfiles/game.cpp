@@ -37,13 +37,17 @@ bool Game::read_from_file(int i = 1)
         if( !(entrada >> a) )
         {
             entrada.close();
-            std::cout << "não leu a" << std::endl;
+            std::cerr << "não leu a" << std::endl;
+		inited = false;
+		return;
             return false;
         }
         if( !(entrada >> b) )
         {
             entrada.close();
-            std::cout << "não leu a" << std::endl;
+            std::cerr << "não leu a" << std::endl;
+		inited = false;
+		return;
             return false;
         }
 
@@ -100,13 +104,17 @@ bool Game::read_from_file(int i = 1)
 
         // Verifica se a leitura da matriz ocorreu corretamente.
         if( j != b ) {
-            std::cout << "não leu matriz" << std::endl;
+            std::cerr << "não leu matriz" << std::endl;
+		inited = false;
+		return;
             entrada.close();
             return false;
         }
     }
     else {
-        std::cout << "não abriu arquivo" << std::endl;
+        std::cerr << "não abriu arquivo" << std::endl;
+		inited = false;
+		return;
         entrada.close();
         return false;
     }
@@ -151,11 +159,18 @@ bool Game::verify_maze(Maze& maze)
 Game::Game()
 : timer(1000000.0/FPS), inited(true), circle(3, 15), level(1)
 {
-    if (!read_from_file()) inited = false;
+    if (!read_from_file())
+    {
+        std::cerr << "erro: não foi possível carregar labirinto" << std::endl;
+		inited = false;
+		return;
+    }
 
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
-        std::cout << "erro de fonte" << std::endl;
+        std::cerr << "erro de fonte" << std::endl;
+		inited = false;
+		return;
     }
 
     circle.setFillColor(sf::Color::Red);
@@ -193,226 +208,331 @@ Game::Game()
 
 	if (!cross.loadFromFile("resources/images/cross.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!map.loadFromFile("resources/images/map.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!h1.loadFromFile("resources/images/heart1.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!h2.loadFromFile("resources/images/heart2.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!h3.loadFromFile("resources/images/heart3.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!h4.loadFromFile("resources/images/heart4.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!h5.loadFromFile("resources/images/heart5.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!music.openFromFile("resources/sounds/maze_music.ogg"))
     {
-        std::cout << "erro" << std::endl;
+        std::cerr << "erro" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!gunfire.loadFromFile("resources/sounds/gunfire_effect.ogg"))
     {
-        std::cout << "erro" << std::endl;
+        std::cerr << "erro" << std::endl;
+		inited = false;
+		return;
+    }
+
+    if (!player_dmg.loadFromFile("resources/sounds/char_damage.ogg"))
+    {
+        std::cerr << "erro" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!musicplayON.loadFromFile("resources/images/volume.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!musicplayOFF.loadFromFile("resources/images/mudo.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!bufferZombieAwake.loadFromFile("resources/sounds/alive_effect.flac"))
     {
-        std::cout << "erro" << std::endl;
+        std::cerr << "erro" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!bufferZombieDead.loadFromFile("resources/sounds/dead_effect.flac"))
     {
-        std::cout << "erro" << std::endl;
+        std::cerr << "erro" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!fade_out.loadFromFile("resources/images/fade_out.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!exit.loadFromFile("resources/images/exit.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!floor.loadFromFile("resources/images/floor1.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!trap_off.loadFromFile("resources/images/trap_off3.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!trap_on.loadFromFile("resources/images/trap_on3.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!spawn.loadFromFile("resources/images/spawn1.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!monster_front.loadFromFile("resources/images/skeleton_front.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!monster_back.loadFromFile("resources/images/skeleton_front.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!monster_left.loadFromFile("resources/images/skeleton_left.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!monster_right.loadFromFile("resources/images/skeleton_right.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!ammo.loadFromFile("resources/images/ammo.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!med.loadFromFile("resources/images/medkit.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!character_back.loadFromFile("resources/images/char_back.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!character_front.loadFromFile("resources/images/char_front.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!character_left.loadFromFile("resources/images/char_left.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!character_right.loadFromFile("resources/images/char_right.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!bullet_down.loadFromFile("resources/images/bullet_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!bullet_up.loadFromFile("resources/images/bullet_up.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!bullet_left.loadFromFile("resources/images/bullet_left.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     if (!bullet_right.loadFromFile("resources/images/bullet_right.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_left.loadFromFile("resources/images/wall_left.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_left_right.loadFromFile("resources/images/wall_left_right.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_left_up.loadFromFile("resources/images/wall_left_up.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
 
     }
     if (!wall_left_down.loadFromFile("resources/images/wall_left_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_left_right_up.loadFromFile("resources/images/wall_left_right_up.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_left_right_down.loadFromFile("resources/images/wall_left_right_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_down.loadFromFile("resources/images/wall_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_full.loadFromFile("resources/images/wall_full.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_unlit.loadFromFile("resources/images/wall_unlit.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_up.loadFromFile("resources/images/wall_up.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_up_down.loadFromFile("resources/images/wall_up_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_right.loadFromFile("resources/images/wall_right.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_right_up.loadFromFile("resources/images/wall_right_up.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_right_down.loadFromFile("resources/images/wall_right_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_left_up_down.loadFromFile("resources/images/wall_left_up_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
     if (!wall_right_up_down.loadFromFile("resources/images/wall_right_up_down.png"))
     {
-        std::cout << "erro de textura" << std::endl;
+        std::cerr << "erro de textura" << std::endl;
+		inited = false;
+		return;
     }
 
     spriteCross.setTexture(cross);
@@ -618,7 +738,7 @@ void Game::update()
 
                 if (it->is_awake())
                 {
-                    int value = 100/(player.pos().distance_to(it->pos())-1);
+                    int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
 
                     zombie_awake.setVolume(value);
                     if (playing) zombie_awake.play();
@@ -1074,7 +1194,9 @@ void Game::changeLevel(int lvl)
     maze.maze_null();
     if(!read_from_file(level))
     {
-        std::cout << "erro com a entrada" << std::endl;
+        std::cerr << "erro com a entrada" << std::endl;
+		inited = false;
+		return;
         Main::quit = true;
     }
     player.pos() = maze.entrance();
