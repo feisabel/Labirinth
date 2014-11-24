@@ -655,7 +655,6 @@ void Game::update()
                     playMusic(false);
                     player.end();
                     player.add_points(100);
-                    changeLevel(1);
                     SceneManager::change_scene(Main::endgame);
                 }
                 else
