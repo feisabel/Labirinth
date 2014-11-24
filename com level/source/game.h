@@ -44,12 +44,14 @@ public:
     bool playing;
 
     sf::SoundBuffer gunfire;
-
     sf::SoundBuffer bufferZombieAwake;
     sf::SoundBuffer bufferZombieDead;
+    sf::SoundBuffer bufferPlayerDmg;
 
+    sf::Sound soundGunfire;
     sf::Sound zombie_awake;
     sf::Sound zombie_dead;
+    sf::Sound player_dmg;
 
     sf::Texture cross;
     sf::Texture map;
@@ -109,8 +111,6 @@ public:
 	sf::Sprite spriteCharacter;
     sf::Sprite spriteBullet;
     sf::Sprite spriteFadeOut;
-
-    sf::Sound soundGunfire;
 
     sf::Font font;
 

@@ -38,16 +38,12 @@ bool Game::read_from_file(int i = 1)
         {
             entrada.close();
             std::cerr << "não leu a" << std::endl;
-		inited = false;
-		return;
             return false;
         }
         if( !(entrada >> b) )
         {
             entrada.close();
             std::cerr << "não leu a" << std::endl;
-		inited = false;
-		return;
             return false;
         }
 
@@ -105,16 +101,12 @@ bool Game::read_from_file(int i = 1)
         // Verifica se a leitura da matriz ocorreu corretamente.
         if( j != b ) {
             std::cerr << "não leu matriz" << std::endl;
-		inited = false;
-		return;
             entrada.close();
             return false;
         }
     }
     else {
         std::cerr << "não abriu arquivo" << std::endl;
-		inited = false;
-		return;
         entrada.close();
         return false;
     }
@@ -263,7 +255,7 @@ Game::Game()
 		return;
     }
 
-    if (!player_dmg.loadFromFile("resources/sounds/char_damage.ogg"))
+    if (!bufferPlayerDmg.loadFromFile("resources/sounds/char_damage.ogg"))
     {
         std::cerr << "erro" << std::endl;
 		inited = false;
@@ -559,13 +551,15 @@ Game::Game()
     soundGunfire.setBuffer(gunfire);
     soundGunfire.setVolume(40);
 
+    zombie_awake.setBuffer(bufferZombieAwake);
+    zombie_dead.setBuffer(bufferZombieDead);
+
+    player_dmg.setBuffer(bufferPlayerDmg);
+
     player.pos() = maze.entrance();
 
     spriteCross.setPosition(sf::Vector2f(430+7*maze.exit().x/5, 80+7*maze.exit().y/5));
     changeXY();
-
-    zombie_awake.setBuffer(bufferZombieAwake);
-    zombie_dead.setBuffer(bufferZombieDead);
 
     music.setLoop(true);
 }
@@ -698,10 +692,14 @@ void Game::update()
 
             enemies.erase(it++);
 
-            int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
-            zombie_dead.setVolume(value);
+            if (playing)
+            {
+                int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
+                zombie_dead.setVolume(value);
+                zombie_dead.play();
 
-            if (playing) zombie_dead.play();
+                player_dmg.play();
+            }
 
             b_redraw = true;
         }
@@ -712,10 +710,12 @@ void Game::update()
             enemies.erase(it++);
             bullet_course.clear();
 
-            int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
-            zombie_dead.setVolume(value);
-
-            if (playing) zombie_dead.play();
+            if (playing)
+            {
+                int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
+                zombie_dead.setVolume(value);
+                zombie_dead.play();
+            }
 
             b_redraw = true;
         }
@@ -736,12 +736,11 @@ void Game::update()
                 }
                 else if (!it->is_chasing()) it->init_chase();
 
-                if (it->is_awake())
+                if (it->is_awake() && playing)
                 {
                     int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
-
                     zombie_awake.setVolume(value);
-                    if (playing) zombie_awake.play();
+                    zombie_awake.play();
                 }
             }
 
@@ -789,10 +788,11 @@ void Game::update()
     active_traps();
     for(list<Trap>::iterator it = traps.begin(); it != traps.end(); it++)
     {
-        if(it->pos() == player.pos())
+        if(it->is_active() && it->pos() == player.pos())
         {
             player.add_points(-10);
             player.hp()--;
+            player_dmg.play();
         }
     }
 }
@@ -1192,13 +1192,13 @@ void Game::changeLevel(int lvl)
     enemies.clear();
     bullet_course.clear();
     maze.maze_null();
+
     if(!read_from_file(level))
     {
         std::cerr << "erro com a entrada" << std::endl;
-		inited = false;
-		return;
         Main::quit = true;
     }
+
     player.pos() = maze.entrance();
     player.direction() = UP;
 

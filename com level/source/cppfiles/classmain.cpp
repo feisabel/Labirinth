@@ -21,7 +21,7 @@ void Main::loop ()
 {
 	if (!game.inited)
 	{
-		std::cerr << "Arquivo inválido: labirinto não tem solução" << std::endl;
+		std::cerr << "Erro: não foi possível carregar jogo" << std::endl;
 		return;
 	}
 
