@@ -36,17 +36,17 @@ struct Position
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
 
-// retorna uma lista contendo as quatro posições adjacentes à pos
+// retorna uma lista contendo as quatro posições adjacentes a pos
 list<Position> get_adjacents(const Position& pos);		
 
 // retorna a posição que se localiza na direção dir da posição pos 
 Position get_adjacent(const Position& pos, const Direction& dir);
 
 
-// escrita de uma posição na saída padrão
+// imprime uma posição na saída padrão
 std::ostream& operator<< (std::ostream&, const Position&);
 
-// leitura de uma posição da entrada padrão
+// lê os dados de uma posição da entrada padrão
 std::istream& operator>> (std::istream&, Position&);
 
 
