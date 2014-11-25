@@ -3,44 +3,47 @@
 
 #include "block.h"
 
+/*		class Maze:
+ *			A classe maze representa o mapa. As posições das entidades e dos outros objetos nele localizados são definidos por suas coordenadas.
+ */
+
 class Maze
 {
 public:
-	class _proxy;
+	class _proxy; // class para o operador [][]
 
-	Maze();
-	~Maze();
+	Maze();  // construtor
+	~Maze(); // destruidor
 
-	void init(size_t n, size_t m);
-	bool inited() const;
+	void init(size_t n, size_t m); // inicializa a matriz que define o maze
+	bool inited() const; // define se já foi inicializada
 
-	size_t rows() const;
-	size_t cols() const;
+	size_t rows() const; // construtor da variável da quantidade de linhas
+	size_t cols() const; // construtor da variável da quantidade de colunas
 
-    void maze_null() { matrix = NULL; }
-	bool in_bounds(const Position&) const;
+    void maze_null() { matrix = NULL; } // faz a matriz apontar pra nulo
+	bool in_bounds(const Position&) const; // verifica se a posição está dentro dos limites da matriz
 
-	Position& entrance();
+	Position& entrance(); // construtor da entrada do labirinto
 	const Position& entrance() const;
 
-	Position& exit();
+	Position& exit(); // construtor da saída do labirinto 
 	const Position& exit() const;
 
-	_proxy operator[](size_t row);
+	_proxy operator[](size_t row); // quantidade de linhas
 	const _proxy operator[](size_t row) const;
 
 private:
-	size_t _rows;
-	size_t _cols;
+	size_t _rows;       // variável da quantidade de linhas
+	size_t _cols;       // variável da quantidade de colunas
 
-	Block **matrix;
+	Block **matrix;     // variável da matriz
 
-	Position _entrance;
-	Position _exit;
+	Position _entrance; // variável da entrada
+	Position _exit;     // variável da saída
 };
 
 
-// proxy class for operator[][]
 class Maze::_proxy
 {
 	friend class Maze;
