@@ -10,12 +10,11 @@
 
 EndGame::EndGame()
 {
-
-
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
        std::cout << "Erro ao inicializar a textura" << std::endl;
     }
+
     text1.setCharacterSize(40);
     text1.setFont(font);
     text1.setColor(sf::Color::White);

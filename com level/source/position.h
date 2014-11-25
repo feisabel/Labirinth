@@ -8,9 +8,9 @@ using custom::list;
 #include <cmath>
 
 
-
-/*	classe Position:
-		representa uma posição em uma matriz bidimensional.
+/*
+	classe Position:
+		Representa uma posição em uma matriz bidimensional.
 */
 
 struct Position

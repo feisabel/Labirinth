@@ -8,6 +8,71 @@ using custom::queue;
 using custom::stack;
 
 
+Enemy::Enemy()
+: state(AWAKE), dir(UP), set_awake(false), chasing(false), hit_p(false), hit_b(false)
+{
+}
+
+
+Enemy::Enemy(State s)
+: state(s), dir(UP), set_awake(false), chasing(false), hit_p(false), hit_b(false)
+{
+}
+
+Direction& Enemy::direction()
+{
+	return dir;
+}
+
+Direction Enemy::direction() const
+{
+	return dir;
+}
+
+
+void Enemy::init_awake()
+{
+	set_awake = true;
+}
+
+bool Enemy::inited_awake() const
+{
+	return set_awake;
+}
+
+
+void Enemy::awake()
+{
+	if (set_awake) state = AWAKE;
+}
+
+bool Enemy::is_awake() const
+{
+	return state == AWAKE;
+}
+
+
+void Enemy::init_chase()
+{
+	chasing = true;
+}
+
+bool Enemy::hit_player() const
+{
+	return hit_p;
+}
+
+bool Enemy::hit_bullet() const
+{
+	return hit_b;
+}
+
+bool Enemy::is_chasing()
+{
+	return chasing;
+}
+
+
 bool Enemy::trace_route(Player& player, Maze& maze)
 {
 	stack<Position> result;
@@ -54,21 +119,6 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 }
 
 
-void Enemy::init_chase()
-{
-	chasing = true;
-}
-
-bool Enemy::hit_player()
-{
-	return hit_p;
-}
-
-bool Enemy::hit_bullet()
-{
-	return hit_b;
-}
-
 bool Enemy::chase(Player& player, Maze& maze, queue<Position>& bullet_course)
 {
 	if (chasing)
@@ -109,11 +159,5 @@ bool Enemy::chase(Player& player, Maze& maze, queue<Position>& bullet_course)
 		}
 	}
     
-	return chasing;
-}
-
-
-bool Enemy::is_chasing()
-{
 	return chasing;
 }
