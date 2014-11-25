@@ -110,7 +110,7 @@ bool Enemy::trace_route(Player& player, Maze& maze)
 		while (!tmp.empty())								// para cada adjacente
 		{	
 			Position p = tmp.pop_front();			 
-			if (maze.in_bounds(p) && Maze[p.x][p.y].type() != Block::WALL && !visited.includes(p))
+			if (maze.in_bounds(p) && maze[p.x][p.y].type() != Block::WALL && !visited.includes(p))
 				bfs.push(p);								// se é um caminho válido do labirinto que ainda não foi visitado, coloca na fila
 		}
 
