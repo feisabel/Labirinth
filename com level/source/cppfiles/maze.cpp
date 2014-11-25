@@ -1,13 +1,13 @@
 #include "../maze.h"
 
 
-Maze::Maze()
+Maze::Maze() //construtor
 : matrix(NULL)
 {
 }
 
 
-Maze::~Maze()
+Maze::~Maze() //destrutor
 {
 	if (matrix != NULL)
 	{
@@ -23,7 +23,7 @@ Maze::~Maze()
 }
 
 
-void Maze::init(size_t n, size_t m)
+void Maze::init(size_t n, size_t m) // inicializa a matriz de blocos dinamicamente
 {	
 	if (matrix == NULL)
 	{
@@ -36,59 +36,61 @@ void Maze::init(size_t n, size_t m)
 	}
 }
 
-
+// verifica se a matriz foi inicializada
 bool Maze::inited() const
 {
 	return matrix != NULL;
 }
 
-
+// retorna a quantidade de linhas
 size_t Maze::rows() const
 {
 	return _rows;
 }
 
+// retorna a quantidade de colunas
 size_t Maze::cols() const
 {
 	return _cols;
 }
 
-
+// verifica se a posição está dento dos limites do labirinto
 bool Maze::in_bounds(const Position& p) const
 {
 	return 0 <= p.x && p.x < _cols && 0 <= p.y && p.y < _rows;
 }
 
-
+// retorna entrada
 Position& Maze::entrance()
 {
 	return _entrance;
 }
 
+// retorna entrada
 const Position& Maze::entrance() const
 {
 	return _entrance;
 }
 
-
-
+// retorna saída
 Position& Maze::exit()
 {
 	return _exit;
 }
 
+// retorna saída
 const Position& Maze::exit() const
 {
 	return _exit;
 }
 
-
-
+// sobrecarga de operador []
 Maze::_proxy Maze::operator[](size_t col)
 {
 	return _proxy(*this, col);
 }
 
+// sobrecarga de operador
 const Maze::_proxy Maze::operator[](size_t col) const
 {
 	return _proxy(*this, col);
