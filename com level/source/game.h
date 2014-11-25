@@ -142,7 +142,7 @@ public:
 	bool showMed(int, int); //Retorna verdadeiro caso na posição i, j haja medkit
 	bool showTrap(int, int); //Retorna verdadeiro caso na posição i, j haja armadilha
 
-    bool read_from_file(int); //Método que lê as informações do arquivo de entrada e atualiza as instâncias do game
+    bool read_from_file(int i=1); //Método que lê as informações do arquivo de entrada e atualiza as instâncias do game
 	bool verify_maze(Maze&); //Método que verifica a validade de um labirinto
     void changeLevel(int); //Método que faz a mudança de level
 

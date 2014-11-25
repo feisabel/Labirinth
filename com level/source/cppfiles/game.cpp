@@ -438,7 +438,7 @@ Game::Game()
 
 
 // Função que forma o labririnto conforme as informações do arquivo de entrada e modifica entrance e exit
-bool Game::read_from_file(int i = 1)
+bool Game::read_from_file(int i)
 {
     std::ifstream entrada;                             // Conexão com o arquivo "entrada.txt".
 

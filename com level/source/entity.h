@@ -32,6 +32,7 @@ public:
 	}
     
     bool collided_with(const Position& e) const // método que retorna um booleano que define se houve colisão ou não com uma posição
+    {
         return _pos == e;
     }
 };
