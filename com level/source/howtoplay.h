@@ -11,12 +11,13 @@
 
 class Main;
 
+// classe cena do how to play
 class howToPlay : public Scene
 {
     public:
-    void redraw();
-    void update();
-    howToPlay();
+    void redraw(); // método que mostra as modificações
+    void update(); // método que recebe eventos e faz modificações
+    howToPlay(); //construtor padrão
 private:
 
     sf::Texture background;  

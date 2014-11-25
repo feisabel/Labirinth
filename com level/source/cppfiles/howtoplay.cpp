@@ -2,9 +2,9 @@
 #include "../classmain.h"
 #include "../scene_manager.h"
 
-howToPlay::howToPlay()
+howToPlay::howToPlay() //Construtor padrão
 {
-    if (!background.loadFromFile("resources/images/how_to_play1.png"))
+    if (!background.loadFromFile("resources/images/how_to_play1.png")) // carrega imagem da textura
     {
         std::cout << "erro de textura" << std::endl;
         return;
@@ -15,7 +15,7 @@ howToPlay::howToPlay()
 
 void howToPlay::redraw()
 {
-    b_redraw = true; //alterei aqui
+    b_redraw = true; // alterei aqui
     if (b_redraw)
     {
         window.clear(sf::Color::Black);
@@ -32,7 +32,7 @@ void howToPlay::update()
     sf::Event event;
     while(window.pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed) // fechar janela
             Main::quit = true;
         if (event.type == sf::Event::KeyPressed) // Fecha o jogo caso aperte ESC.
         {
@@ -43,7 +43,7 @@ void howToPlay::update()
         }
         if (event.type == sf::Event::MouseButtonPressed)
         {
-            if (event.mouseButton.button == sf::Mouse::Left)
+            if (event.mouseButton.button == sf::Mouse::Left) // caso tenha apertado o botão bach
             {
                 if(event.mouseButton.x > 12 && event.mouseButton.x < 68 && event.mouseButton.y > 508 && event.mouseButton.y < 532)
                 {
