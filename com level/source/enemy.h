@@ -44,8 +44,8 @@ public:
     bool hit_bullet() const;      // indica se o inimigo foi atingido por um tiro no loop atual
 
 	// perseguição
-	bool trace_route(Player&, Maze&);             // traça a rota de perseguição a ser tomada pelo inimigo para alcançar o jogador
-	bool chase(Player&, Maze&, queue<Position>&); // a função que faz com que o inimigo persiga o jogador
+	bool trace_route(Player&, Maze&);             		 // traça a rota de perseguição a ser tomada pelo inimigo para alcançar o jogador
+	bool chase(Player&, Maze&, queue<Position>& bullet); // a função que faz com que o inimigo persiga o jogador
 
 private:
 	State state; 	  		// define o estado atual do inimigo (SLEEP ou AWAKE)
