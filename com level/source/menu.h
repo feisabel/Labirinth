@@ -11,32 +11,14 @@
 
 class Main;
 
-struct Button
-{
-	sf::RectangleShape rect;
-	sf::Text content;
-	unsigned int v_padding;
-	unsigned int h_padding;
 
-	Button()
-	: v_padding(5), h_padding(5)
-	{
-	}
-
-	void setPosition(const sf::Vector2f& v)
-	{
-		rect.setPosition(v);
-		content.setPosition(sf::Vector2f(v.x+v_padding, v.y+h_padding));
-	}
-};
-
-
+// classe cena do menu principal
 class Menu : public Scene
 {
 public:
-    void redraw();
-    void update();
-    Menu();
+    void redraw(); //método que redesenha as atualizações
+    void update(); //método que pega os eventos e trata devidamente
+    Menu(); //construtor padrão
 private:
 
     sf::Texture background;
