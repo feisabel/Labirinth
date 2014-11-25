@@ -5,7 +5,7 @@
 
 /*
 	classe Entity:
-		Representa as entidades dentro do jogo.
+		Representa as entidades dentro do jogo, individualmente.
 */
 
 class Entity
