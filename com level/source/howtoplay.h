@@ -19,8 +19,8 @@ class howToPlay : public Scene
     howToPlay();
 private:
 
-    sf::Texture background;
-    sf::Sprite spriteBackground;
+    sf::Texture background;  
+    sf::Sprite spriteBackground; 
 
 };
 
