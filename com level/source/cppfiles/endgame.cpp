@@ -57,28 +57,27 @@ void EndGame::update()
             Main::quit = true;
         if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
         {
-            if (event.key.code == sf::Keyboard::Escape)
+            if (event.key.code == sf::Keyboard::Escape) //vai para o menu principal caso aperte esc
             {
                 str = "";
                 Main::game.restart();
                 SceneManager::change_scene(Main::menu);
             }
-            if (event.key.code == sf::Keyboard::BackSpace)
+            if (event.key.code == sf::Keyboard::BackSpace) //apaga letra
             {
                 str = str.substr( 0, (str.size() -1));
                 text3.setString(str);
             }
-            if (event.key.code == sf::Keyboard::Return)
+            if (event.key.code == sf::Keyboard::Return) //adiciona o nome e pontos no ranking.txt e vai para o menu principal
             {
-                add_ranking();
+                add_ranking(); 
                 str = "";
                 Main::game.restart();
                 SceneManager::change_scene(Main::menu);
             }
         }
-        if (event.type == sf::Event::TextEntered)
+        if (event.type == sf::Event::TextEntered) //reconhece a entrada de um texto dentro do padrão asciii
         {
-            // Handle ASCII characters only
             if (event.text.unicode < 128 && event.text.unicode != 8)
             {
                 a = static_cast<char>(event.text.unicode);
@@ -89,6 +88,7 @@ void EndGame::update()
     }
 }
 
+//redesenha a tela
 void EndGame::redraw()
 {
     b_redraw = true;
@@ -105,18 +105,19 @@ void EndGame::redraw()
     }
 }
 
+//altera o arquivo ranking.txt
 void EndGame::add_ranking()
 {
-    std::ofstream saida;
+    std::ofstream saida; 
     saida.open( "levels/ranking.txt", std::ifstream::app );
 
-    if( saida.is_open() )
+    if( saida.is_open() ) //se a conexão estiver aberta corretamente escreve o nome e os pontos do jogador
     {
         saida << str;
         saida << " ";
         saida << _points;
         saida << "\n";
     }
-    saida.close();
-    Main::ranking.refresh();
+    saida.close(); 
+    Main::ranking.refresh(); //atualiza o ranking
 }

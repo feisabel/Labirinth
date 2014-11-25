@@ -10,7 +10,7 @@
 #include "menu.h"
 
 class Main;
-
+//Cena do menu de pausa
 class MenuContinue : public Scene
 {
 public:

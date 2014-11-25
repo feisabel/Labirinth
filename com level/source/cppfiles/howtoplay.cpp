@@ -27,14 +27,14 @@ void howToPlay::redraw()
 }
 
 void howToPlay::update()
-{
-    // check all the window's events that were triggered since the last iteration of the loop
+{   
+    // Checa todos os eventos da janela que foram ativados desde a última iteração do loop.
     sf::Event event;
     while(window.pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
             Main::quit = true;
-        if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
+        if (event.type == sf::Event::KeyPressed) // Fecha o jogo caso aperte ESC.
         {
             if (event.key.code == sf::Keyboard::Escape)
             {

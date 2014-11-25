@@ -14,21 +14,20 @@
 class EndGame : public Scene
 {
 public:
-    void redraw();
-    void update();
+    void redraw(); //redesenha as atualizações na tela
+    void update(); //recebe eventos e faz as mudanças necessárias
 
-    EndGame();
+    EndGame(); //construtor padrão
 
-    void add_ranking();
-    void points(int a)
+    void add_ranking(); //método que adiciona nome e pontos ao ranking.txt
+    void points(int a) //recebe um inteiro; altera a string _points
     {
         std::stringstream ss;
         ss << a;
-        //std::cout << player.points() <<std::endl;
         _points = ss.str();
     }
-    std::string str;
-    std::string _points;
+    std::string str; //nome do player
+    std::string _points; //pontos do player no jogo atual
     sf::RectangleShape rect;
     sf::Text text1;
     sf::Text text2;
