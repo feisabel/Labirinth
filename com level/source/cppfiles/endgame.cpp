@@ -8,7 +8,7 @@
 #include <sstream>
 #include <fstream>
 
-EndGame::EndGame()
+EndGame::EndGame() //Construtor padrão
 {
     if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
     {
