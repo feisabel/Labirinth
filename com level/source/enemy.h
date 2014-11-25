@@ -40,8 +40,8 @@ public:
 	void init_chase();			 // inicia a perseguição do player
 	bool is_chasing() const;     // indica estado de perseguição ou de inatividade
 
-	bool hit_player();           // indica se o inimigo está atacando o player no loop atual
-    bool hit_bullet();           // indica se o inimigo foi atingido por um tiro no loop atual
+	bool hit_player() const;      // indica se o inimigo está atacando o player no loop atual
+    bool hit_bullet() const;      // indica se o inimigo foi atingido por um tiro no loop atual
 
 	// perseguição
 	bool trace_route(Player&, Maze&);             // traça a rota de perseguição a ser tomada pelo inimigo para alcançar o jogador

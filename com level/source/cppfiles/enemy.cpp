@@ -57,6 +57,12 @@ void Enemy::init_chase()
 	chasing = true;
 }
 
+bool Enemy::is_chasing() const
+{
+	return chasing;
+}
+
+
 bool Enemy::hit_player() const
 {
 	return hit_p;
@@ -65,11 +71,6 @@ bool Enemy::hit_player() const
 bool Enemy::hit_bullet() const
 {
 	return hit_b;
-}
-
-bool Enemy::is_chasing()
-{
-	return chasing;
 }
 
 
