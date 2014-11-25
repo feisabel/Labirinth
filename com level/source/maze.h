@@ -8,10 +8,10 @@ class Maze
 public:
 	class _proxy;
 
-	Maze();
-	~Maze();
+	Maze(); 
+	~Maze(); 
 
-	void init(size_t n, size_t m);
+	void init(size_t n, size_t m); 
 	bool inited() const;
 
 	size_t rows() const;
