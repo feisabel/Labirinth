@@ -9,9 +9,9 @@ Maze::Maze() // construtor
 
 Maze::~Maze() // destrutor
 {
-	if (matrix != NULL)
+	if (matrix != NULL)		// se a matriz foi alocada
 	{
-		for (size_t i=0; i<_cols; i++)
+		for (size_t i=0; i<_cols; i++)	// deleta a memória alocada
 		{
 			delete[] matrix[i];
 			matrix[i] = NULL;
@@ -90,7 +90,7 @@ Maze::_proxy Maze::operator[](size_t col)
 	return _proxy(*this, col);
 }
 
-// sobrecarga de operador
+// sobrecarga de operador []
 const Maze::_proxy Maze::operator[](size_t col) const
 {
 	return _proxy(*this, col);
@@ -99,23 +99,27 @@ const Maze::_proxy Maze::operator[](size_t col) const
 
 
 
-// proxy class for operator[][]
+// classe _proxy pra simular o duplo operador []
 
+// construtor
 Maze::_proxy::_proxy(Maze& parent, size_t col)
 : _parent(&parent), _const_parent(NULL), _col(col)
 {
 }
 
+// construtor
 Maze::_proxy::_proxy(const Maze& parent, size_t col)
 : _parent(NULL), _const_parent(&parent), _col(col)
 {
 }
 
+// operador []
 Block& Maze::_proxy::operator[](size_t row)
 {
 	return _parent->matrix[_col][row];
 }
 
+// operador []
 const Block& Maze::_proxy::operator[](size_t row) const
 {
 	return _const_parent->matrix[_col][row];
