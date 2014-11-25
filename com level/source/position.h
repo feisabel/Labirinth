@@ -23,8 +23,8 @@ struct Position
 	Position (int, int);	// construtor que recebe dois inteiros
 
 	// comparação
-	bool operator== (const Position&) const; 	// compara duas posições; retorna true se têm as mesmas coordenada, false caso contrário
-	bool operator!= (const Position&) const;	// compara duas posições; retorna false se têm as mesmas coordenada, true caso contrário
+	bool operator== (const Position&) const; 	// compara duas posições; retorna true se têm as mesmas coordenadas, false caso contrário
+	bool operator!= (const Position&) const;	// compara duas posições; retorna false se têm as mesmas coordenadas, true caso contrário
 	bool adjacent_to (const Position&) const; 	// compara duas posições; retorna true caso a posição passada seja adjacente a essa, false caso contrário
 	
 	// operação
