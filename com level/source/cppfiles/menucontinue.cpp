@@ -33,26 +33,32 @@ MenuContinue::MenuContinue() //construtor padrão
         std::cout << "erro de textura" << std::endl;
         return;
     }
+    
     //carrega os sprites com suas texturas
+    
     spriteExit.setTexture(exit); 
     spriteExit.setPosition(sf::Vector2f(300,430)); //modifica a posição do sprite
+    
     spriteMenu.setTexture(menu);
     spriteMenu.setPosition(sf::Vector2f(300,370)); 
+    
     spriteRestart.setTexture(restart);
     spriteRestart.setPosition(sf::Vector2f(300,310));
+    
     spriteResume.setTexture(resume);
     spriteResume.setPosition(sf::Vector2f(300,250));
-    title.setCharacterSize(40); //define tamanho da letra
-    title.setFont(font); //define fonte
-    title.setColor(sf::Color::White); //define cor
-    title.setString("Under Paris"); //define conteúdo do texto
-    title.setPosition(sf::Vector2f(110,100)); //define posição
+    
+    title.setCharacterSize(40);                     // define tamanho da letra
+    title.setFont(font);                            // define fonte
+    title.setColor(sf::Color::White);               // define cor
+    title.setString("Under Paris");                 // define conteúdo do texto
+    title.setPosition(sf::Vector2f(110,100));       // define posição
 
-    rect.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT)); //define o tamanho do rect como o tamanho da janela
-    rect.setFillColor(sf::Color(0, 0, 0, 170)); //define 
+    rect.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT)); // define o tamanho do rect como o tamanho da janela
+    rect.setFillColor(sf::Color(0, 0, 0, 170));              // define cor 
 }
 
-//método que redesenha as atualizações na tabela
+// Redesenha as atualizações na tabela
 void MenuContinue::redraw()
 {
     if (b_redraw)

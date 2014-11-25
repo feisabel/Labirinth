@@ -1,13 +1,13 @@
 #include "../maze.h"
 
 
-Maze::Maze() //construtor
+Maze::Maze() // construtor
 : matrix(NULL)
 {
 }
 
 
-Maze::~Maze() //destrutor
+Maze::~Maze() // destrutor
 {
 	if (matrix != NULL)
 	{
