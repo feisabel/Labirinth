@@ -942,23 +942,23 @@ bool Game::showAmmo(int i, int j)
     return false;
 }
 
-//Método que atira
+//Método que atira (e define o percurso da bala)
 void Game::fire()
 {
     if (playing) //ativa só caso não esteja mudo
         soundGunfire.play();
 
-    Entity bullet(player.x(), player.y());
+    Entity bullet(player.x(), player.y()); // cria uma entidade para representar a bala, inicializando-a com a posição do jogador
 
-    Position pos;
+    // de acordo com a direção do jogador, a direção da bala e seu percurso são definidos. o percurso é uma fila de posições que começa na adjacente ao jogador e termina na que precede uma parede (todas as posições do corredor que a bala vai percorrer).
     if (player.direction() == LEFT)
     {
-        spriteBullet.setTexture(bullet_left);
-        bullet.x()--;
+        spriteBullet.setTexture(bullet_left); // define o sprite correspondente a direção da bala
+        bullet.x()--; // passa a posição da bala, que estava como a mesma do jogador, para a adjacente a esta na direção correta (primeira posição do percurso da bala)
         while (maze.in_bounds(bullet.pos()) && maze[bullet.x()][bullet.y()].type() != Block::WALL)
         {
-            bullet_course.push( bullet.pos() );
-            bullet.x()--;
+            bullet_course.push( bullet.pos() ); // enquanto a posição da bala está em um caminho (faz parte do percurso), ela é adicionada à fila
+            bullet.x()--; // posição da bala é atualizada para a seguinte na direção correta
         }
     }
     else if (player.direction() == RIGHT)
@@ -999,6 +999,8 @@ void Game::fire()
 //Método que define qual parede deve ser usada na posição i, j
 void Game::define_wall (int i, int j)
 {
+    
+    // são definidas 4 variáveis booleanas (l, r, u, d) que indicam se as 4 posições adjacentes à que eu que eu quero definir são paredes (true) ou não (false)
     Position pos(i-1, j);
     bool l = false, r = false, u = false, d = false;
     if (!maze.in_bounds(pos) || maze[i-1][j].type() == Block::WALL)
@@ -1013,7 +1015,9 @@ void Game::define_wall (int i, int j)
     pos.y += 2;
     if (!maze.in_bounds(pos) || maze[i][j+1].type() == Block::WALL)
         d = true;
-
+    
+    
+    // existem 16 casos diferentes de paredes (com nenhuma parede em volta, com paredes 4 paredes em volta, com 1 parede em cima, com 2 paredes sendo uma em cima e outra do lado, etc). para cada um desses casos, existe um sprite diferente, que é definido a seguir (checando as paredes em volta):
     if (u)
     {
         if (!l && !r && !d)
@@ -1029,7 +1033,7 @@ void Game::define_wall (int i, int j)
         else if (l && r && !d)
             spriteWall.setTexture(wall_down);
         else if (l && r && d)
-            spriteWall.setTexture(wall_unlit);
+            spriteWall.setTexture(wall_unlit); // exemplo: nesse caso, todas as variáveis são verdadeiras, indicando que há paredes nas 4 posições adjacentes. o sprite é então definido para o correspondente a esse caso
         else if(l && !r && d)
             spriteWall.setTexture(wall_right);
     }
