@@ -116,23 +116,24 @@ bool Game::read_from_file(int i = 1)
     return verify_maze(maze); //retorna se o labirinto é válido ou não 
 }
 
-//Método que verifica se um labirinto é válido 
+// verifica se um labirinto é válido 
 bool Game::verify_maze(Maze& maze)
 {
-    stack<Position> dfs;
-    stack<Position> marked;
+    stack<Position> marked;     // pilha que armazena os caminhos já visitados
+    stack<Position> dfs;        // pilha que determina a ordem em que os caminhos vão ser visitados
 
-    dfs.push(maze.entrance());
+    dfs.push(maze.entrance());  // coloca a posição da entrada do labirinto na pilha
 
-    while (!dfs.empty() && dfs.top() != maze.exit())
+    while (!dfs.empty() && dfs.top() != maze.exit())    // enquanto houver caminhos a serem visitados e não encontrar a saída
     {
-        marked.push(dfs.top());
+        marked.push(dfs.top());                         // coloca o caminho atual na pilha de caminhos visitados
 
-        Position left = get_adjacent(dfs.top(), LEFT);
+        Position left = get_adjacent(dfs.top(), LEFT);      // pega os caminhos adjacentes
         Position right = get_adjacent(dfs.top(), RIGHT);
         Position up = get_adjacent(dfs.top(), UP);
         Position down = get_adjacent(dfs.top(), DOWN);
 
+        // coloca o primeiro caminho adjacente válido que ainda não foi verificado na pilha
         if (maze.in_bounds(left) && maze[left.x][left.y].type() == Block::FLOOR && !marked.includes(left))
             dfs.push(left);
         else if (maze.in_bounds(right) && maze[right.x][right.y].type() == Block::FLOOR && !marked.includes(right))
@@ -141,13 +142,14 @@ bool Game::verify_maze(Maze& maze)
             dfs.push(up);
         else if (maze.in_bounds(down) && maze[down.x][down.y].type() == Block::FLOOR && !marked.includes(down))
             dfs.push(down);
-        else dfs.pop();
+        else dfs.pop();     // se não houver, retira esse caminho da pilha
     }
 
-    return !dfs.empty();
+    return !dfs.empty(); // se a pilha estiver vazia, então não encontrou rota até a saída, e vice-versa
 }
 
-//Construtor padrão
+
+// Construtor padrão
 Game::Game()
 : timer(1000000.0/FPS), inited(true), circle(3, 15), level(1) 
 {
