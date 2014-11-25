@@ -2,20 +2,20 @@
 #include "../classmain.h"
 #include "../scene_manager.h"
 
-std::string number(int n)
+std::string number(int n) //função que transforma um inteiro em uma string
 {
     std::stringstream ss;
     ss << n;
     return ss.str();
 }
 
-void Ranking::refresh()
+void Ranking::refresh() //função que atualiza o ranking
 {
-    myRanking.clear();
-    read_from_file();
+    myRanking.clear(); //limpa a lista do ranking
+    read_from_file(); //faz leitura do arquivo ranking.txt
     while(myRanking.size() > 10)
     {
-        myRanking.pop_back();
+        myRanking.pop_back(); //tira os nós que passam da posição 10
     }
 
     spriteBackground.setTexture(background);
@@ -23,43 +23,43 @@ void Ranking::refresh()
     int j = 220;
     int ii = 0;
 
-    for(list<players>::iterator i = myRanking.begin(); i != myRanking.end(); i++)
+    for(list<players>::iterator i = myRanking.begin(); i != myRanking.end(); i++) //percorre a lista de players
     {
-        rank[ii].name.setFont(font);
-        rank[ii].points.setFont(font);
-        rank[ii].name.setPosition(130, j);
-        rank[ii].points.setPosition(260, j);
-        rank[ii].name.setString((*i).name);
-        rank[ii].points.setString(number((*i).points));
+        rank[ii].name.setFont(font); //define fonte
+        rank[ii].points.setFont(font); //define fonte
+        rank[ii].name.setPosition(130, j); //define posição de name
+        rank[ii].points.setPosition(260, j); //define posição de pontos
+        rank[ii].name.setString((*i).name); //define o conteúdo 
+        rank[ii].points.setString(number((*i).points)); //define o conteúdo
         ii++; j+=30;
     }
 
 }
-Ranking::Ranking()
+Ranking::Ranking() //construtor
 {
-    if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
+    if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf")) //carrega a fonte
     {
        std::cout << "Erro ao inicializar a textura" << std::endl;
     }
 
-    if (!background.loadFromFile("resources/images/ranking1.png"))
+    if (!background.loadFromFile("resources/images/ranking1.png")) //carrega o fundo
     {
         std::cout << "erro de textura" << std::endl;
         return;
     }
-    refresh();
+    refresh(); //chama o método que atualiza 
 }
 
-void Ranking::redraw()
+void Ranking::redraw() //redesenha as atualizações 
 {
-    b_redraw = true; //alterei aqui
+    b_redraw = true; 
     if (b_redraw)
     {
-        window.clear(sf::Color::Black);
-        window.draw(spriteBackground);
-        for( int i = 0; i < myRanking.size(); i++)
+        window.clear(sf::Color::Black); //limpa a tela com preto
+        window.draw(spriteBackground); //desenha fundo
+        for( int i = 0; i < myRanking.size(); i++) //escreve o nome dos jogadores e a pontuação
         {
-            window.draw(rank[i].name); //PROBLEMA AQUI
+            window.draw(rank[i].name); 
             window.draw(rank[i].points);
         }
         window.display();
@@ -67,12 +67,12 @@ void Ranking::redraw()
     }
 }
 
-void Ranking::update()
+void Ranking::update() //recebe eventos e faz as mudanças necessárias 
 {
     sf::Event event;
     while(window.pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed) //fecha a janela 
             Main::quit = true;
         if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
         {
@@ -83,11 +83,12 @@ void Ranking::update()
         }
         if (event.type == sf::Event::MouseButtonPressed)
         {
-            if (event.mouseButton.button == sf::Mouse::Left)
+            if (event.mouseButton.button == sf::Mouse::Left) 
             {
+                //botão para sair
                 if(event.mouseButton.x > 12 && event.mouseButton.x < 68 && event.mouseButton.y > 508 && event.mouseButton.y < 532)
                 {
-                    SceneManager::change_scene(Main::menu);
+                    SceneManager::change_scene(Main::menu); //muda a cena para menu principal
                 }
             }
         }
