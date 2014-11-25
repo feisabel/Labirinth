@@ -24,17 +24,17 @@ bool Game::read_from_file(int i = 1)
     std::ifstream entrada;                             // Conexão com o arquivo "entrada.txt".
 
     if(i == 1)
-        entrada.open( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt".
+        entrada.open( "levels/entrada.txt", std::ifstream::in ); // Abre o arquivo "entrada.txt" correspondente ao primeiro level
     else if( i == 2 )
-        entrada.open( "levels/entrada2.txt", std::ifstream::in );
+        entrada.open( "levels/entrada2.txt", std::ifstream::in ); //Abre o arquivo correspondente ao segundo level
     else
-        entrada.open( "levels/entrada3.txt", std::ifstream::in );
+        entrada.open( "levels/entrada3.txt", std::ifstream::in ); //Abre o arquivo correspondente ao terceiro level
 
     if( entrada.is_open() )
     {
         int a, b;
 
-        if( !(entrada >> a) )
+        if( !(entrada >> a) ) //leitura da quantidade de colunas e linhas
         {
             entrada.close();
             std::cerr << "não leu a" << std::endl;
@@ -47,51 +47,51 @@ bool Game::read_from_file(int i = 1)
             return false;
         }
 
-        maze.init(a, b);
+        maze.init(a, b); //inicializa a matriz de blocos com a colunas e b colunas 
 
         int j;
-        for (j=0; j<b; j++)
+        for (j=0; j<b; j++) //linhas 
         {
-            for (int i=0; i<a; i++)
+            for (int i=0; i<a; i++) //colunas
             {
                 int x;
-                entrada >> x;
+                entrada >> x; //lê um inteiro
 
-                if (x == 1) maze[i][j].type() = Block::WALL;
+                if (x == 1) maze[i][j].type() = Block::WALL; //verifica se é parede
                 else
                 {
-                    maze[i][j].type() = Block::FLOOR;
+                    maze[i][j].type() = Block::FLOOR; //se não define como chão
 
-                    if (x == 2) maze.entrance() = Position(i, j);
-                    else if (x == 3) maze.exit() = Position(i, j);
-                    else if (x == 4)
+                    if (x == 2) maze.entrance() = Position(i, j); //define a posição da entrada
+                    else if (x == 3) maze.exit() = Position(i, j); //define a posição da saída
+                    else if (x == 4) 
                     {
                         Trap t;
-                        t.pos() = Position(i, j);
+                        t.pos() = Position(i, j); //adiciona uma armadilha à lista de armadilhas
                         traps.push_back(t);
                     }
                     else if (x == 5)
                     {
                         Enemy s(Enemy::SLEEP);
-                        s.pos() = Position(i, j);
+                        s.pos() = Position(i, j); //adiciona um inimigo à lista de inimigos
                         enemies.push_back(s);
                     }
                     else if (x == 6)
                     {
                         Item h(Item::HEAL);
-                        h.pos() = Position(i, j);
+                        h.pos() = Position(i, j); //adiciona um item do tipo HEAL à lista de medkit
                         hearts.push_back(h);
                     }
                     else if (x == 7)
                     {
                         Item a(Item::AMMO);
-                        a.pos() = Position(i, j);
+                        a.pos() = Position(i, j); //adiciona um item do tipo AMMO à lista de munições 
                         ammuns.push_back(a);
                     }
                     else if (x == 8)
                     {
                         Enemy e(Enemy::AWAKE);
-                        e.pos() = Position(i, j);
+                        e.pos() = Position(i, j); //adiciona um inimigo à lista de inimigos 
                         enemies.push_back(e);
                     }
                 }
@@ -106,17 +106,17 @@ bool Game::read_from_file(int i = 1)
         }
     }
     else {
-        std::cerr << "não abriu arquivo" << std::endl;
+        std::cerr << "não abriu arquivo" << std::endl; //mensagem caso tenha dado erro na leitura
         entrada.close();
         return false;
     }
 
     entrada.close();
 
-    return verify_maze(maze);
+    return verify_maze(maze); //retorna se o labirinto é válido ou não 
 }
 
-
+//Método que verifica se um labirinto é válido 
 bool Game::verify_maze(Maze& maze)
 {
     stack<Position> dfs;
@@ -147,57 +147,57 @@ bool Game::verify_maze(Maze& maze)
     return !dfs.empty();
 }
 
-
+//Construtor padrão
 Game::Game()
-: timer(1000000.0/FPS), inited(true), circle(3, 15), level(1)
+: timer(1000000.0/FPS), inited(true), circle(3, 15), level(1) 
 {
-    if (!read_from_file())
+    if (!read_from_file()) //verificação da leitura correta do arquivo de entrada
     {
         std::cerr << "erro: não foi possível carregar labirinto" << std::endl;
 		inited = false;
 		return;
     }
 
-    if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf"))
+    if (!font.loadFromFile("resources/fonts/Fixedsys500c.ttf")) //inicializa a fonte
     {
         std::cerr << "erro de fonte" << std::endl;
 		inited = false;
 		return;
     }
 
-    circle.setFillColor(sf::Color::Red);
+    circle.setFillColor(sf::Color::Red); //define a cor do ponto que oritenta o player como vermelho
 
-    player_hp.setCharacterSize(20);
-    player_hp.setFont(font);
-    player_hp.setColor(sf::Color::White);
+    player_hp.setCharacterSize(20); //define tamanho da letra
+    player_hp.setFont(font); //define o tipo da fonte 
+    player_hp.setColor(sf::Color::White); //define a cor do texto
 
     std::stringstream ss;
-    ss << player.hp() << "hp";
-    player_hp.setString(ss.str());
+    ss << player.hp() << "hp"; //converte a informação hp int para string
+    player_hp.setString(ss.str()); //define o texto de player_hp 
 
-    player_hp.setPosition(sf::Vector2f(50, 30));
+    player_hp.setPosition(sf::Vector2f(50, 30)); //define a posição 
 
-    player_ammo.setCharacterSize(20);
-    player_ammo.setFont(font);
-    player_ammo.setColor(sf::Color::White);
+    player_ammo.setCharacterSize(20); //define tamanho da letra
+    player_ammo.setFont(font); //define fonte
+    player_ammo.setColor(sf::Color::White); //define cor
 
     std::stringstream ss1;
-    ss1 << player.ammo() <<"ammo";
-    player_ammo.setString(ss1.str());
+    ss1 << player.ammo() <<"ammo"; //converte a informação ammo int para string
+    player_ammo.setString(ss1.str()); //define o texto de player_ammo 
 
-    player_ammo.setPosition(sf::Vector2f(150, 30));
+    player_ammo.setPosition(sf::Vector2f(150, 30)); //define a posição de player_ammo
 
-	player_level.setCharacterSize(20);
-    player_level.setFont(font);
-    player_level.setColor(sf::Color::White);
+	player_level.setCharacterSize(20); //define tamanho da fonte
+    player_level.setFont(font); //define a fonte
+    player_level.setColor(sf::Color::White); //define a cor
 
-    std::stringstream ss3;
-    ss3 << "level" << level;
-    player_level.setString(ss3.str());
+    std::stringstream ss3; 
+    ss3 << "level" << level; //converte level de int para string
+    player_level.setString(ss3.str()); //define o conteúdo de player_level
 
-    player_level.setPosition(sf::Vector2f(250, 30));
+    player_level.setPosition(sf::Vector2f(250, 30)); //define a posição de player_level
 
-
+    //carrega as texturas com suas respectivas imagens
 	if (!cross.loadFromFile("resources/images/cross.png"))
     {
         std::cerr << "erro de textura" << std::endl;
@@ -527,6 +527,7 @@ Game::Game()
 		return;
     }
 
+    //carrega os sprites com as texturas
     spriteCross.setTexture(cross);
     spriteMap.setTexture(map);
     spriteMap.setPosition(sf::Vector2f(415, 66));
@@ -548,187 +549,192 @@ Game::Game()
     spriteCharacter.setTexture(character_back);
     spriteBullet.setTexture(bullet_down);
 
-    soundGunfire.setBuffer(gunfire);
-    soundGunfire.setVolume(40);
+    soundGunfire.setBuffer(gunfire); //carrega som
+    soundGunfire.setVolume(40); //define volume
 
-    zombie_awake.setBuffer(bufferZombieAwake);
-    zombie_dead.setBuffer(bufferZombieDead);
+    zombie_awake.setBuffer(bufferZombieAwake); 
+    zombie_dead.setBuffer(bufferZombieDead); 
 
     player_dmg.setBuffer(bufferPlayerDmg);
 
-    player.pos() = maze.entrance();
+    player.pos() = maze.entrance(); //define posição do player na entrada do labirinto
 
     spriteCross.setPosition(sf::Vector2f(430+7*maze.exit().x/5, 80+7*maze.exit().y/5));
     changeXY();
 
-    music.setLoop(true);
+    music.setLoop(true); //define que a música de fundo deve ser reproduzida em loop
 }
 
 void Game::update()
 {
     player.start();
-    sf::Event event;
+    sf::Event event; //declara evento
 
     while(timer.tick());
     timer.reboot();
 
-    while(window.pollEvent(event))
+    while(window.pollEvent(event)) //recebe os eventos e trata de forma conveniente
     {
-        if (event.type == sf::Event::KeyPressed) //fecha o jogo caso aperte esc
+        if (event.type == sf::Event::KeyPressed) 
         {
-            if (event.key.code == sf::Keyboard::Escape)
+            if (event.key.code == sf::Keyboard::Escape) //fecha o esc
             {
                 SceneManager::change_scene(Main::menucontinue);
             }
-            else if (event.key.code == sf::Keyboard::Left)
+            else if (event.key.code == sf::Keyboard::Left) //quando aperta a seta esquerda
             {
-                spriteCharacter.setTexture(character_left);
-                if( player.direction() == LEFT)
+                spriteCharacter.setTexture(character_left); //define textura do personagem para esquerda
+                if( player.direction() == LEFT) //se a direção já é esquerda muda a posição do personagem
                 {
                     player.x()--;
+                    //verifica se é realmente possível se mover para essa posição
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()++;
                 }
-                player.direction() = LEFT;
-                changeXY();
+                player.direction() = LEFT; //muda a direção para esquerda 
+                changeXY(); //muda as coordenadas do ponto de orientação
 
-                b_redraw = true;
+                b_redraw = true; //informa que precisa de update
             }
-            else if (event.key.code == sf::Keyboard::Right)
+            else if (event.key.code == sf::Keyboard::Right) //quanto aperta a seta direita 
             {
-                spriteCharacter.setTexture(character_right);
-                if( player.direction() == RIGHT)
+                spriteCharacter.setTexture(character_right); //define textura do personagem para direita
+                if( player.direction() == RIGHT) //se a direção já é esquerda muda a posição do personagem
                 {
                     player.x()++;
+                    //verifica se é realmente possível se mover para essa posição
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.x()--;
                 }
-                player.direction() = RIGHT;
-                changeXY();
+                player.direction() = RIGHT; //muda a direção para direita
+                changeXY(); //muda as coordenadas do ponto de orientação
 
-                b_redraw = true;
+                b_redraw = true; //informa que precisa de update
             }
-            else if (event.key.code == sf::Keyboard::Down)
+            else if (event.key.code == sf::Keyboard::Down) //quando aperta a seta para baixo
             {
-                spriteCharacter.setTexture(character_front);
-                if( player.direction() == DOWN)
+                spriteCharacter.setTexture(character_front); //define a textura do personagem para frente
+                if( player.direction() == DOWN) //se a direção já é para baixo muda a posição do personagem
                 {
-                    player.y()++;
+                    player.y()++; 
+                    //verifica se é realmente possível se mover para essa posição
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()--;
                 }
-                player.direction() = DOWN;
-                changeXY();
+                player.direction() = DOWN; //muda direção para baixo
+                changeXY(); //muda as coordenadas do ponto de orientação
 
-                b_redraw = true;
+                b_redraw = true; //informa que precisa de update
             }
-            else if (event.key.code == sf::Keyboard::Up)
+            else if (event.key.code == sf::Keyboard::Up) //quando aperta a seta para cima 
             {
-                spriteCharacter.setTexture(character_back);
-                if( player.direction() == UP)
+                spriteCharacter.setTexture(character_back); //define a textura do personagem para cima
+                if( player.direction() == UP) //se a direção já é para cima muda a posição do personagem
                 {
                     player.y()--;
+                    //verifica se é realmente possível se mover para essa posição
                     if (!maze.in_bounds(player.pos()) || maze[player.x()][player.y()].type() == Block::WALL) player.y()++;
                 }
-                player.direction() = UP;
-                changeXY();
+                player.direction() = UP; //muda direção para cima
+                changeXY(); //muda as coordenadas do ponto de orientação 
 
-                b_redraw = true;
+                b_redraw = true; //informa que precisa de update
             }
-            else if (event.key.code == sf::Keyboard::Z)
+            else if (event.key.code == sf::Keyboard::Z) //para pegar um item
             {
-                useAmount();
-                player.add_points(30);
-                b_redraw = true;
+                useAmount(); //função que pega o item caso haja um na posição atual do personagem
+       
+                b_redraw = true; //informa que precisa de update
             }
-            else if (event.key.code == sf::Keyboard::Space && bullet_course.empty())
+            else if (event.key.code == sf::Keyboard::Space && bullet_course.empty()) //atira apertando no space
             {
-                if(player.ammo() > 0)
+                if(player.ammo() > 0) //se tiver munição
                 {
-                    player.ammo_fire();
-                    fire();
+                    player.ammo_fire(); //altera a quantidade de munĩção
+                    fire(); //função que atira
                 }
 
-                b_redraw = true;
+                b_redraw = true; //informa que precisa de update
             }
-            if(player.pos() == maze.exit())
+            if(player.pos() == maze.exit()) //caso a posição do personagem seja a saída
             {
-                if(level == 3 )
+                if(level == 3 ) //se ele já estiver no level 3 então o jogo termina e ele ganhou
                 {
-                    playMusic(false);
-                    player.end();
-                    player.add_points(100);
-                    SceneManager::change_scene(Main::endgame);
+                    playMusic(false); //para de tocar a música
+                    player.end(); //registra o momento que terminou o jogo
+                    player.add_points(100); //adiciona pontos por ter terminado
+                    SceneManager::change_scene(Main::endgame); //muda a cena para o endgame
                 }
                 else
                 {
-                changeLevel(level+1);
-                                }
+                	changeLevel(level+1); //chama método que muda o level
+                }
             }
         }
         if (event.type == sf::Event::MouseButtonPressed)
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
+                //se apertar no botão do som
                 if(event.mouseButton.x > 520 && event.mouseButton.x < 544 && event.mouseButton.y > 25 && event.mouseButton.y < 40)
                 {
-                    if(playing){
-                        playMusic(false);
-                        spriteMusic.setTexture(musicplayOFF);
+                    if(playing){ //muda para mudo caso esteja com som
+                        playMusic(false); //função que torna mudo
+                        spriteMusic.setTexture(musicplayOFF); //muda a textura
                     }
-                    else{
-                        playMusic(true);
-                        spriteMusic.setTexture(musicplayON);
+                    else{ //muda para reproduzir som caso esteja mudo
+                        playMusic(true); //função que passa a reproduzir
+                        spriteMusic.setTexture(musicplayON); //muda a textura
                     }
-                    b_redraw = true;
+                    b_redraw = true; //necessário update
                 }
             }
         }
     }
 
-    list<Enemy>::iterator it;
+    list<Enemy>::iterator it; //declaração de iterador do tipo Enemy
     for (it = enemies.begin(); it != enemies.end();)
     {
-        if (it->hit_player())
+        if (it->hit_player()) //se algum monstro estiver em choque com o player
         {
-            player.add_points(-30);
+            player.add_points(-30); //perde pontos
 
-            enemies.erase(it++);
+            enemies.erase(it++); //tira o monstro da lista
 
-            if (playing)
+            if (playing) //se tiver som 
             {
-                int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
+                int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4; //alteração do volume conforme aproximação do monstro
                 zombie_dead.setVolume(value);
-                zombie_dead.play();
+                zombie_dead.play(); //toca o som
 
                 player_dmg.play();
             }
 
-            b_redraw = true;
+            b_redraw = true; //precisa de update
         }
-        else if (it->hit_bullet())
+        else if (it->hit_bullet()) //se a bala atinge um monstro
         {
-            player.add_points(20);
+            player.add_points(20); //adiciona pontos
 
-            enemies.erase(it++);
-            bullet_course.clear();
+            enemies.erase(it++); //tira o monstro da lista
+            bullet_course.clear(); //limpa a trajetória da bala
 
-            if (playing)
+            if (playing) //se tiver som ativo
             {
-                int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4;
+                int value = 100*(4-(player.pos().distance_to(it->pos())-1))/4; //altera o volume conforme posição da bala
                 zombie_dead.setVolume(value);
-                zombie_dead.play();
+                zombie_dead.play(); //toca o som
             }
 
-            b_redraw = true;
+            b_redraw = true; //precisa de update
         }
         else
         {
-            if (it->is_chasing())
+            if (it->is_chasing()) //se está perseguindo 
             {
-                it->chase(player, maze, bullet_course);
+                it->chase(player, maze, bullet_course); 
                 b_redraw = true;
             }
-            else if (player.can_see(*it))
+            else if (player.can_see(*it)) //se está no campo de visão do player 
             {
-                if (!it->inited_awake()) it->init_awake();
+                if (!it->inited_awake()) it->init_awake(); 
                 else if (!it->is_awake())
                 {
                     it->awake();
@@ -748,24 +754,25 @@ void Game::update()
         }
     }
 
-    if (!bullet_course.empty() && !player.can_see(bullet_course.front()))
+    if (!bullet_course.empty() && !player.can_see(bullet_course.front())) 
         bullet_course.pop();
 
-    if (player.hp() <= 0)
+    if (player.hp() <= 0) //se o hp chegar a zero
     {
-        playMusic(false);
-        changeLevel(1);
-        player.end();
-        player.add_points(-100);
-        SceneManager::change_scene(Main::endgame);
-        restart();
+        playMusic(false); //tira a música
+        changeLevel(1); //muda o level
+        player.end(); //registra o tempo
+        player.add_points(-100); //tira pontos por ter perdido
+        SceneManager::change_scene(Main::endgame); //muda a cena para endgame
+        restart(); //reinicia as informações do jogo
     }
 
     int old_hp;
     std::stringstream ss(player_hp.getString());
-    ss >> old_hp;
-    if (old_hp != player.hp())
+    ss >> old_hp; //converte hp string para int
+    if (old_hp != player.hp()) //se for diferente do anterior
     {
+        //muda a textura do coração 
         if (0 < player.hp() && player.hp() <= Player::max_hp/5)
             spriteHeart.setTexture(h1);
         else if (Player::max_hp/5 < player.hp() && player.hp() <= 2*Player::max_hp/5)
@@ -780,37 +787,38 @@ void Game::update()
         std::stringstream ss1;
         ss1 << player.hp() << "hp";
 
-        player_hp.setString(ss1.str());
+        player_hp.setString(ss1.str()); //define a string de player_hp
 
-        b_redraw = true;
+        b_redraw = true; //precisa de update
     }
 
-    active_traps();
-    for(list<Trap>::iterator it = traps.begin(); it != traps.end(); it++)
+    active_traps(); //função que ativa/desativa armadilhas
+    for(list<Trap>::iterator it = traps.begin(); it != traps.end(); it++) //percorre a lista de armadilhas
     {
-        if(it->is_active() && it->pos() == player.pos())
+        if(it->is_active() && it->pos() == player.pos()) //caso o personagem esteja na mesma posição de uma armadilha ativa
         {
-            player.add_points(-10);
-            player.hp()--;
-            player_dmg.play();
+            player.add_points(-10); //tira pontos
+            player.hp()--; //tira hp
+            player_dmg.play(); //áudio 
         }
     }
 }
 
-
+//Método que verifica se tem um item na posição do personagem
 void Game::useAmount()
 {
     int i;
     Item t(Item::HEAL);
     list<Item>::iterator it;
-    for(it = hearts.begin(), i = 0; it != hearts.end(); it++, i++)
+    for(it = hearts.begin(), i = 0; it != hearts.end(); it++, i++) //percorre a lista de medkit
     {
         t = *it;
-        if(t.pos() == player.pos())
+        if(t.pos() == player.pos()) //se está na posição do personagem
         {
-            t = hearts.erase(i);
-            player.get(t);
+            t = hearts.erase(i); //tira esse item da lista
+            player.get(t); //pega o item para o player (muda quantidade de hp)
 
+            //altera a textura do coração conforme quantidade de hp
             if (0 < player.hp() && player.hp() <= Player::max_hp/5)
                 spriteHeart.setTexture(h1);
             else if (Player::max_hp/5 < player.hp() && player.hp() <= 2*Player::max_hp/5)
@@ -823,22 +831,22 @@ void Game::useAmount()
                 spriteHeart.setTexture(h5);
 
             std::stringstream ss;
-            ss << player.hp() << "hp";
+            ss << player.hp() << "hp"; //reescreve hp
             player_hp.setString(ss.str());
-
+            player.add_points(30); //adiciona pontos por pegar item
             return;
         }
     }
-    for(it = ammuns.begin(), i = 0; it != ammuns.end(); it++, i++)
+    for(it = ammuns.begin(), i = 0; it != ammuns.end(); it++, i++) //percorre a lista de munições 
     {
         t = *it;
-        if(t.pos() == player.pos())
+        if(t.pos() == player.pos()) //caso tenha uma munição na posição atual do player
         {
-            t = ammuns.erase(i);
-            player.get(t);
-
+            t = ammuns.erase(i); //tira a munição da lista
+            player.get(t); //pega a munição para o player (altera a quantidade)
+            player.add_points(30); //adiciona pontos por pegar item
             std::stringstream ss;
-            ss << player.ammo() << "ammo";
+            ss << player.ammo() << "ammo"; //reescreve ammo
             player_ammo.setString(ss.str());
 
             return;
@@ -846,93 +854,98 @@ void Game::useAmount()
     }
 }
 
+//Método que ativa/desativa as armadilhas
 void Game::active_traps()
 {
-    for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
+    for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++) //percorre a lista de armadilhas
     {
-        if(i->is_active())
+        if(i->is_active()) //caso esteja ativada
         {
-            i->disactivate();
+            i->disactivate(); //desativa
         }
-        else{
-            i->activate();
+        else{ //se não 
+            i->activate(); //ativa
         }
-        b_redraw = true;
+        b_redraw = true; //precisa de update
     }
 }
 
-
+//Retorna verdadeiro caso na posição i, j haja um monstro
 bool Game::showMonster(int i, int j)
 {
     Position a(i, j);
-    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
+    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++) //percorre a lista de monstros
     {
-        if(i->pos() == a && i->is_awake())
+        if(i->pos() == a && i->is_awake()) //se estiver acordado
         {
-            if (i->direction() == UP) spriteMonster.setTexture(monster_back);
+            if (i->direction() == UP) spriteMonster.setTexture(monster_back); //muda a textura conforme direção
             else if (i->direction() == DOWN) spriteMonster.setTexture(monster_front);
             else if (i->direction() == LEFT) spriteMonster.setTexture(monster_left);
             else if (i->direction() == RIGHT) spriteMonster.setTexture(monster_right);
 
-            return true;
+            return true; //retorna verdadeiro
         }
     }
-    return false;
+    return false; 
 }
 
+//Retorna verdadeiro caso haja um spawn na posição i, j
 bool Game::showSpawn(int i, int j)
 {
     Position a(i, j);
-    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++)
+    for(list<Enemy>::iterator i = enemies.begin(); i != enemies.end(); i++) //percorre a lista de enemies
     {
-        if(i->pos() == a && !i->is_awake()) return true;
+        if(i->pos() == a && !i->is_awake()) return true; 
     }
     return false;
 }
 
-
+//Retorna verdadeiro caso haja um medkit na posição i, j
 bool Game::showMed(int i, int j)
 {
     Position a(i, j);
-    for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++)
+    for(list<Item>::iterator i = hearts.begin(); i != hearts.end(); i++) //percorre a lista de medkits
     {
         if(i->pos() == a) return true;
     }
     return false;
 }
 
+//Retorna verdadeiro se tiver uma armadilha na posição i, j
 bool Game::showTrap(int i, int j)
 {
     Position a(i, j);
     for(list<Trap>::iterator i = traps.begin(); i != traps.end(); i++)
     {
-        if(i->pos() == a && !i->is_active())
+        if(i->pos() == a && !i->is_active()) //se estiver ativa
         {
-            spriteTrap.setTexture(trap_on);
+            spriteTrap.setTexture(trap_on); //muda a textura para ativada
             return true;
         }
         else if(i->pos() == a && i->is_active())
         {
-            spriteTrap.setTexture(trap_off);
+            spriteTrap.setTexture(trap_off); //muda a textura para desativada
             return true;
         }
     }
     return false;
 }
 
+//Retorna verdadeiro caso haja uma munição na posição i, j
 bool Game::showAmmo(int i, int j)
 {
     Position a(i, j);
-    for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++)
+    for(list<Item>::iterator i = ammuns.begin(); i != ammuns.end(); i++) //percorre a lista de ammuns
     {
         if(i->pos() == a) return true;
     }
     return false;
 }
 
+//Método que atira
 void Game::fire()
 {
-    if (playing)
+    if (playing) //ativa só caso não esteja mudo
         soundGunfire.play();
 
     Entity bullet(player.x(), player.y());
@@ -980,9 +993,10 @@ void Game::fire()
     }
     std::stringstream ss1;
     ss1 << player.ammo() << "ammo";
-    player_ammo.setString(ss1.str());
+    player_ammo.setString(ss1.str()); //muda a quantidade de munição para o player ver
 }
 
+//Método que define qual parede deve ser usada na posição i, j
 void Game::define_wall (int i, int j)
 {
     Position pos(i-1, j);
@@ -1044,6 +1058,7 @@ void Game::define_wall (int i, int j)
 
 }
 
+//Método que redesenha na janela tudo que foi alterado
 void Game::redraw()
 {
     if (b_redraw)
@@ -1051,11 +1066,11 @@ void Game::redraw()
         window.clear(sf::Color(51, 34, 60));
 
         int y = (WINDOW_HEIGHT - 9*56)/2;
-        for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
+        for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 ) //detenha na janela de 4 blocos antes do player a 4 blocos depois do player
         {
-            window.clear(sf::Color(51, 34, 60));
+            window.clear(sf::Color(51, 34, 60)); //limpa a tela com a cor definida por RGB
 
-            int y = (WINDOW_HEIGHT - 9*56)/2;
+            int y = (WINDOW_HEIGHT - 9*56)/2; //cálculo do valor de y
             for( int j = player.y()-4; j <= player.y()+4; j++, y+=56 )
             {
             	int x = (WINDOW_WIDTH - 9*56)/2;
@@ -1063,63 +1078,62 @@ void Game::redraw()
                 {
                     if( maze.in_bounds(Position(i, j)) )
                     {
-                        if (maze[i][j].type() == Block::FLOOR)
+                        if (maze[i][j].type() == Block::FLOOR) //se for chão 
                         {
                             spriteFloor.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteFloor);
                         }
                         else
-                        {
+                        { //se for parede
                             define_wall(i, j);
                             spriteWall.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteWall);
                         }
-//a partir daqui
-                        if(showSpawn(i, j))
+                        if(showSpawn(i, j)) //desenha spawn caso haja um
                         {
                             spriteSpawn.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteSpawn);
                         }
 
                         Position a(i, j);
-                        if(maze.exit() == a)
+                        if(maze.exit() == a) //desenha a saída
                         {
                             spriteExit.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteExit);
                         }
 
-                        if(showAmmo(i, j))
+                        if(showAmmo(i, j)) //desenha munição
                         {
                             spriteAmmo.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteAmmo);
                         }
 
-                        if(showMed(i, j))
+                        if(showMed(i, j)) //desenha medkit
                         {
                             spriteMed.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteMed);
                         }
 
-                        if(showTrap(i, j))
+                        if(showTrap(i, j)) //desenha armadilha
                         {
                             spriteTrap.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteTrap);
                         }
 
-                        if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j)
+                        if(!bullet_course.empty() && bullet_course.front().x == i && bullet_course.front().y == j) //desenha bala
                         {
                             spriteBullet.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteBullet);
-                            bullet_course.pop();
+                            bullet_course.pop(); //tira uma posição percorrida pela bala
                         }
 
-                        if(showMonster(i, j))
+                        if(showMonster(i, j)) //mostra monstro
                         {
                             spriteMonster.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteMonster);
                         }
 
-                        if(player.x() == i && player.y() == j)
+                        if(player.x() == i && player.y() == j) //mostra player
                         {
                             spriteCharacter.setPosition(sf::Vector2f(x, y));
                             window.draw(spriteCharacter);
@@ -1127,7 +1141,7 @@ void Game::redraw()
                     }
                 }
             }
-
+            //desenha os sprites
 			window.draw(spriteMap);
 			window.draw(spriteCross);
 			window.draw(circle);
@@ -1141,36 +1155,38 @@ void Game::redraw()
             window.display();
         }
 
-        b_redraw = false;
+        b_redraw = false; //não precisa de update 
     }
 }
 
+//Método que reinicia o jogo
 void Game::restart()
 {
-    ammuns.clear();    // A definir.
+    ammuns.clear(); //limpa as listas
 	hearts.clear();
 	traps.clear();
 	enemies.clear();
     bullet_course.clear();
 
-    player.pos() = maze.entrance();
-    player.direction() = UP;
-    player.hp() = Player::max_hp;
-    player.ammo() = Player::max_ammo;
+    player.pos() = maze.entrance(); //muda a posição do player
+    player.direction() = UP; //muda direção
+    player.hp() = Player::max_hp; //muda quantidade de hp 
+    player.ammo() = Player::max_ammo; //muda quantidade de munição
 
     std::stringstream ss;
-    ss << player.hp() << "hp";
-    player_hp.setString(ss.str());
+    ss << player.hp() << "hp"; //muda a quantidade de hp (que aparece na tela)
+    player_hp.setString(ss.str()); //define o conteúdo de player_hp
 
     std::stringstream ss1;
-    ss1 << player.ammo() << "ammo";
-    player_ammo.setString(ss1.str());
+    ss1 << player.ammo() << "ammo"; //muda a quantidade de ammo (qua aparece na tela)
+    player_ammo.setString(ss1.str()); //define o conteúdo de player_ammo
 
-    spriteCharacter.setTexture(character_back);
-    spriteHeart.setTexture(h5);
-    read_from_file();
+    spriteCharacter.setTexture(character_back); //muda a textura do sprite do player
+    spriteHeart.setTexture(h5); //muda a textura do coração 
+    read_from_file(); //faz releitura do arquivo 
 }
 
+//Método que calcula a posição do ponto vermelho que orienta o player no labirinto
 void Game::changeXY()
 {
     xX = 7*player.x()/5;
@@ -1178,42 +1194,43 @@ void Game::changeXY()
     circle.setPosition(sf::Vector2f(430+xX, 80+yY));
 }
 
-void Game::changeLevel(int lvl)
+//Método que muda o level do jogo
+void Game::changeLevel(int lvl) //recebe int que indica o level
 {
-    if(lvl != 1)
+    if(lvl != 1) //se level diferente de 1
     {
-        player.p_end();
+        player.p_end(); //adiciona pontos, pois o player passou de fase
         player.add_points(player.end()- player.start());
     }
-    level = lvl;
-    ammuns.clear();    // A definir.
+    level = lvl; //muda o valor de level
+    ammuns.clear(); //limpa as listas 
     hearts.clear();
     traps.clear();
     enemies.clear();
     bullet_course.clear();
-    maze.maze_null();
+    maze.maze_null(); //torna a matriz do maze nula novamente
 
-    if(!read_from_file(level))
+    if(!read_from_file(level)) //leitura do arquivo
     {
-        std::cerr << "erro com a entrada" << std::endl;
-        Main::quit = true;
+        std::cerr << "erro com a entrada" << std::endl; //caso haja erro informa no terminal essa mensagem
+        Main::quit = true; //fecha o jogo
     }
 
-    player.pos() = maze.entrance();
-    player.direction() = UP;
+    player.pos() = maze.entrance(); //muda posição do player
+    player.direction() = UP; //muda a direção
 
     std::stringstream ss;
-    ss << player.hp() << "hp";
-    player_hp.setString(ss.str());
+    ss << player.hp() << "hp"; 
+    player_hp.setString(ss.str()); //define o conteúdo de player_hp
 
     std::stringstream ss1;
     ss1 << player.ammo() << "ammo";
-    player_ammo.setString(ss1.str());
+    player_ammo.setString(ss1.str()); //define o conteúdo de player_ammo
 
     std::stringstream ss2;
     ss2 << "level" << level;
-    player_level.setString(ss2.str());
-    changeXY();
-    spriteCross.setPosition(sf::Vector2f(430+7*maze.exit().x/5, 80+7*maze.exit().y/5));
-    spriteCharacter.setTexture(character_back);
+    player_level.setString(ss2.str()); //define o conteúdo de player_level
+    changeXY(); //muda a posição do ponto vermelho de orientação
+    spriteCross.setPosition(sf::Vector2f(430+7*maze.exit().x/5, 80+7*maze.exit().y/5)); //muda o x que indica onde fica a saída no mini mapa
+    spriteCharacter.setTexture(character_back); //muda a textura do sprite do player
 }
