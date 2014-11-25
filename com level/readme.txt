@@ -16,11 +16,11 @@ Como compilar:
 	cd [diretório]/Labirinto
 
 - compilar:
-	g++ -o game.o source/cppfiles/*.cpp
+	g++ -o game.o -c source/cppfiles/*.cpp
 	g++ -o game game.o -lsfml-system -lsfml-audio -lsfml-graphics -lsfml-window 
 
   se instalou a biblioteca num diretório que não o padrão, então:
-	g++ -o game.o source/cppfiles/*.cpp -I[diretório de instalação do sfml]/include
+	g++ -o game.o -c source/cppfiles/*.cpp -I[diretório de instalação do sfml]/include
 	g++ -o game game.o -L[diretório de instalação do sfml]/lib -lsfml-system -lsfml-audio -lsfml-graphics -lsfml-window
 
 
